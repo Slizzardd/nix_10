@@ -4,6 +4,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class School {
+    public static final int START_OF__LESSON = 9;
+    public static final int ONE_HOURSE = 60;
     public static final int LESSON = 45;
     public static final int TIME1 = 5;
     public static final int TIME2 = 15;
@@ -31,8 +33,8 @@ public class School {
 
     public void outputConsole() {
         var timeOfMinute = countResultOfMinute();
-        var timeResultOfHours = 9 + timeOfMinute / 60;
-        var timeResultOfMinutes = timeOfMinute % 60;
+        var timeResultOfHours = START_OF__LESSON + timeOfMinute / ONE_HOURSE;
+        var timeResultOfMinutes = timeOfMinute % ONE_HOURSE;
         if (timeResultOfMinutes < 10) {
             System.out.println("Урок закончится в: " + timeResultOfHours + ":0" + timeResultOfMinutes);
         } else {

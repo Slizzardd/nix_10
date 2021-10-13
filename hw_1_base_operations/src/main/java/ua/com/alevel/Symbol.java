@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+
 public class Symbol {
     private String enterTheString() {
         System.out.println("Введите вашу строку:");
