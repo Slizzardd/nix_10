@@ -8,27 +8,20 @@ public class Symbol {
     private String enterTheString() {
         System.out.println("Введите вашу строку:");
         Scanner scanner = new Scanner(System.in);
-        var line = scanner.next();
-        return line;
+        return scanner.next();
     }
 
     private String convertStringToStringNotNum(String line) {
-        var lineNotNum = line.replaceAll("[^A-Za-z]", "");
-        return lineNotNum;
+        return line.replaceAll("[^A-Za-z]", "");
     }
 
     private Map countingCharacters() {
         var lineNotNum = convertStringToStringNotNum(enterTheString());
-        Map<Character, Integer> chars = new HashMap<Character, Integer>();
+        Map<Character, Integer> chars = new HashMap<>();
         for (var i = 0; i < lineNotNum.length(); i++) {
             char c = lineNotNum.charAt(i);
 
-            Integer count = chars.get(c);
-            if (count == null) {
-                chars.put(c, 1);
-            } else {
-                chars.put(c, count + 1);
-            }
+            chars.merge(c, 1, Integer::sum);
         }
         return chars;
     }

@@ -7,8 +7,7 @@ public class Number {
     private String enterTheString() {
         System.out.println("Введите вашу строку:");
         Scanner scanner = new Scanner(System.in);
-        var line = scanner.next();
-        return line;
+        return scanner.next();
     }
 
     private char[] convertStringToNum(String line) {
@@ -19,8 +18,8 @@ public class Number {
     private int turningIntoNumbers() {
         var numbersOnly = convertStringToNum(enterTheString());
         var setOfNumber = 0;
-        for (var i = 0; i < numbersOnly.length; i++) {
-            setOfNumber += Character.getNumericValue(numbersOnly[i]);
+        for (int c : numbersOnly) {
+            setOfNumber += Character.getNumericValue(c);
         }
         return setOfNumber;
     }

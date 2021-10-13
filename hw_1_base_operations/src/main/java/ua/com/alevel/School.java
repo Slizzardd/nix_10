@@ -26,8 +26,7 @@ public class School {
         var numOfLesson = enterTheNum();
         var breaks = numOfLesson - 1;
         var bigBreaks = breaks / 2;
-        var minutesPassed = (numOfLesson * LESSON) + (TIME2 * bigBreaks) + (TIME1 * (breaks - bigBreaks));
-        return minutesPassed;
+        return (numOfLesson * LESSON) + (TIME2 * bigBreaks) + (TIME1 * (breaks - bigBreaks));
     }
 
     public void outputConsole() {

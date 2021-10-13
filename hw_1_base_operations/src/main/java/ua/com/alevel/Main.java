@@ -12,29 +12,26 @@ public class Main {
             logic(operation);
             operation = scanner.nextLine();
             switch (operation) {
-                case "0": {
-                    System.exit(0);
-                }
-                case "1": {
-                    logic(operation);
-                }
+                case "0" -> System.exit(0);
+                case "1" -> logic(operation);
             }
         }
     }
 
     private static void logic(String operation) throws InputMismatchException {
         switch (operation) {
-            case "1":
+            case "1" -> {
                 Number number = new Number();
                 number.outputConsole();
-                break;
-            case "2":
+            }
+            case "2" -> {
                 Symbol symbol = new Symbol();
                 symbol.outputConsole();
-                break;
-            case "3":
+            }
+            case "3" -> {
                 School school = new School();
                 school.outputConsole();
+            }
         }
         System.out.println("Введите свой вариант(1-3), либо же 0 для выхода из программы");
     }
