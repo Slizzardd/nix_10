@@ -1,6 +1,5 @@
 package ua.com.alevel;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class School {
@@ -13,34 +12,15 @@ public class School {
 
     private int enterTheNum() {
         var numOfLesson = 0;
-//        do{
-//            try{
-//                System.out.println("Введите номер урока(1-10): ");
-//                numOfLesson = scanner.nextInt();
-//            }catch (InputMismatchException a){
-//                System.out.print("Вы ввели недействительное число, попробуйте ещё раз:( ");
-//            }
-//        }while(numOfLesson < 1 || numOfLesson > 10);
-
-//        try {
-//            do {
-//                System.out.println("Введите номер урока(1-10): ");
-//                numOfLesson = scanner.nextInt();
-//            } while (numOfLesson < 1 || numOfLesson > 10);
-//        } catch (InputMismatchException a) {
-//            System.out.print("Вы ввели недействительное число, попробуйте ещё раз:( ");
-//        }
-//        return numOfLesson;
-
-        do{
-            try{
+        do {
+            try {
                 System.out.println("Введите номер урока(1-10): ");
                 var operation = scanner.nextLine();
                 numOfLesson = Integer.parseInt(operation);
-            }catch (NumberFormatException a){
+            } catch (NumberFormatException a) {
                 System.out.println("Вы ввели недействительное число, попробуйте ещё раз:( ");
             }
-        }while(numOfLesson < 1 || numOfLesson > 10);
+        } while (numOfLesson < 1 || numOfLesson > 10);
         return numOfLesson;
     }
 
