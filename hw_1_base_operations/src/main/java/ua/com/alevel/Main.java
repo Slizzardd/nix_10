@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Выберите событие: ");
+        System.out.println("Введите свой вариант(1-3), либо же 0 для выхода из программы: ");
         String operation;
         while ((operation = scanner.nextLine()) != null) {
             logic(operation);
