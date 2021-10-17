@@ -1,10 +1,12 @@
 package ua.com.alevel;
 
+
+import org.apache.commons.lang3.time.DateUtils;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class School {
-    public static final int START_OF__LESSON = 9;
-    public static final int ONE_HORSE = 60;
     public static final int LESSON = 45;
     public static final int TIME1 = 5;
     public static final int TIME2 = 15;
@@ -32,13 +34,9 @@ public class School {
     }
 
     public void outputConsole() {
-        var timeOfMinute = countResultOfMinute();
-        var timeResultOfHours = START_OF__LESSON + timeOfMinute / ONE_HORSE;
-        var timeResultOfMinutes = timeOfMinute % ONE_HORSE;
-        if (timeResultOfMinutes < 10) {
-            System.out.println("Урок закончится в: " + timeResultOfHours + ":0" + timeResultOfMinutes);
-        } else {
-            System.out.println("Урок закончится в: " + timeResultOfHours + ":" + timeResultOfMinutes);
-        }
+        Date date = new Date(21600000);
+        date = DateUtils.addMinutes(date, countResultOfMinute());
+        SimpleDateFormat format1 = new SimpleDateFormat("HH:mm");
+        System.out.println("Урок закончится в " + format1.format(date));
     }
 }
