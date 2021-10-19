@@ -20,14 +20,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>ua.com.alevel</groupId>
+            <groupId>ua.com.alevel.</groupId>
             <artifactId>reversestring</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/artem/.m2/repository/ua/com/alevel/reversestring/1.0-SNAPSHOT/reversestring-1.0-SNAPSHOT.jar</systemPath>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>strings</finalName>
+        <finalName>hw_2_strings</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
