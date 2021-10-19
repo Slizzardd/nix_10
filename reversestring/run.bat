@@ -1,1 +1,0 @@
-mvn install:install-file -Dfile= D:\code\nix_10\reversestring\target\reversestring.jar -DgroupId=ua.com.alevel -DartifactId=reversestring -Dversion=1.0-SNAPSHOT -Dpackaging=jar

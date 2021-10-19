@@ -4,36 +4,34 @@ public final class StringUtility {
     private StringUtility() {
     }
 
-    private static String reverser(String text) {
-        var textToChar = text.toCharArray();
-        String reverseString = "";
-
-        for (var i = textToChar.length - 1; i >= 0; i--) {
-            reverseString = reverseString + textToChar[i];
+    private static String reverser(String text, String out) {
+        String line;
+        if (text.isEmpty()) {
+            line = out;
+        } else if (text.charAt(0) == ' ') {
+            line = out + " " + reverser(text.substring(1), "");
+        } else {
+            line = text.substring(1);
+            char chars = text.charAt(0);
+            line = reverser(line, chars + out);
         }
-        return reverseString;
+
+        return line;
     }
 
 
     public static String reverseString(String text) {
-        return reverser(text);
+        return reverser(text, "");
     }
 
 
     public static String reverseString(String text, String substring) {
-        var reverseSubstringToChar = reverser(substring).toCharArray();
-        var textToChar = text.toCharArray();
-        String reverseString = "";
-        var l = 0;
+        return text.replaceAll(substring, reverser(substring, ""));
+    }
 
-        for (var i = 0; i < textToChar.length; i++) {
-            if (i >= text.indexOf(substring) && i <= text.indexOf(substring) + substring.length()) {
-                reverseString = reverseString + reverseSubstringToChar[l];
-                l++;
-            } else {
-                reverseString = reverseString + textToChar[i];
-            }
-        }
-        return reverseString;
+    public static String reverseString(String text, int firstIndex, int lastIndex) {
+        String subString = text.substring(firstIndex, lastIndex + 1);
+        String subStringReversed = reverser(subString, "");
+        return text.replaceAll(subString, subStringReversed);
     }
 }
