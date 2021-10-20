@@ -26,12 +26,26 @@ public final class StringUtility {
 
 
     public static String reverseString(String text, String substring) {
-        return text.replaceAll(substring, reverser(substring, ""));
+        if (text.contains(substring)) {
+            return text.replaceAll(substring, reverser(substring, ""));
+        } else {
+            return "Эта строка несодержит такой подстроки:(";
+        }
+
     }
 
     public static String reverseString(String text, int firstIndex, int lastIndex) {
-        String subString = text.substring(firstIndex, lastIndex + 1);
-        String subStringReversed = reverser(subString, "");
-        return text.replaceAll(subString, subStringReversed);
+        if (!rangeCheckIndex(text, firstIndex, lastIndex)) {
+            String subString = text.substring(firstIndex, lastIndex + 1);
+            String subStringReversed = reverser(subString, "");
+            return text.replaceAll(subString, subStringReversed);
+        } else {
+            return "Неверно введен индекс:(";
+        }
     }
+
+    private static boolean rangeCheckIndex(String text, int firstIndex, int lastIndex) {
+        return firstIndex * lastIndex < 0 || lastIndex >= text.length() || firstIndex >= text.length() || firstIndex >= lastIndex;
+    }
+
 }
