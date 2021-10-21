@@ -2,6 +2,8 @@ package ua.com.alevel.entity;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
+
 public class User {
 
     //car
@@ -52,7 +54,11 @@ public class User {
     }
 
     public String getSerialNumber() {
-        return serialNumber;
+        if(!StringUtils.isEmpty(serialNumber)){
+            return serialNumber;
+        }else{
+            throw new RuntimeException("ВВЕДИТЕ СЕРИЙНЫЙ НОМЕР!!!");
+        }
     }
 
     public void setSerialNumber(String serialNumber) {
