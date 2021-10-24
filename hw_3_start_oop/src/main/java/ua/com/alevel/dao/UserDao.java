@@ -1,8 +1,11 @@
 package ua.com.alevel.dao;
+
 import ua.com.alevel.entity.User;
 import ua.com.alevel.db.DBUser;
+
 public class UserDao {
     private final DBUser usersDB = new DBUser();
+
     public void create(User user) {
         DBUser.create(user);
     }
@@ -19,7 +22,7 @@ public class UserDao {
         return DBUser.findBySerialNumber(serialNumber);
     }
 
-    public User [] findAll() {
+    public User[] findAll() {
         return DBUser.findAll();
     }
 }
