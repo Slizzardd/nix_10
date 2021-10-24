@@ -2,23 +2,24 @@ package ua.com.alevel.dao;
 import ua.com.alevel.entity.User;
 import ua.com.alevel.db.DBUser;
 public class UserDao {
+    private final DBUser usersDB = new DBUser();
     public void create(User user) {
-        DBUser.getInstance().create(user);
+        DBUser.create(user);
     }
 
     public void update(User user) {
-        DBUser.getInstance().update(user);
+        DBUser.update(user);
     }
 
     public void delete(String serialNumber) {
-        DBUser.getInstance().delete(serialNumber);
+        DBUser.delete(serialNumber);
     }
 
     public User findBySerialNumber(String serialNumber) {
-        return DBUser.getInstance().findBySerialNumber(serialNumber);
+        return DBUser.findBySerialNumber(serialNumber);
     }
 
     public User [] findAll() {
-        return DBUser.getInstance().findAll();
+        return DBUser.findAll();
     }
 }

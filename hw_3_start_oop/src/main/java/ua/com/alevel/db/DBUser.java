@@ -1,69 +1,49 @@
 package ua.com.alevel.db;
 import ua.com.alevel.entity.User;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class DBUser {
-    private static DBUser instance;
-    private User[] users;
+    private static  User[] users = new User[10];
 
-    private DBUser(){
-        users = new User[0];
-    }
 
-    public static DBUser getInstance(){
-        if(instance == null){
-            instance = new DBUser();
-        }
-        return instance;
-    }
-
-    private void arrayUpdateToPlus(){
-        users = Arrays.copyOf(users, users.length + 1);
-    }
-    private void arrayUpdateToMinus(){
-        User [] userArray = Arrays.copyOf(users, users.length);
-        users = new User [userArray.length - 1];
-        int j = 0;
-        for (User user : userArray) {
-            if (user != null) {
-                users[j] = user;
-                j += 1;
+    public static void create(User user){
+        user.setSerialNumber(createSerialNumber());
+        int userNumber = 0;
+        for (User value : users) {
+            if (value != null) {
+                userNumber++;
             }
         }
+        if(userNumber == users.length - 1){
+            User[] tempUser = new User[users.length + 10];
+            System.arraycopy(users, 0, tempUser, 0, users.length);
+            users = tempUser;
+        }
+        else{
+            users[userNumber] = user;
+        }
     }
 
-    public void create(User user){
-        arrayUpdateToPlus();
-        user.setSerialNumber(createSerialNumber());
-        users[users.length - 1] = user;
-    }
-
-    private String createSerialNumber(){
+    private static String createSerialNumber(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите серийный номер вашей машины(VIN): ");
         String serialNumber = scanner.nextLine();
-
-
-        for(int i = 0; i < users.length - 1; i++)
-        {
-            if(serialNumber.equals(users[i].getSerialNumber()))
-            {
-                createSerialNumber();
+        for(User user : users){
+            if(user != null && user.getSerialNumber().equals(serialNumber)){
+                return createSerialNumber();
             }
-
         }
         return serialNumber;
     }
 
-    public void update(User user){
+    public static void update(User user){
         User current = findBySerialNumber(user.getSerialNumber());
         current.setName(user.getName());
         current.setPhoneNumber(user.getPhoneNumber());
         current.setEmail(user.getEmail());
     }
-    public User findBySerialNumber(String serialNumber){
+    public static User findBySerialNumber(String serialNumber){
         for (User user : users) {
             if (serialNumber.equals(user.getSerialNumber())) {
                 return user;
@@ -72,16 +52,22 @@ public class DBUser {
         throw new RuntimeException("Такого серийного номера нет");
     }
 
-    public void delete(String serialNumber){
+    public static void delete(String serialNumber){
         for(int i = 0; i < users.length; i++){
             if(serialNumber.equals(users[i].getSerialNumber())){
-                users[i] = null;
+                for(int p = i; p < users.length; p++){
+                    if(p != users.length -1){
+                        users[p] = users[p+1];
+                    } else{
+                        users[p] = null;
+                    }
+                }
+                break;
             }
         }
-        arrayUpdateToMinus();
     }
 
-    public User [] findAll(){
+    public static User [] findAll(){
         return users;
     }
 

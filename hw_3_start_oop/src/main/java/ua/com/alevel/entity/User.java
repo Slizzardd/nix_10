@@ -2,8 +2,6 @@ package ua.com.alevel.entity;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
-
 public class User {
 
     //car
@@ -104,12 +102,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", cars ='" + manufacturer + " " + brand + " " + yearOfIssue + "гг. " + '\'' +
-                ", serial number ='" + serialNumber + '\'' +
-                ", phone number=" + phoneNumber +
-                ", email='" + email + '\'' +
-                '}';
+            return "User{" +
+                    "name='" + name + '\'' +
+                    ", cars ='" + manufacturer + " " + brand + " " + yearOfIssue + "гг. " + '\'' +
+                    ", serial number ='" + serialNumber + '\'' +
+                    ", phone number=" + phoneNumber +
+                    ", email='" + email + '\'' +
+                    '}';
     }
 }
