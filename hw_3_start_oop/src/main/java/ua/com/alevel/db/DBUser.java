@@ -10,8 +10,8 @@ public class DBUser {
     public static void create(User user){
         user.setSerialNumber(createSerialNumber());
         int userNumber = 0;
-        for (User value : users) {
-            if (value != null) {
+        for (User i : users) {
+            if (i != null) {
                 userNumber++;
             }
         }
