@@ -6,26 +6,33 @@ import java.util.Scanner;
 
 public class DBUser {
     private static User[] users = new User[5];
+    private static DBUser instance;
+    private int userSize = 0;
 
-
-    public static void create(User user) {
-        user.setSerialNumber(createSerialNumber());
-        int userNumber = 0;
-        for (User i : users) {
-            if (i != null) {
-                userNumber++;
-            }
+    public static DBUser getInstance() {
+        if (instance == null) {
+            instance = new DBUser();
         }
-        if (userNumber == users.length - 1) {
+        return instance;
+    }
+
+    public void create(User user) {
+        user.setSerialNumber(createSerialNumber());
+        copyArray(user);
+        userSize++;
+    }
+
+    private void copyArray(User user) {
+        users[userSize] = user;
+        if (userSize == users.length - 1) {
+            users[userSize] = user;
             User[] tempUser = new User[users.length + 5];
             System.arraycopy(users, 0, tempUser, 0, users.length);
             users = tempUser;
-        } else {
-            users[userNumber] = user;
         }
     }
 
-    private static String createSerialNumber() {
+    private String createSerialNumber() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите серийный номер вашей машины(VIN): ");
         String serialNumber = scanner.nextLine();
@@ -37,14 +44,14 @@ public class DBUser {
         return serialNumber;
     }
 
-    public static void update(User user) {
+    public void update(User user) {
         User current = findBySerialNumber(user.getSerialNumber());
         current.setName(user.getName());
         current.setPhoneNumber(user.getPhoneNumber());
         current.setEmail(user.getEmail());
     }
 
-    public static User findBySerialNumber(String serialNumber) {
+    public User findBySerialNumber(String serialNumber) {
         for (User user : users) {
             if (serialNumber.equals(user.getSerialNumber())) {
                 return user;
@@ -53,7 +60,7 @@ public class DBUser {
         throw new RuntimeException("Такого серийного номера нет");
     }
 
-    public static void delete(String serialNumber) {
+    public void delete(String serialNumber) {
         for (int i = 0; i < users.length; i++) {
             if (serialNumber.equals(users[i].getSerialNumber())) {
                 for (int p = i; p < users.length; p++) {
