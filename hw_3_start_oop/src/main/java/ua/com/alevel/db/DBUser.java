@@ -4,7 +4,7 @@ import ua.com.alevel.entity.User;
 import java.util.Scanner;
 
 public class DBUser {
-    private static  User[] users = new User[10];
+    private static  User[] users = new User[5];
 
 
     public static void create(User user){
@@ -16,7 +16,7 @@ public class DBUser {
             }
         }
         if(userNumber == users.length - 1){
-            User[] tempUser = new User[users.length + 10];
+            User[] tempUser = new User[users.length + 5];
             System.arraycopy(users, 0, tempUser, 0, users.length);
             users = tempUser;
         }
