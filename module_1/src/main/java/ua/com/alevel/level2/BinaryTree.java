@@ -97,22 +97,28 @@ public class BinaryTree {
             }
         } while (line != 4);
     }
+
     //Stack overflow рулит!!!(Да, украл, вывод матрицы от туда,
     // но мы же должны уметь гуглить:)
     // я бы сделал красивее вывод, но у меня не
     // получилось преобразовать этот класс в класс<A>:(
     //https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
-    private void print2dTree(Node root){
+    private void print2dTree(Node root) {
         printTree(root, 0);
     }
-    private void printTree(Node root, int space){
-        if (root == null)
+
+    private void printTree(Node root, int space) {
+        if (root == null) {
             return;
+        }
+
         space += COUNT;
         printTree(root.right, space);
         System.out.print("\n");
-        for (int i = COUNT; i < space; i++)
+
+        for (int i = COUNT; i < space; i++) {
             System.out.print(" ");
+        }
         System.out.print(root.value + "\n");
         printTree(root.left, space);
     }
