@@ -4,7 +4,9 @@ package ua.com.alevel.level2;
 import java.util.Scanner;
 
 public class BinaryTree {
+    static final int COUNT = 10;
     static Scanner scanner = new Scanner(System.in);
+
     public static class Node {
         private final long value;
         private Node left;
@@ -38,7 +40,7 @@ public class BinaryTree {
             if (node.right == null) {
                 node.right = new Node(val);
                 System.out.println("Добавлено " + val + " к правой ветке " + node.value);
-            }else{
+            } else {
                 addBinaryTree(node.right, val);
             }
         } else {
@@ -61,9 +63,9 @@ public class BinaryTree {
         run(line, node);
     }
 
-    private void run(int line, Node node){
+    private void run(int line, Node node) {
         do {
-            System.out.println("Добавить значение(1): \nНайти максимальную глубину(2): \nВыйти в меню(3): ");
+            System.out.println("Добавить значение(1): \nНайти максимальную глубину(2): \nРаспечатать дерево(3): \nВыйти в меню(4): ");
             do {
                 try {
                     var operation = scanner.nextLine();
@@ -71,7 +73,7 @@ public class BinaryTree {
                 } catch (NumberFormatException a) {
                     System.out.println("Вы ввели недействительное число, попробуйте ещё раз:( ");
                 }
-            } while (line < 0 || line > 3);
+            } while (line < 0 || line > 4);
             switch (line) {
                 case 1 -> {
                     String lined;
@@ -91,7 +93,27 @@ public class BinaryTree {
                     } while (num != 0);
                 }
                 case 2 -> System.out.println("Максимальная глубина: " + maxDepthTree(node));
+                case 3 -> print2dTree(node);
             }
-        } while (line != 3);
+        } while (line != 4);
+    }
+    //Stack overflow рулит!!!(Да, украл, вывод матрицы от туда,
+    // но мы же должны уметь гуглить:)
+    // я бы сделал красивее вывод, но у меня не
+    // получилось преобразовать этот класс в класс<A>:(
+    //https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
+    private void print2dTree(Node root){
+        printTree(root, 0);
+    }
+    private void printTree(Node root, int space){
+        if (root == null)
+            return;
+        space += COUNT;
+        printTree(root.right, space);
+        System.out.print("\n");
+        for (int i = COUNT; i < space; i++)
+            System.out.print(" ");
+        System.out.print(root.value + "\n");
+        printTree(root.left, space);
     }
 }
