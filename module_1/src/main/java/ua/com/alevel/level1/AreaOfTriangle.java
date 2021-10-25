@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
-public class Area_Of_Triangle {
+public class AreaOfTriangle {
     static Scanner scanner = new Scanner(System.in);
     private static Point A;
     private static Point B;
@@ -39,12 +39,15 @@ public class Area_Of_Triangle {
         char[] message = {'X', 'Y'};
         int[] chars = new int[2];
         for (int i = 0; i < 2; i++) {
-            try {
-                System.out.println("Пожалуйста, введите координату " + message[i] + ": ");
-                String symbol = scanner.next();
-                chars[i] = Integer.parseInt(symbol);
-            } catch (NumberFormatException a) {
-                System.out.println("Вы ввели недействительное число, попробуйте ещё раз:( ");
+            while(true) {
+                try {
+                    System.out.println("Пожалуйста, введите координату " + message[i] + ": ");
+                    String symbol = scanner.next();
+                    chars[i] = Integer.parseInt(symbol);
+                    break;
+                } catch (NumberFormatException a) {
+                    System.out.println("Вы ввели недействительное число, попробуйте ещё раз:( ");
+                }
             }
         }
         return new Point(chars[0], chars[1]);

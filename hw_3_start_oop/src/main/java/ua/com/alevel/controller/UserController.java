@@ -62,26 +62,20 @@ public class UserController {
         try {
             System.out.println("Пожалуйста, введите имя: ");
             String name = reader.readLine();
-
             System.out.println("Пожалуйста, введите email: ");
             String email = reader.readLine();
             Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
             boolean emailRegex =  matcher.find();
             System.out.println("emailRegex = " + emailRegex);
-
             System.out.println("Пожалуйста, введите номер мобильного телефона: ");
             String phoneNumber = reader.readLine();
-
             System.out.println("Пожалуйста, введите марку авто: ");
             String manufacturer = reader.readLine();
-
             System.out.println("Пожалуйста, введите модель авто: ");
             String brand = reader.readLine();
-
             System.out.println("Пожалуйста, введите год изготовления авто: ");
             String ageString = reader.readLine();
             int age = Integer.parseInt(ageString);
-
             User user = new User();
             user.setManufacturer(manufacturer);
             user.setBrand(brand);
@@ -100,19 +94,15 @@ public class UserController {
         try {
             System.out.println("Введите серийный номер авто для поиска: ");
             String serialNumber = reader.readLine();
-
             System.out.println("Пожалуйста, введите имя: ");
             String name = reader.readLine();
-
             System.out.println("Пожалуйста, введите email: ");
             String email = reader.readLine();
             Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
             boolean emailRegex =  matcher.find();
             System.out.println("emailRegex = " + emailRegex);
-
             System.out.println("Пожалуйста, введите номер мобильного телефона: ");
             String phoneNumber = reader.readLine();
-
             User user = new User();
             user.setSerialNumber(serialNumber);
             user.setName(name);

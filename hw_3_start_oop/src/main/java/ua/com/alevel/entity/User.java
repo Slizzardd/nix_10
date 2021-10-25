@@ -4,13 +4,10 @@ import org.apache.commons.lang3.StringUtils;
 
 public class User {
 
-    //car
     private String manufacturer;
     private String brand;
     private int yearOfIssue;
     private String serialNumber;
-
-    //user
     private String name;
     private String phoneNumber;
     private String email;

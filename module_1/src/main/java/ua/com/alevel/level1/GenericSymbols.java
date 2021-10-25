@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Generic_Symbols{
+public class GenericSymbols {
     static Scanner scanner = new Scanner(System.in);
     static{
         System.out.println("Задание 1 уровня 1 \nОтфильтровать строку и выбрать уникальные числа");

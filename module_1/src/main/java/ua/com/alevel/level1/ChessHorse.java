@@ -3,7 +3,7 @@ package ua.com.alevel.level1;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Chess_Horse {
+public class ChessHorse {
     private static final char[] LETTERS = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
     private static final char[] NUMBERS = {'1', '2', '3', '4', '5', '6', '7', '8'};
     private static final int FIELD_SIZE = 8;

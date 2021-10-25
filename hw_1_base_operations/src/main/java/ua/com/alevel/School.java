@@ -40,3 +40,4 @@ public class School {
         System.out.println("Урок закончится в " + format1.format(date));
     }
 }
+
