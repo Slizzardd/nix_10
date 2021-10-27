@@ -1,12 +1,10 @@
 package ua.com.alevel;
 
-import ua.com.alevel.level1.AreaOfTriangle;
-import ua.com.alevel.level2.BinaryTree;
-import ua.com.alevel.level2.StringValidation;
+import ua.com.alevel.Run_Module_1.RunLevel;
 
 public class Run_Module {
     public static void main(String[] args) {
-        BinaryTree tree = new BinaryTree();
-        tree.outputConsole();
+        RunLevel runLevel = new RunLevel();
+        runLevel.runMenu();
     }
 }

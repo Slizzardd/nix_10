@@ -7,15 +7,19 @@ public class BinaryTree {
     static final int COUNT = 10;
     static Scanner scanner = new Scanner(System.in);
 
+    static{
+        System.out.println("Программа выстраивает бинарное дерево и ищет его максимальную глубину");
+    }
+
     public static class Node {
         private final long value;
-        private Node left;
-        private Node right;
+        private Node leftNode;
+        private Node rightNode;
 
-        Node(long x) {
-            this.value = x;
-            left = null;
-            right = null;
+        Node(long value) {
+            this.value = value;
+            leftNode = null;
+            rightNode = null;
         }
     }
 
@@ -23,25 +27,25 @@ public class BinaryTree {
         if (tree == null) {
             return 0;
         }
-        var nLeft = maxDepthTree(tree.left);
-        var nRight = maxDepthTree(tree.right);
-        return (nLeft > nRight) ? (nLeft + 1) : (nRight + 1);
+        var treeLeft = maxDepthTree(tree.leftNode);
+        var treeRight = maxDepthTree(tree.rightNode);
+        return (treeLeft > treeRight) ? (treeLeft + 1) : (treeRight + 1);
     }
 
-    private void addBinaryTree(Node node, long val) {
-        if (val < node.value) {
-            if (node.left == null) {
-                node.left = new Node(val);
-                System.out.println("Добавено " + val + " к левой ветке " + node.value);
+    private void addBinaryTree(Node node, long value) {
+        if (value < node.value) {
+            if (node.leftNode == null) {
+                node.leftNode = new Node(value);
+                System.out.println("Добавено " + value + " к левой ветке " + node.value);
             } else {
-                addBinaryTree(node.left, val);
+                addBinaryTree(node.leftNode, value);
             }
-        } else if (val > node.value) {
-            if (node.right == null) {
-                node.right = new Node(val);
-                System.out.println("Добавлено " + val + " к правой ветке " + node.value);
+        } else if (value > node.value) {
+            if (node.rightNode == null) {
+                node.rightNode = new Node(value);
+                System.out.println("Добавлено " + value + " к правой ветке " + node.value);
             } else {
-                addBinaryTree(node.right, val);
+                addBinaryTree(node.rightNode, value);
             }
         } else {
             System.out.println("Вы пытаетесь добавить значение которое уже есть в дереве");
@@ -98,11 +102,6 @@ public class BinaryTree {
         } while (line != 4);
     }
 
-    //Stack overflow рулит!!!(Да, украл, вывод матрицы от туда,
-    // но мы же должны уметь гуглить:)
-    // я бы сделал красивее вывод, но у меня не
-    // получилось преобразовать этот класс в класс<A>:(
-    //https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
     private void print2dTree(Node root) {
         printTree(root, 0);
     }
@@ -113,13 +112,13 @@ public class BinaryTree {
         }
 
         space += COUNT;
-        printTree(root.right, space);
+        printTree(root.rightNode, space);
         System.out.print("\n");
 
         for (int i = COUNT; i < space; i++) {
             System.out.print(" ");
         }
         System.out.print(root.value + "\n");
-        printTree(root.left, space);
+        printTree(root.leftNode, space);
     }
 }

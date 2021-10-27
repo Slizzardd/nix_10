@@ -6,35 +6,32 @@ import java.util.Scanner;
 
 public class GenericSymbols {
     static Scanner scanner = new Scanner(System.in);
-    static{
+
+    static {
         System.out.println("Задание 1 уровня 1 \nОтфильтровать строку и выбрать уникальные числа");
     }
 
-
-    private String enterTheString() {
+    private String enteringString() {
         System.out.println("Пожалуйста, введите вашу строку:");
         return scanner.next();
     }
 
-
-    private char[] convertStringToArrayNotNum(String line){
-        var numbersOnly = line.replaceAll("\\D", "");
+    private char[] convertStringToArrayNotNum(String inputLine) {
+        var numbersOnly = inputLine.replaceAll("\\D", "");
         return numbersOnly.toCharArray();
     }
 
-
-    private int numberOfUniqueNumbers(){
-        var arrayNumbersOnly = convertStringToArrayNotNum(enterTheString());
-        List<Integer> myList = new ArrayList<>();
+    private int numberOfUniqueNumbers() {
+        var arrayNumbersOnly = convertStringToArrayNotNum(enteringString());
+        List<Integer> listUniqueNumber = new ArrayList<>();
         for (int x : arrayNumbersOnly) {
-            if (!myList.contains(x))
-                myList.add(x);
+            if (!listUniqueNumber.contains(x))
+                listUniqueNumber.add(x);
         }
-        return myList.size();
+        return listUniqueNumber.size();
     }
 
-
-    public void outputConsole(){
+    public void outputConsole() {
         System.out.println("Число уникальных чисел в вашей строке: " + numberOfUniqueNumbers());
     }
 }

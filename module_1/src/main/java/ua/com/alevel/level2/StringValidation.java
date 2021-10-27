@@ -7,13 +7,16 @@ import java.util.Stack;
 
 public class StringValidation {
 
-    private String enterTheString(){
+    static{
+        System.out.println("Программа проверяет введенную вами строку на правильность закрытия скобок");
+    }
+    private String enteringString(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите вашу строку:");
         return scanner.next();
     }
 
-    private boolean isBalanced(String line){
+    private boolean checkForStringValidation(String line){
         Stack<Character> stack = new Stack<>();
         Map<Character, Character> brackets = new HashMap<>();
         brackets.put(']', '[');
@@ -34,8 +37,8 @@ public class StringValidation {
     }
 
     public void outputConsole() {
-        var line = enterTheString();
-        if(isBalanced(line)){
+        var line = enteringString();
+        if(checkForStringValidation(line)){
             System.out.println("Ваша строка сбалансирована");
         }else{
             System.out.println("Ваша строка не сбалансирована:( ");

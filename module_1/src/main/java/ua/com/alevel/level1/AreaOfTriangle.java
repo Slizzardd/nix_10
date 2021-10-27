@@ -6,56 +6,59 @@ import java.util.Scanner;
 
 public class AreaOfTriangle {
     static Scanner scanner = new Scanner(System.in);
-    private static Point A;
-    private static Point B;
-    private static Point C;
+    private static Point coordinate_A;
+    private static Point coordinate_B;
+    private static Point coordinate_C;
 
+    static {
+        System.out.println("Программа вычисляет плоащдь введеного треугольника на плоскости(X, Y)");
+    }
 
-    private boolean checkInLine() {
+    private boolean checkIfPointsOrganizingLine() {
         return getAreaTriangle() == 0;
     }
 
-    private double distanceBetweenTwoPoints(Point p1, Point p2) {
-        double dx = p1.x - p2.x;
-        double dy = p1.y - p2.y;
-        return Math.sqrt(dx * dx + dy * dy);
+    private double distanceBetweenTwoPoints(Point coordinateP1, Point coordinateP2) {
+        double result_x = coordinateP1.x - coordinateP2.x;
+        double result_y = coordinateP1.y - coordinateP2.y;
+        return Math.sqrt(result_x * result_x + result_y * result_y);
     }
 
     private double getAreaTriangle() {
-        double ab = distanceBetweenTwoPoints(A, B);
-        double bc = distanceBetweenTwoPoints(B, C);
-        double ca = distanceBetweenTwoPoints(C, A);
-        double s = (ab + bc + ca) / 2;
-        return Math.sqrt(s * (s - ab) * (s - bc) * (s - ca));
+        double distanceAB = distanceBetweenTwoPoints(coordinate_A, coordinate_B);
+        double distanceBC = distanceBetweenTwoPoints(coordinate_B, coordinate_C);
+        double distanceCA = distanceBetweenTwoPoints(coordinate_C, coordinate_A);
+        double square = (distanceAB + distanceBC + distanceCA) / 2;
+        return Math.sqrt(square * (square - distanceAB) * (square - distanceBC) * (square - distanceCA));
     }
 
     private void inputPoint() {
-         A = inputCoords();
-         B = inputCoords();
-         C = inputCoords();
+        coordinate_A = enteringCoordinates();
+        coordinate_B = enteringCoordinates();
+        coordinate_C = enteringCoordinates();
     }
 
-    private Point inputCoords() {
+    private Point enteringCoordinates() {
         char[] message = {'X', 'Y'};
-        int[] chars = new int[2];
+        int[] coordinates = new int[2];
         for (int i = 0; i < 2; i++) {
-            while(true) {
+            while (true) {
                 try {
                     System.out.println("Пожалуйста, введите координату " + message[i] + ": ");
-                    String symbol = scanner.next();
-                    chars[i] = Integer.parseInt(symbol);
+                    String inputCoords = scanner.next();
+                    coordinates[i] = Integer.parseInt(inputCoords);
                     break;
                 } catch (NumberFormatException a) {
                     System.out.println("Вы ввели недействительное число, попробуйте ещё раз:( ");
                 }
             }
         }
-        return new Point(chars[0], chars[1]);
+        return new Point(coordinates[0], coordinates[1]);
     }
 
     public void outputConsole() {
         inputPoint();
-        if (!checkInLine()) {
+        if (!checkIfPointsOrganizingLine()) {
             System.out.println("Площадь вашего треугольника: " + new DecimalFormat("#.00").format(getAreaTriangle()));
         } else {
             System.out.println("Точки что вы ввели обраюсь линию, попробуйте ещё раз");
