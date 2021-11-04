@@ -11,7 +11,7 @@ public class DriverService {
     private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
     private final DriverDao DRIVER_DAO = new DriverDao();
 
-    public void create(Driver driver){
+    public void create(Driver driver) {
         LOGGER_INFO.info("create new driver: " + driver.getName());
         DRIVER_DAO.create(driver);
         LOGGER_INFO.info("finish creating driver : " +
@@ -21,7 +21,7 @@ public class DriverService {
                 '}');
     }
 
-    public void update(Driver driver){
+    public void update(Driver driver) {
         LOGGER_INFO.info("update driver: " + driver.getName());
         DRIVER_DAO.update(driver);
         LOGGER_INFO.info("finish update driver : " +
@@ -31,16 +31,16 @@ public class DriverService {
                 '}');
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         LOGGER_INFO.info("delete driver in id: " + id);
         DRIVER_DAO.delete(id);
     }
 
-    public Driver findDriverById(int id){
+    public Driver findDriverById(int id) {
         return DRIVER_DAO.findDriverById(id);
     }
 
-    public MyList<Driver> findAllDrivers(){
+    public MyList<Driver> findAllDrivers() {
         return DRIVER_DAO.findAllDrivers();
     }
 }

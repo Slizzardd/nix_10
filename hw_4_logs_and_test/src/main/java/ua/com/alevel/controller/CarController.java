@@ -11,6 +11,7 @@ import static ua.com.alevel.UtilityHelper.UtilityHelper.*;
 public class CarController {
     private static CarController instance;
     private final CarService carService = new CarService();
+
     public static CarController getInstance() {
         if (instance == null) {
             instance = new CarController();
@@ -60,7 +61,7 @@ public class CarController {
         }
     }
 
-    private void create(){
+    private void create() {
         print("Create car: ");
         print("Enter the manufacture car: ");
         String manufacture = getString();
@@ -76,7 +77,7 @@ public class CarController {
         carService.create(car);
     }
 
-    private void update(){
+    private void update() {
         print("Update car");
         print("Enter the id serial number car: ");
         int serialNumber = getInt();
@@ -95,14 +96,14 @@ public class CarController {
         carService.update(car);
     }
 
-    private void delete(){
+    private void delete() {
         print("delete car");
         print("Enter the serial number(VIN): ");
         int serialNumber = getInt();
         carService.delete(serialNumber);
     }
 
-    private void findBySerialNumber(){
+    private void findBySerialNumber() {
         print("find by serial number: ");
         print("Enter the serial number(VIN): ");
         int serialNumber = getInt();
@@ -110,14 +111,12 @@ public class CarController {
         print("Car: " + car);
     }
 
-    private void findAll(){
+    private void findAll() {
         print("find all cars: ");
         MyList<Car> cars = carService.findAllCars();
-        for(int i = 0; i < cars.getLength(); i++){
-            if(cars.get(i) != null){
+        for (int i = 0; i < cars.getLength(); i++) {
+            if (cars.get(i) != null) {
                 print("Cars: " + cars.get(i));
-            }else{
-                continue;
             }
         }
     }

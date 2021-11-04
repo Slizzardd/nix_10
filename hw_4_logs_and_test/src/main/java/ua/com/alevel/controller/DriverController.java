@@ -125,10 +125,10 @@ public class DriverController {
         CarService carService = new CarService();
         MyList<Car> cars = carService.findAllCars();
         for (int i = 0; i < drivers.getLength(); i++) {
-            if(drivers.get(i) != null){
+            if (drivers.get(i) != null) {
                 print("Driver: " + drivers.get(i));
                 for (int q = 0; q < cars.getLength(); q++) {
-                    if(cars.get(q) != null){
+                    if (cars.get(q) != null) {
                         if (drivers.get(i).getId() == cars.get(q).getIdDrivers()) {
                             print("Cars driver: " + cars.get(q));
                         }

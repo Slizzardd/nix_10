@@ -9,7 +9,7 @@ public class MyList<T> {
     public int length = array.length;
 
     public void add(T num) {
-        if (sizeList == array.length-1) {
+        if (sizeList == array.length - 1) {
             array = Arrays.copyOf(array, array.length * 2);
         }
         array[sizeList] = num;
@@ -20,11 +20,11 @@ public class MyList<T> {
         System.arraycopy(array, index + 1, array, index, array.length - 1 - index);
     }
 
-    public T get(int index){
+    public T get(int index) {
         return (T) array[index];
     }
 
-    public int getLength(){
+    public int getLength() {
         return array.length;
     }
 }

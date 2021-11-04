@@ -3,6 +3,7 @@ package ua.com.alevel.controller;
 import java.io.IOException;
 
 import static ua.com.alevel.UtilityHelper.UtilityHelper.*;
+
 public class MainController {
     public void run() {
         print("Car owner database program");
@@ -22,6 +23,7 @@ public class MainController {
             print("problem: = " + e.getMessage());
         }
     }
+
     private void runNavigation() {
         print("If you want to act in relation to the driver, press 1");
         print("If you want to act in relation to the car, press 2");

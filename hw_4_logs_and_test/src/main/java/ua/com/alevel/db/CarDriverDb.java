@@ -73,16 +73,17 @@ public class CarDriverDb {
         }
     }
 
-    private void deleteByIdDrivers(int id){
-        for(int i = 0; i < cars.getLength(); i++){
+    private void deleteByIdDrivers(int id) {
+        for (int i = 0; i < cars.getLength(); i++) {
             if (cars.get(i) != null) {
-                if(cars.get(i).getIdDrivers() == id){
+                if (cars.get(i).getIdDrivers() == id) {
                     cars.remove(i);
                     i--;
                 }
             }
         }
     }
+
     public Driver findById(int id) {
         for (int i = 0; i < drivers.length; i++) {
             if (drivers.get(i).getId() == id) {
@@ -117,8 +118,6 @@ public class CarDriverDb {
         for (int i = 0; i < drivers.getLength(); i++) {
             if (Objects.equals(drivers.get(i).getName(), name) && Objects.equals(drivers.get(i).getPhoneNumber(), phoneNumber)) {
                 return drivers.get(i).getId();
-            } else {
-                continue;
             }
         }
         getIdDriversByNameAndPhoneNumber();
