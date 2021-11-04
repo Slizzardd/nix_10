@@ -1,15 +1,14 @@
 package ua.com.alevel.controller;
 
-
+import ua.com.alevel.List.MyList;
 import ua.com.alevel.entity.Car;
 import ua.com.alevel.service.CarService;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+
+import static ua.com.alevel.UtilityHelper.UtilityHelper.*;
 
 public class CarController {
-
     private static CarController instance;
     private final CarService carService = new CarService();
     public static CarController getInstance() {
@@ -20,123 +19,106 @@ public class CarController {
     }
 
     public void run() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Выберите действие относитель владельца: ");
+        print("Select an action relative to the car:");
         String position;
         try {
             runNavigation();
-            while ((position = reader.readLine()) != null) {
-                crud(position, reader);
-                position = reader.readLine();
+            while ((position = getString()) != null) {
+                crud(position);
+                position = getString();
                 if (position.equals("0")) {
                     System.exit(0);
                 }
-                crud(position, reader);
+                crud(position);
             }
         } catch (IOException e) {
-            System.out.println("Проблема: = " + e.getMessage());
+            System.out.println("problems: = " + e.getMessage());
         }
     }
 
     private void runNavigation() {
-        System.out.println();
-        System.out.println("Если вы хотите создать новую машину, нажмите 1");
-        System.out.println("Если вы хотите обновить машину, нажмите 2");
-        System.out.println("Если вы хотите удалить маишну, нажмите 3");
-        System.out.println("Если вы хотите найти машину по серийному номеру авто, нажмите 4");
-        System.out.println("Если вы хотите получить список всех машин, нажмите  5");
-        System.out.println();
+        print("Car");
+        print("If you want to create a new car, press 1");
+        print("If you want to update the car, press 2");
+        print("If you want to delete the car, press 3");
+        print("If you want to find a car by car serial number, press 4");
+        print("If you want to get a list of all car, press 5");
+        print("If you want to return to the menu, press 0");
+        print("");
     }
 
-    public void crud(String position, BufferedReader reader) throws IOException {
-        System.out.println("Выберите действие: ");
+    public void crud(String position) throws IOException {
+        print("Choose operation: ");
         runNavigation();
-        String line = reader.readLine();
+        String line = getString();
         switch (line) {
-            case "1" -> create(reader);
-            case "2" -> update(reader);
-            case "3" -> delete(reader);
-            case "4" -> findBySerialNumber(reader);
-            case "5" -> findAll(reader);
+            case "1" -> create();
+            case "2" -> update();
+            case "3" -> delete();
+            case "4" -> findBySerialNumber();
+            case "5" -> findAll();
         }
     }
 
-    private void create(BufferedReader reader) {
-        System.out.println("Создание  машины: ");
-        try {
-            System.out.println("Пожалуйста, введите бренд изготовителя: ");
-            String manufacture = reader.readLine();
-            System.out.println("Пожалуйста, введите марку авто: ");
-            String brand = reader.readLine();
-            System.out.println("Пожалуйста, введите год выпуска авто: ");
-            String line = reader.readLine();
-            int age = Integer.parseInt(line);
+    private void create(){
+        print("Create car: ");
+        print("Enter the manufacture car: ");
+        String manufacture = getString();
+        print("Enter the brand car: ");
+        String brand = getString();
+        print("Enter the years of issue car: ");
+        int yearsOfIssue = getInt();
 
-            Car car = new Car();
-            car.setAge(age);
-            car.setBrand(brand);
-            car.setManufacturer(manufacture);
-            carService.createCar(car);
-        } catch (IOException e) {
-            System.out.println("проблема: = " + e.getMessage());
-        }
+        Car car = new Car();
+        car.setManufacture(manufacture);
+        car.setBrand(brand);
+        car.setYearOfIssue(yearsOfIssue);
+        carService.create(car);
     }
 
-    private void update(BufferedReader reader) {
-        System.out.println("Обновление машину");
-        try {
-            System.out.println("Введите серийный номер(VIN) для поиска: ");
-            String serialNumber = reader.readLine();
-            System.out.println("Пожалуйста, введите нового производителя: ");
-            String manufacture = reader.readLine();
-            System.out.println("Пожалуйста, введите новую марку: ");
-            String brand = reader.readLine();
-            System.out.println("Пожалуста, введите новый год выпуска: ");
-            String ageString = reader.readLine();
-            int age = Integer.parseInt(ageString);
-            Car car = new Car();
-            car.setSerialNumber(serialNumber);
-            car.setManufacturer(manufacture);
-            car.setBrand(brand);
-            car.setAge(age);
-            carService.updateCar(car);
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
-        }
+    private void update(){
+        print("Update car");
+        print("Enter the id serial number car: ");
+        int serialNumber = getInt();
+        print("Enter the manufacture car: ");
+        String manufacture = getString();
+        print("Enter the brand car: ");
+        String brand = getString();
+        print("Enter the years of issue car: ");
+        int yearsOfIssue = getInt();
+
+        Car car = new Car();
+        car.setSerialNumber(serialNumber);
+        car.setManufacture(manufacture);
+        car.setBrand(brand);
+        car.setYearOfIssue(yearsOfIssue);
+        carService.update(car);
     }
 
-    private void delete(BufferedReader reader) {
-        System.out.println("Удаление пользователя");
-        try {
-            System.out.println("Пожалуйста, введите серийный номер(VIM): ");
-            String serialNumber = reader.readLine();
-            carService.deleteCar(serialNumber);
-        } catch (IOException e) {
-            System.out.println("Проблема: = " + e.getMessage());
-        }
+    private void delete(){
+        print("delete car");
+        print("Enter the serial number(VIN): ");
+        int serialNumber = getInt();
+        carService.delete(serialNumber);
     }
 
-    private void findBySerialNumber(BufferedReader reader) {
-        System.out.println("Поиск по серийному номеру");
-        try {
-            System.out.println("Пожалуйста, введите серийный номер(VIM): ");
-            String serialNumber = reader.readLine();
-            Car car = carService.findBySerialNumberCar(serialNumber);
-            System.out.println("Пользователь = " + car);
-        } catch (IOException e) {
-            System.out.println("Проблема: = " + e.getMessage());
-        }
+    private void findBySerialNumber(){
+        print("find by serial number: ");
+        print("Enter the serial number(VIN): ");
+        int serialNumber = getInt();
+        Car car = carService.findCarBySerialNumber(serialNumber);
+        print("Car: " + car);
     }
 
-    private void findAll(BufferedReader reader) {
-        System.out.println("Поиск всех пользователей");
-        Car[] cars = carService.findAllCar();
-        if(cars !=null && cars.length !=0 ){
-            for(Car car : cars){
-                System.out.println("Пользователь: " + car);
+    private void findAll(){
+        print("find all cars: ");
+        MyList<Car> cars = carService.findAllCars();
+        for(int i = 0; i < cars.getLength(); i++){
+            if(cars.get(i) != null){
+                print("Cars: " + cars.get(i));
+            }else{
+                continue;
             }
-        }else{
-            System.out.println("Никого нет");
         }
     }
 }

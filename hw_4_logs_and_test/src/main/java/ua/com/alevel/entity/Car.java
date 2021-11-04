@@ -1,64 +1,25 @@
 package ua.com.alevel.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Car {
-
-    private String manufacturer;
+    private int yearOfIssue;
+    private int serialNumber;
+    private String manufacture;
     private String brand;
-    private int age;
-    private String serialNumber;
-    private String idOwner;
+    private int idDrivers;
 
-    public String getIdOwner() {
-        return idOwner;
-    }
-
-    public void setIdOwner(String idOwner) {
-        this.idOwner = idOwner;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    public void setSerialNumber(String serialNumber) {
-        if(serialNumber == null){
-            throw new RuntimeException("ВВЕДИТЕ СЕРИЙНЫЙ НОМЕР!!!");
-        }else{
-            this.serialNumber = serialNumber;
-        }
-    }
     @Override
     public String toString() {
         return "Car{" +
-                "Manufactrurer='" + manufacturer + '\'' +
-                ", brand ='" + brand + '\'' +
-                ", serial number" + serialNumber +
-                ", age='" + age + '\'' +
-                ", idOwner='" + idOwner + '\'' +
-                '}' + "\n ";
+                "serial Number=" + serialNumber +
+                ", manufacture='" + manufacture + '\'' +
+                ", brand='" + brand + '\'' +
+                ", yearsOfIssue=" + yearOfIssue +
+                ", idDrivers=" + idDrivers +
+                '}';
     }
 }

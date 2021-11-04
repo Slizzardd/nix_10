@@ -1,18 +1,18 @@
 package ua.com.alevel.controller;
 
+import ua.com.alevel.List.MyList;
+import ua.com.alevel.entity.Car;
 import ua.com.alevel.entity.Driver;
+import ua.com.alevel.service.CarService;
 import ua.com.alevel.service.DriverService;
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import static ua.com.alevel.UtilityHelper.UtilityHelper.*;
 
 public class DriverController {
-
     private static DriverController instance;
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
     private final DriverService driverService = new DriverService();
 
     public static DriverController getInstance() {
@@ -21,134 +21,121 @@ public class DriverController {
         }
         return instance;
     }
+
     public void run() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Выберите действие относитель владельца: ");
+        print("Select an action relative to the driver:");
         String position;
         try {
             runNavigation();
-            while ((position = reader.readLine()) != null) {
-                crud(position, reader);
-                position = reader.readLine();
+            while ((position = getString()) != null) {
+                crud(position);
+                position = getString();
                 if (position.equals("0")) {
                     System.exit(0);
                 }
-                crud(position, reader);
+                crud(position);
             }
         } catch (IOException e) {
-            System.out.println("Проблема: = " + e.getMessage());
+            System.out.println("problems: = " + e.getMessage());
         }
     }
 
     private void runNavigation() {
-        System.out.println();
-        System.out.println("Если вы хотите создать нового посетителя, нажмите 1");
-        System.out.println("Если вы хотите обновить посетителя, нажмите 2");
-        System.out.println("Если вы хотите удалить посетителя, нажмите 3");
-        System.out.println("Если вы хотите найти посетителя по серийному номеру авто, нажмите 4");
-        System.out.println("Если вы хотите получить список всех посетителей, нажмите  5");
-        System.out.println();
+        print("Driver:");
+        print("If you want to create a new driver, press 1");
+        print("If you want to update the driver, press 2");
+        print("If you want to delete the driver, press 3");
+        print("If you want to find a driver by id, press 4");
+        print("If you want to get a list of all drivers, press 5");
+        print("If you want to return to the menu, press 0");
+        print("");
     }
 
-    public void crud(String line, BufferedReader reader) throws IOException {
-        System.out.println("Выберите действие: ");
+    public void crud(String position) throws IOException {
+        print("Choose operation: ");
         runNavigation();
-        String position = reader.readLine();
-        switch (position) {
-            case "1" -> create(reader);
-            case "2" -> update(reader);
-            case "3" -> delete(reader);
-            case "4" -> findById(reader);
-            case "5" -> findAll(reader);
+        String line = getString();
+        switch (line) {
+            case "1" -> create();
+            case "2" -> update();
+            case "3" -> delete();
+            case "4" -> findById();
+            case "5" -> findAll();
         }
     }
 
-    private void create(BufferedReader reader) {
-        System.out.println("Создание владельца машины: ");
-        try {
-            System.out.println("Пожалуйста, введите имя: ");
-            String name = reader.readLine();
-            System.out.println("Пожалуйста, введите ваш год рождения: ");
-            String ageString = reader.readLine();
-            int age = Integer.parseInt(ageString);
-            System.out.println("Пожалуйста, введите email: ");
-            String email = reader.readLine();
-            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-            boolean emailRegex =  matcher.find();
-            System.out.println("emailRegex = " + emailRegex);
-            System.out.println("Пожалуйста, введите номер мобильного телефона: ");
-            String phoneNumber = reader.readLine();
-            Driver driver = new Driver();
-            driver.setAge(age);
-            driver.setName(name);
-            driver.setEmail(email);
-            driver.setNumber(phoneNumber);
-            driverService.createDriver(driver);
-        } catch (IOException e) {
-            System.out.println("проблема: = " + e.getMessage());
-        }
+    private void create() {
+        print("create driver");
+        print("Enter the name: ");
+        String name = getString();
+        print("Enter the phone number: ");
+        String phoneNumber = getString();
+
+        Driver driver = new Driver();
+        driver.setName(name);
+        driver.setPhoneNumber(phoneNumber);
+        driverService.create(driver);
     }
 
-    private void update(BufferedReader reader) {
-        System.out.println("Обновление пользователя");
-        try {
-            System.out.println("Введите Id пользователя для поиска: ");
-            String id = reader.readLine();
-            System.out.println("Пожалуйста, введите новое имя: ");
-            String name = reader.readLine();
-            System.out.println("Пожалуйста, введите новый год рождения: ");
-            String ageString = reader.readLine();
-            int age = Integer.parseInt(ageString);
-            System.out.println("Пожалуйста, введите новый email: ");
-            String email = reader.readLine();
-            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-            boolean emailRegex =  matcher.find();
-            System.out.println("emailRegex = " + emailRegex);
-            System.out.println("Пожалуйста, введите новый номер мобильного телефона: ");
-            String phoneNumber = reader.readLine();
-            Driver driver = new Driver();
-            driver.setId(id);
-            driver.setName(name);
-            driver.setEmail(email);
-            driver.setNumber(phoneNumber);
-            driverService.updateDriver(driver);
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
-        }
+    private void update() {
+        print("update driver");
+        print("Enter the id: ");
+        int id = getInt();
+        print("Enter the name: ");
+        String name = getString();
+        print("Enter the phone number: ");
+        String phoneNumber = getString();
+
+        Driver driver = new Driver();
+        driver.setId(id);
+        driver.setName(name);
+        driver.setPhoneNumber(phoneNumber);
+        driverService.update(driver);
     }
 
-    private void delete(BufferedReader reader) {
-        System.out.println("Удаление пользователя");
-        try {
-            System.out.println("Пожалуйста, введите id пользователя: ");
-            String id = reader.readLine();
-            driverService.deleteDriver(id);
-        } catch (IOException e) {
-            System.out.println("Проблема: = " + e.getMessage());
-        }
+    private void delete() {
+        print("delete driver");
+        print("Enter the id driver: ");
+        int id = getInt();
+
+        driverService.delete(id);
     }
 
-    private void findById(BufferedReader reader) {
-        System.out.println("Поиск по id");
-        try {
-            System.out.println("Пожалуйста, введите id: ");
-            String id = reader.readLine();
-            Driver user = driverService.findByIdDriver(id);
-            System.out.println("Пользователь = " + user);
-        } catch (IOException e) {
-            System.out.println("Проблема: = " + e.getMessage());
-        }
+    private void findById() {
+        print("find driver by id");
+        print("Enter the id driver: ");
+        int id = getInt();
+
+        Driver driver = driverService.findDriverById(id);
+        print("Driver: " + driver);
     }
 
-    private void findAll(BufferedReader reader) {
-        System.out.println("Поиск всех пользователей");
-        Driver[] drivers = driverService.findAllDriver();
-        if(drivers !=null && drivers.length !=0 ){
-            for(Driver user : drivers){
-                System.out.println("Пользователь: " + user);
+    private void findAll() {
+        print("find all drivers");
+        MyList<Driver> drivers = driverService.findAllDrivers();
+        for (int i = 0; i < drivers.getLength(); i++) {
+            if (drivers.get(i) != null) {
+                print("Driver: " + drivers.get(i));
             }
-        }else{
-            System.out.println("Никого нет");
+        }
+    }
+
+    public void outputDriverAndCar() {
+        MyList<Driver> drivers = driverService.findAllDrivers();
+        CarService carService = new CarService();
+        MyList<Car> cars = carService.findAllCars();
+        for (int i = 0; i < drivers.getLength(); i++) {
+            if(drivers.get(i) != null){
+                print("Driver: " + drivers.get(i));
+                for (int q = 0; q < cars.getLength(); q++) {
+                    if(cars.get(q) != null){
+                        if (drivers.get(i).getId() == cars.get(q).getIdDrivers()) {
+                            print("Cars driver: " + cars.get(q));
+                        }
+                    }
+                }
+            }
+            print("");
         }
     }
 }

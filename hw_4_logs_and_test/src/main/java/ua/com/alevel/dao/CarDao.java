@@ -1,31 +1,27 @@
 package ua.com.alevel.dao;
 
 import ua.com.alevel.entity.Car;
-import ua.com.alevel.db.CarDb;
+import ua.com.alevel.db.CarDriverDb;
+import ua.com.alevel.List.MyList;
 public class CarDao {
-    public void createCar(Car car) {
-        CarDb.getInstance().create(car);
+
+    public void create(Car car){
+        CarDriverDb.getInstance().create(car);
     }
 
-    public void updateCar(Car driver) {
-        CarDb.getInstance().update(driver);
+    public void update(Car car){
+        CarDriverDb.getInstance().update(car);
     }
 
-    public void deleteCar(String serialNumber) {
-        CarDb.getInstance().delete(serialNumber);
+    public void delete(int serialNumber){
+        CarDriverDb.getInstance().delete(serialNumber, CarDriverDb.Entity.CAR);
     }
 
-    public Car findBySerialNumberCar(String serialNumber) {
-        return CarDb.getInstance().findBySerialNumber(serialNumber);
+    public Car findCarBySerialNumber(int serialNumber){
+        return CarDriverDb.getInstance().findBySerialNumber(serialNumber);
     }
 
-    public String userIdByNameAndPhoneNumber(){return CarDb.getInstance().userIdByNameAndPhoneNumber();}
-
-    public Car[] findAllCar() {
-        return CarDb.getInstance().findAllCar();
-    }
-
-    public void deleteByIdOwnerCar(String idOwner){
-        CarDb.getInstance().deleteByIdOwner(idOwner);
+    public MyList<Car> findAllCars(){
+        return CarDriverDb.getInstance().findAllCar();
     }
 }
