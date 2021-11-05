@@ -81,34 +81,49 @@ public class DriverController {
         print("update driver");
         print("Enter the id: ");
         int id = getInt();
-        print("Enter the name: ");
-        String name = getString();
-        print("Enter the phone number: ");
-        String phoneNumber = getString();
+        try {
+            if (driverService.findDriverById(id) == null) {
+                throw new NullPointerException();
+            }
 
-        Driver driver = new Driver();
-        driver.setId(id);
-        driver.setName(name);
-        driver.setPhoneNumber(phoneNumber);
-        driverService.update(driver);
+            print("Enter the name: ");
+            String name = getString();
+            print("Enter the phone number: ");
+            String phoneNumber = getString();
+
+            Driver driver = new Driver();
+            driver.setId(id);
+            driver.setName(name);
+            driver.setPhoneNumber(phoneNumber);
+            driverService.update(driver);
+        } catch (NullPointerException e) {
+            print("There is no such driver");
+            return;
+        }
     }
 
     private void delete() {
         print("delete driver");
         print("Enter the id driver: ");
         int id = getInt();
-
-        driverService.delete(id);
+        try {
+            driverService.delete(id);
+        } catch (NullPointerException e) {
+            print("There is no such driver");
+        }
     }
 
     private void findById() {
         print("find driver by id");
         print("Enter the id driver: ");
         int id = getInt();
-
-        Driver driver = driverService.findDriverById(id);
-        if (driver != null) {
-            print("Driver: " + driver);
+        try {
+            Driver driver = driverService.findDriverById(id);
+            if (driver != null) {
+                print("Driver: " + driver);
+            }
+        } catch (NullPointerException e) {
+            print("There is no such driver");
         }
     }
 

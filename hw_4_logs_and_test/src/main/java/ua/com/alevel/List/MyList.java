@@ -5,11 +5,11 @@ import java.util.Arrays;
 public class MyList<T> {
     private int sizeList = 0;
 
-    Object[] array = new Object[2];
+    Object[] array = new Object[1];
     public int length = array.length;
 
     public void add(T num) {
-        if (sizeList == array.length - 1) {
+        if (sizeList == array.length) {
             array = Arrays.copyOf(array, array.length * 2);
         }
         array[sizeList] = num;
@@ -24,6 +24,9 @@ public class MyList<T> {
         return (T) array[index];
     }
 
+    public int getSizeList(){
+        return sizeList;
+    }
     public int getLength() {
         return array.length;
     }

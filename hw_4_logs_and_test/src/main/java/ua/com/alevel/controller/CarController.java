@@ -73,52 +73,87 @@ public class CarController {
         String brand = getString();
         print("Enter the years of issue car: ");
         int yearsOfIssue = getInt();
-
+        print("Enter the name driver: ");
+        String nameDriver = getString();
+        print("Enter the phone number driver: ");
+        String phoneNumberDriver = getString();
         Car car = new Car();
         car.setManufacture(manufacture);
         car.setBrand(brand);
         car.setYearOfIssue(yearsOfIssue);
-        carService.create(car);
+        carService.create(car, nameDriver, phoneNumberDriver);
     }
 
     private void updateWithoutDriverId() {
         print("update car without driver id");
-        carService.updateWithoutDriverId();
+        Car car = findCarWithoutDriverId();
+        if (car != null) {
+            print("Car: " + car);
+            print("Enter the name driver: ");
+            String name = getString();
+            print("Enter the phone number driver: ");
+            String phoneNumber = getString();
+            try {
+                if (car != null) {
+                    carService.updateWithoutDriverId(car, name, phoneNumber);
+                }
+            } catch (NullPointerException e) {
+                print("problem" + e.getMessage());
+            }
+        } else {
+            print("All created cars have a driver id");
+        }
     }
+
 
     private void update() {
         print("Update car");
         print("Enter the id serial number car: ");
         int serialNumber = getInt();
-        print("Enter the manufacture car: ");
-        String manufacture = getString();
-        print("Enter the brand car: ");
-        String brand = getString();
-        print("Enter the years of issue car: ");
-        int yearsOfIssue = getInt();
+        try {
+            if (carService.findCarBySerialNumber(serialNumber) == null) {
+                throw new NullPointerException();
+            }
+            print("Enter the manufacture car: ");
+            String manufacture = getString();
+            print("Enter the brand car: ");
+            String brand = getString();
+            print("Enter the years of issue car: ");
+            int yearsOfIssue = getInt();
 
-        Car car = new Car();
-        car.setSerialNumber(serialNumber);
-        car.setManufacture(manufacture);
-        car.setBrand(brand);
-        car.setYearOfIssue(yearsOfIssue);
-        carService.update(car);
+            Car car = new Car();
+            car.setSerialNumber(serialNumber);
+            car.setManufacture(manufacture);
+            car.setBrand(brand);
+            car.setYearOfIssue(yearsOfIssue);
+            carService.update(car);
+        } catch (NullPointerException e) {
+            print("There is no such car");
+        }
     }
 
     private void delete() {
         print("delete car");
         print("Enter the serial number(VIN): ");
         int serialNumber = getInt();
-        carService.delete(serialNumber);
+        try {
+            carService.delete(serialNumber);
+        } catch (NullPointerException e) {
+            print("There is no such car");
+        }
     }
 
     private void findBySerialNumber() {
         print("find by serial number: ");
         print("Enter the serial number(VIN): ");
         int serialNumber = getInt();
-        Car car = carService.findCarBySerialNumber(serialNumber);
-        if (car != null) {
-            print("Car: " + car);
+        try {
+            Car car = carService.findCarBySerialNumber(serialNumber);
+            if (car != null) {
+                print("Car: " + car);
+            }
+        } catch (NullPointerException e) {
+            print("There is no such car");
         }
     }
 
@@ -131,6 +166,16 @@ public class CarController {
             }
         }
 
+    }
+
+    private Car findCarWithoutDriverId() {
+        MyList<Car> cars = carService.findAllCars();
+        for (int i = 0; i < cars.getLength(); i++) {
+            if (cars.get(i) != null && cars.get(i).getIdDrivers() == 0) {
+                return cars.get(i);
+            }
+        }
+        return null;
     }
 
     private void findAllWithoutDriverId() {

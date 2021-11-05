@@ -6,8 +6,8 @@ import ua.com.alevel.List.MyList;
 
 public class CarDao {
 
-    public void create(Car car) {
-        CarDriverDb.getInstance().create(car);
+    public void create(Car car, String nameDriver, String phoneNumberDriver) {
+        CarDriverDb.getInstance().create(car, nameDriver, phoneNumberDriver);
     }
 
     public void update(Car car) {
@@ -18,8 +18,8 @@ public class CarDao {
         CarDriverDb.getInstance().delete(serialNumber, CarDriverDb.Entity.CAR);
     }
 
-    public void updateWithoutDriverId() {
-        CarDriverDb.getInstance().updateWithoutDriverId();
+    public void updateWithoutDriverId(Car car, String nameDriver, String phoneNumberDriver) {
+        CarDriverDb.getInstance().updateWithoutDriverId(car, nameDriver, phoneNumberDriver);
     }
 
     public Car findCarBySerialNumber(int serialNumber) {

@@ -12,9 +12,9 @@ public class CarService {
     private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
     private final CarDao CAR_DAO = new CarDao();
 
-    public void create(Car car) {
+    public void create(Car car, String nameDriver, String phoneNumberDriver) {
         LOGGER_INFO.info("create new car: " + car.getManufacture());
-        CAR_DAO.create(car);
+        CAR_DAO.create(car, nameDriver, phoneNumberDriver);
         LOGGER_INFO.info("finish creating car : " +
                 "manufacture: '" + car.getManufacture() + '\'' +
                 ", brand: '" + car.getBrand() + '\'' +
@@ -32,8 +32,8 @@ public class CarService {
                 '}');
     }
 
-    public void updateWithoutDriverId() {
-        CAR_DAO.updateWithoutDriverId();
+    public void updateWithoutDriverId(Car car, String nameDriver, String phoneNumberDriver) {
+        CAR_DAO.updateWithoutDriverId(car, nameDriver, phoneNumberDriver);
     }
 
     public void delete(int serialNumber) {
