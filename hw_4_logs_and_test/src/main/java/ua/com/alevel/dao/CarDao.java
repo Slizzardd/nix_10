@@ -18,6 +18,10 @@ public class CarDao {
         CarDriverDb.getInstance().delete(serialNumber, CarDriverDb.Entity.CAR);
     }
 
+    public void updateWithoutDriverId() {
+        CarDriverDb.getInstance().updateWithoutDriverId();
+    }
+
     public Car findCarBySerialNumber(int serialNumber) {
         return CarDriverDb.getInstance().findBySerialNumber(serialNumber);
     }

@@ -44,6 +44,8 @@ public class CarController {
         print("If you want to delete the car, press 3");
         print("If you want to find a car by car serial number, press 4");
         print("If you want to get a list of all car, press 5");
+        print("If you want to get a list of all car without driver id, press 6");
+        print("If you want to update the car without idDriver, press 7");
         print("If you want to return to the menu, press 0");
         print("");
     }
@@ -58,6 +60,8 @@ public class CarController {
             case "3" -> delete();
             case "4" -> findBySerialNumber();
             case "5" -> findAll();
+            case "6" -> findAllWithoutDriverId();
+            case "7" -> updateWithoutDriverId();
         }
     }
 
@@ -75,6 +79,11 @@ public class CarController {
         car.setBrand(brand);
         car.setYearOfIssue(yearsOfIssue);
         carService.create(car);
+    }
+
+    private void updateWithoutDriverId() {
+        print("update car without driver id");
+        carService.updateWithoutDriverId();
     }
 
     private void update() {
@@ -108,7 +117,9 @@ public class CarController {
         print("Enter the serial number(VIN): ");
         int serialNumber = getInt();
         Car car = carService.findCarBySerialNumber(serialNumber);
-        print("Car: " + car);
+        if (car != null) {
+            print("Car: " + car);
+        }
     }
 
     private void findAll() {
@@ -116,6 +127,17 @@ public class CarController {
         MyList<Car> cars = carService.findAllCars();
         for (int i = 0; i < cars.getLength(); i++) {
             if (cars.get(i) != null) {
+                print("Cars: " + cars.get(i));
+            }
+        }
+
+    }
+
+    private void findAllWithoutDriverId() {
+        print("find all without driver id: ");
+        MyList<Car> cars = carService.findAllCars();
+        for (int i = 0; i < cars.getLength(); i++) {
+            if (cars.get(i) != null && cars.get(i).getIdDrivers() == 0) {
                 print("Cars: " + cars.get(i));
             }
         }

@@ -32,6 +32,10 @@ public class CarService {
                 '}');
     }
 
+    public void updateWithoutDriverId() {
+        CAR_DAO.updateWithoutDriverId();
+    }
+
     public void delete(int serialNumber) {
         LOGGER_WARN.warn("remove car by serialNumber" + serialNumber);
         CAR_DAO.delete(serialNumber);

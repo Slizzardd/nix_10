@@ -39,35 +39,75 @@ public class CarDriverDb {
 
     public void update(Car car) {
         Car current = findBySerialNumber(car.getSerialNumber());
-        current.setManufacture(car.getManufacture());
-        current.setBrand(car.getBrand());
-        current.setYearOfIssue(car.getYearOfIssue());
+        if (current != null) {
+            current.setManufacture(car.getManufacture());
+            current.setBrand(car.getBrand());
+            current.setYearOfIssue(car.getYearOfIssue());
+        }
+    }
 
+    public void updateWithoutDriverId() {
+        String operation;
+        do {
+            try {
+                for (int i = 0; i < cars.length; i++) {
+                    if (cars.get(i).getIdDrivers() == 0) {
+                        print("Cars: " + cars.get(i));
+                        print("update this car?(+/-)");
+                        String updateOperation = getString();
+                        if (updateOperation.equals("-")) {
+                            continue;
+                        }
+                        if (updateOperation.equals("+")) {
+                            Car currentCar = cars.get(i);
+                            currentCar.setIdDrivers(getIdDriversByNameAndPhoneNumber());
+                            update(currentCar);
+                        }
+                        break;
+                    }
+                }
+                print("Repeat?(+/-)");
+                operation = getString();
+            } catch (NullPointerException e) {
+                print("All created cars have a driver id");
+                break;
+            }
+        } while (!operation.equals("-"));
     }
 
     public void update(Driver driver) {
         Driver current = findById(driver.getId());
-        current.setName(driver.getName());
-        current.setPhoneNumber(driver.getPhoneNumber());
+        if (current != null) {
+            current.setName(driver.getName());
+            current.setPhoneNumber(driver.getPhoneNumber());
+        }
     }
 
     public void delete(int id, Entity entity) {
         switch (entity) {
             case CAR -> {
-                for (int i = 0; i < cars.length; i++) {
-                    if (cars.get(i).getSerialNumber() == id) {
-                        cars.remove(i);
-                        break;
+                try {
+                    for (int i = 0; i < cars.length; i++) {
+                        if (cars.get(i).getSerialNumber() == id) {
+                            cars.remove(i);
+                            break;
+                        }
                     }
+                } catch (NullPointerException e) {
+                    print("Car with this serialNumber does not exist");
                 }
             }
             case DRIVER -> {
-                for (int i = 0; i < drivers.length; i++) {
-                    if (drivers.get(i).getId() == id) {
-                        drivers.remove(i);
-                        deleteByIdDrivers(id);
-                        break;
+                try {
+                    for (int i = 0; i < drivers.length; i++) {
+                        if (drivers.get(i).getId() == id) {
+                            drivers.remove(i);
+                            deleteByIdDrivers(id);
+                            break;
+                        }
                     }
+                } catch (NullPointerException e) {
+                    print("Driver with this id does not exist");
                 }
             }
         }
@@ -85,19 +125,27 @@ public class CarDriverDb {
     }
 
     public Driver findById(int id) {
-        for (int i = 0; i < drivers.length; i++) {
-            if (drivers.get(i).getId() == id) {
-                return drivers.get(i);
+        try {
+            for (int i = 0; i < drivers.length; i++) {
+                if (drivers.get(i).getId() == id) {
+                    return drivers.get(i);
+                }
             }
+        } catch (NullPointerException e) {
+            print("Driver with this id does not exist");
         }
         return null;
     }
 
     public Car findBySerialNumber(int serialNumber) {
-        for (int i = 0; i < cars.length; i++) {
-            if (cars.get(i).getSerialNumber() == serialNumber) {
-                return cars.get(i);
+        try {
+            for (int i = 0; i < cars.length; i++) {
+                if (cars.get(i).getSerialNumber() == serialNumber) {
+                    return cars.get(i);
+                }
             }
+        } catch (NullPointerException e) {
+            print("Car with this serialNumber does not exist");
         }
         return null;
     }
@@ -115,12 +163,19 @@ public class CarDriverDb {
         String name = getString();
         print("Enter the phone number driver: ");
         String phoneNumber = getString();
-        for (int i = 0; i < drivers.getLength(); i++) {
-            if (Objects.equals(drivers.get(i).getName(), name) && Objects.equals(drivers.get(i).getPhoneNumber(), phoneNumber)) {
-                return drivers.get(i).getId();
+        try {
+            for (int i = 0; i < drivers.getLength(); i++) {
+                if (Objects.equals(drivers.get(i).getName(), name) && Objects.equals(drivers.get(i).getPhoneNumber(), phoneNumber)) {
+                    return drivers.get(i).getId();
+                }
+            }
+        } catch (NullPointerException e) {
+            print("Driver with the same name and number does not exist, try again?(+/-)");
+            String operation = getString();
+            if (operation.equals("+")) {
+                getIdDriversByNameAndPhoneNumber();
             }
         }
-        getIdDriversByNameAndPhoneNumber();
         return 0;
     }
 

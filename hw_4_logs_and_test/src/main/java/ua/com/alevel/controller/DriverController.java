@@ -107,7 +107,9 @@ public class DriverController {
         int id = getInt();
 
         Driver driver = driverService.findDriverById(id);
-        print("Driver: " + driver);
+        if (driver != null) {
+            print("Driver: " + driver);
+        }
     }
 
     private void findAll() {
