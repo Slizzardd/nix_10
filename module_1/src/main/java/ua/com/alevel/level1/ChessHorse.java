@@ -4,6 +4,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class ChessHorse {
+
     private static final char[] LETTERS_FOR_THE_FIELD = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
     private static final char[] NUMBERS_FOR_THE_FIELD = {'1', '2', '3', '4', '5', '6', '7', '8'};
     private static final int FIELD_SIZE = 8;

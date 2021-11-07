@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GenericSymbols {
+
     static Scanner scanner = new Scanner(System.in);
 
     static {

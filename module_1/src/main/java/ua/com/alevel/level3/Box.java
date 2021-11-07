@@ -19,7 +19,6 @@ public class Box extends JPanel {
                 cell.turn();
             }
         });
-
     }
 
     public void setColor() {

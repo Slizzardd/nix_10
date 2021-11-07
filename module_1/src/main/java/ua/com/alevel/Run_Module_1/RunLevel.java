@@ -9,15 +9,14 @@ public class RunLevel {
     public void runMenu() {
         RunExercise runExercise = new RunExercise();
         String menu;
-        do{
+        do {
             System.out.println("Введите номер уровня 1-3(0 для выхода из программы): ");
             menu = scanner.nextLine();
-            switch (menu){
-                case"1"-> runExercise.runExerciseLevelOne();
-                case"2"-> runExercise.runExerciseLevelTwo();
-                case"3"-> runExercise.runExerciseLevelThree();
+            switch (menu) {
+                case "1" -> runExercise.runExerciseLevelOne();
+                case "2" -> runExercise.runExerciseLevelTwo();
+                case "3" -> runExercise.runExerciseLevelThree();
             }
-        }while(!menu.equals("0"));
+        } while (!menu.equals("0"));
     }
 }
-

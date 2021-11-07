@@ -13,6 +13,7 @@ import ua.com.alevel.service.DriverService;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ServiceTest {
+
     public static final String NAME_DRIVER = "PopaMyravia";
     public static final String PHONE_NUMBER = "+380662281337";
     private static final int CAR_SIZE = 16;
@@ -29,7 +30,6 @@ public class ServiceTest {
         for(int i = 1; i < carService.findAllCars().getLength(); i++){
             carService.delete(i);
         }
-        System.out.println(carService.findAllCars().getLength());
         Assertions.assertNotEquals(CAR_SIZE, carService.findAllCars().getLength());
     }
 

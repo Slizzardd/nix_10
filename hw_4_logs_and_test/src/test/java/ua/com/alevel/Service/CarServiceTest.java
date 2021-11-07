@@ -1,13 +1,14 @@
 package ua.com.alevel.Service;
 
-import org.junit.Test;
 import ua.com.alevel.entity.Car;
 import ua.com.alevel.entity.Driver;
 
 public class CarServiceTest {
+
     private static final String MANUFACTURE = "Hyinday";
     private static final String BRAND = "Elantra";
     private static final int YEARS_OF_ISSUE = 2021;
+
     public static Car generateCar(){
         Car car = new Car();
         car.setManufacture(MANUFACTURE);

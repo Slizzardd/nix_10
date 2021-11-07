@@ -7,6 +7,7 @@ import ua.com.alevel.List.MyList;
 @Getter
 @Setter
 public class Driver extends Car {
+
     private int id;
     private String name;
     private String phoneNumber;
