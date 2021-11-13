@@ -5,7 +5,7 @@ import ua.com.alevel.set.ArrayUniqueNumbers;
 import static ua.com.alevel.UtilityHelper.print;
 
 public class Controller {
-    public void run(){
+    public void run() {
         print("Показываю один раз, смотрите внимательно!!!!");
         ArrayUniqueNumbers<Integer> arrayUniqueNumbers1 = new ArrayUniqueNumbers<>();
         ArrayUniqueNumbers<Integer> arrayUniqueNumbers2 = new ArrayUniqueNumbers<>(5);
@@ -97,6 +97,6 @@ public class Controller {
         print("");
 
         ArrayUniqueNumbers cut = arrayUniqueNumbers1.cut(0, 4);
-        print("cut: "+ cut);
+        print("cut: " + cut);
     }
 }
