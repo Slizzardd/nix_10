@@ -3,6 +3,7 @@ package ua.com.alevel.level3;
 import java.util.ArrayList;
 
 public class Cell {
+
     ArrayList<Cell> near;
     Status status;
 

@@ -3,6 +3,7 @@ package ua.com.alevel.Service;
 import ua.com.alevel.entity.Driver;
 
 public class DriverServiceTest {
+
     public static String NAME = "Artem";
     public static String PHONE_NUMBER = "+380669978722";
 

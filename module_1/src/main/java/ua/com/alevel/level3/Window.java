@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Window implements Runnable {
+
     JFrame frame;
     Box[][] boxes;
 

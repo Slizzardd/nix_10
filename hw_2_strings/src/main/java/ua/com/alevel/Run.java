@@ -3,6 +3,7 @@ package ua.com.alevel;
 import java.util.Scanner;
 
 public class Run {
+
     private static final Scanner scanner = new Scanner(System.in);
 
     public void exercise1() {

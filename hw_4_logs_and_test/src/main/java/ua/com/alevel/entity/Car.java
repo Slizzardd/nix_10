@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Car {
+
     private int yearOfIssue;
     private int serialNumber;
     private String manufacture;
@@ -22,5 +23,4 @@ public class Car {
                 ", idDrivers=" + idDrivers +
                 '}';
     }
-
 }

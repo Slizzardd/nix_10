@@ -10,6 +10,7 @@ import ua.com.alevel.level3.Window;
 import java.util.Scanner;
 
 public class RunExercise {
+
     static Scanner scanner = new Scanner(System.in);
 
     public void runExerciseLevelOne() {
@@ -49,7 +50,6 @@ public class RunExercise {
     }
 
     public void runExerciseLevelOneExerciseTwo() {
-        ChessHorse chessHorse = new ChessHorse();
         ChessHorse.outputConsole();
     }
 

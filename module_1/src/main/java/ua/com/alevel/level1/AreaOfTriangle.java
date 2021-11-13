@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class AreaOfTriangle {
+
     static Scanner scanner = new Scanner(System.in);
     private static Point coordinate_A;
     private static Point coordinate_B;
