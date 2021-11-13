@@ -47,7 +47,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ua.com.alevel.Run_Module</mainClass>
+                                    <mainClass>ua.com.alevel.RunModule</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
