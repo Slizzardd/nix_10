@@ -222,21 +222,6 @@ public class ArrayUniqueNumbers<E extends Number> {
         arrayUniqueNumbers = numbers;
     }
 
-    public void clear(int firstIndex, int lastIndex) {
-
-        if (indexInBounds(firstIndex, lastIndex)) {
-            Number[] numbers = new Number[size];
-            int indexNumber = 0;
-            for (int i = 0; i < size; i++) {
-                if (!(firstIndex <= i && lastIndex > i)) {
-                    numbers[indexNumber] = arrayUniqueNumbers[i];
-                    indexNumber++;
-                }
-            }
-            arrayUniqueNumbers = numbers;
-        }
-    }
-
     private int getIndexByValue(E value) {
         int index = -1;
         for (int i = 0; i < size; i++) {
