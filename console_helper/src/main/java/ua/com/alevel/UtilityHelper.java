@@ -9,6 +9,9 @@ public class UtilityHelper {
         System.out.println(message);
     }
 
+    public static void printf(String message){
+        System.out.printf(message);
+    }
     public static String getString() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String str = "";
@@ -25,9 +28,13 @@ public class UtilityHelper {
         try {
             num = Integer.parseInt(getString().trim());
         } catch (NumberFormatException e) {
-            System.out.println("Enter number:");
             getInt();
         }
         return num;
+    }
+
+    public static void consoleNextLine(){
+        System.out.println(" ");
+        System.out.println(" ");
     }
 }
