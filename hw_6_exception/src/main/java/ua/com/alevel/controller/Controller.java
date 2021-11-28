@@ -14,11 +14,7 @@ import java.util.Objects;
 
 import static ua.com.alevel.UtilityHelper.print;
 import static ua.com.alevel.constant.Constant.*;
-/*
-Егор, если оценка будет ниже 8, то пожалуйста, не ставь, я перепишу полностью задание
-Просто там траблы были и толком не мел доступ к компьютеру, и этот код написал за 1 подход
-Тут костыль на костыле, но вроде работает:)
- */
+
 public class Controller {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private String format = "dd/mm/yyyy";
