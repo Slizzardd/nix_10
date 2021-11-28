@@ -12,7 +12,6 @@ public class Calendar extends Time implements Serializable {
 
     static long numberOfMonth;
     static long numberOfYears;
-
     public Calendar() {
     }
 
@@ -44,26 +43,23 @@ public class Calendar extends Time implements Serializable {
         super.seconds = getSecondsFromMilliseconds(milliseconds);
         super.minutes = getMinutesFromMilliseconds(milliseconds);
         super.hours = getHoursFromMilliseconds(milliseconds);
-        super.years = getYearsFromMilliseconds(milliseconds);
         super.days = getDaysFromMilliseconds(milliseconds);
         super.months = getMonthsFromMilliseconds(milliseconds);
+        super.years = getYearsFromMilliseconds(milliseconds);
     }
 
     private long getMillisecondsInYear(long year) {
         long time = 0;
-            for (int i = 1; i <= year; i++) {
-                time += daysInYear(i) * MILLISECONDS_PER_DAY;
+        for (int i = 1; i < year; i++) {
+            time += (daysInYear(i) * MILLISECONDS_PER_DAY);
         }
-        for (int i = 1; i <= year / 100; i++) {
-            if (year >= ((100L * i) + 1)) {
+        for (int i = 1; i <= year/100; i++) {
+            if (year >= ((100L *i)+1)) {
                 time += (MILLISECONDS_PER_DAY);
             }
-            if (year >= ((400L * i) + 1)) {
+            if (year >= ((400L *i)+1)) {
                 time -= (MILLISECONDS_PER_DAY);
             }
-        }
-        if (year == 1L) {
-            time = 365 * MILLISECONDS_PER_DAY;
         }
         return time;
     }
@@ -71,9 +67,12 @@ public class Calendar extends Time implements Serializable {
     public long getMillisecondsInMonths(long month, long year) {
         long time = 0;
         if (month == 1) {
-            time += daysInMonth(1, year) * MILLISECONDS_PER_DAY;
+            return daysInMonth(1, year) * MILLISECONDS_PER_DAY;
         }
-        for (int i = 1; i <= month; i++) {
+        if(month == 2){
+            month = 3;
+        }
+        for (int i = 1; i < month; i++) {
             time += (daysInMonth(i, year) * MILLISECONDS_PER_DAY);
         }
         return time;
@@ -87,9 +86,9 @@ public class Calendar extends Time implements Serializable {
     @Override
     public long daysInYear(long year) {
         if (isLeapYear(year)) {
-            return CAPACITY_DAY_IN_HEIGHT_YEAR;
+            return 366;
         }
-        return CAPACITY_DAY_IN_YEAR;
+        return 365;
     }
 
     @Override
@@ -98,14 +97,15 @@ public class Calendar extends Time implements Serializable {
     }
 
     public long getMonthsFromMilliseconds(long milliseconds) {
+        long days = milliseconds / MILLISECONDS_PER_DAY;
         numberOfMonth = 0;
         final long yearsFromMilliseconds = getYearsFromMilliseconds(milliseconds);
-        long daysInThisYear = milliseconds / MILLISECONDS_PER_DAY;
+        long daysInThisYear = days;
         for (int i = 1; i < yearsFromMilliseconds; i++) {
             daysInThisYear -= (daysInYear(i));
         }
         long nowYear = getYearsFromMilliseconds(milliseconds);
-        for (int i = 1; i < 12; i++) {
+        for (int i = 0; i <= 12; i++) {
             if (daysInThisYear >= daysInMonth(i + 1, nowYear)) {
                 numberOfMonth++;
                 daysInThisYear -= daysInMonth(i + 1, nowYear);
@@ -118,19 +118,19 @@ public class Calendar extends Time implements Serializable {
 
     @Override
     public long getYearsFromMilliseconds(long milliseconds) {
-        numberOfYears = 0;
+        numberOfYears = 1;
         int count = 0;
         long days = milliseconds / MILLISECONDS_PER_DAY;
         while (true) {
-            if (days >= CAPACITY_DAY_IN_YEAR) {
+            if (days >= 365) {
                 switch (++count) {
                     case 1, 2, 3 -> {
                         numberOfYears++;
-                        days -= CAPACITY_DAY_IN_YEAR;
+                        days -= 365;
                     }
                     case 4 -> {
                         numberOfYears++;
-                        days -= CAPACITY_DAY_IN_HEIGHT_YEAR;
+                        days -= 366;
                         count = 0;
                     }
                 }
@@ -143,12 +143,14 @@ public class Calendar extends Time implements Serializable {
 
     @Override
     public long getDaysFromMilliseconds(long milliseconds) {
-        long daysInThisYear = ((milliseconds / MILLISECONDS_PER_DAY) % DAYS_PER_FOUR_YEARS) % CAPACITY_DAY_IN_YEAR;
+        long daysInThisYear = ((milliseconds / MILLISECONDS_PER_DAY) % DAYS_PER_FOUR_YEARS) % 365;
         long nowYear = getYearsFromMilliseconds(milliseconds);
-        if (nowYear == 0) nowYear = 1;
+        if (nowYear == 0) {
+            nowYear = 1;
+        }
         for (int i = 0; i < 12; i++) {
             if (daysInThisYear >= daysInMonth(i + 1, nowYear)) {
-                daysInThisYear = daysInThisYear - daysInMonth(i + 1, nowYear);
+                daysInThisYear -= daysInMonth(i + 1, nowYear);
             } else {
                 break;
             }
@@ -180,29 +182,16 @@ public class Calendar extends Time implements Serializable {
     @Override
     public long daysInMonth(long numberOfMouth, long years) {
         final long l = (1 - (years % 4 + 2) % (years % 4 + 1)) * ((years % 100 + 2) % (years % 100 + 1));
-        final long l2 = 1 - (years % 400 + 2) % (years % 400 + 1);
-        return (long) (
-                28 + ((numberOfMouth + Math.floor(numberOfMouth / 8)) % 2) + 2 % numberOfMouth + Math
-                        .floor((1 + l + l2) / numberOfMouth) + Math
+        final long l1 = 1 - (years % 400 + 2) % (years % 400 + 1);
+        return (long) (28 + ((numberOfMouth + Math.floor(numberOfMouth / 8)) % 2) + 2 % numberOfMouth + Math
+                        .floor((1 + l + l1) / numberOfMouth) + Math
                         .floor(1 / numberOfMouth)
-                        - Math.floor((l + l2) / numberOfMouth));
+                        - Math.floor(
+                        (l + l1) / numberOfMouth));
     }
 
     public void printCalendar(Calendar calendar, String format) {
         new CalendarUtil().showResult(calendar, format);
     }
 
-    @Override
-    public String toString() {
-        return "Calendar{" +
-                "time=" + time +
-                ", milliseconds=" + milliseconds +
-                ", seconds=" + seconds +
-                ", minutes=" + minutes +
-                ", hours=" + hours +
-                ", days=" + days +
-                ", months=" + months +
-                ", years=" + years +
-                '}';
-    }
 }

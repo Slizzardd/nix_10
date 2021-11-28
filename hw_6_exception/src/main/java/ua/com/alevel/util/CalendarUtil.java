@@ -12,11 +12,12 @@ public class CalendarUtil {
     }
 
     public Calendar addCalendar(Time start, Time end) {
-        return new Calendar(start.getTime() + end.getTime());
-    }
-
-    public Calendar subtractCalendar(Time end, Time start) {
-        return new Calendar(end.getTime() - start.getTime());
+        try {
+            return new Calendar(start.getTime() + end.getTime());
+        }catch (NullPointerException e){
+            e.getMessage();
+        }
+        return null;
     }
 
     public Time[] sortTimeAscCalendar(Time[] times) {

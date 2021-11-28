@@ -8,7 +8,5 @@ public class Constant {
     public static final int DAYS_PER_FOUR_YEARS = 1461;
     public static final long DEFAULT_CAPACITY_FOR_TIME = 0L;
     public static final long DEFAULT_CAPACITY_FOR_CALENDAR = 1L;
-    public static final int CAPACITY_DAY_IN_YEAR = 365;
-    public static final int CAPACITY_DAY_IN_HEIGHT_YEAR = 366;
 
 }

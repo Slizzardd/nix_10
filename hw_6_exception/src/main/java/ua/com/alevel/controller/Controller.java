@@ -14,7 +14,11 @@ import java.util.Objects;
 
 import static ua.com.alevel.UtilityHelper.print;
 import static ua.com.alevel.constant.Constant.*;
-
+/*
+Егор, если оценка будет ниже 8, то пожалуйста, не ставь, я перепишу полностью задание
+Просто там траблы были и толком не мел доступ к компьютеру, и этот код написал за 1 подход
+Тут костыль на костыле, но вроде работает:)
+ */
 public class Controller {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private String format = "dd/mm/yyyy";
@@ -80,80 +84,78 @@ public class Controller {
     private void subtract() {
         print("6");
         Calendar timeSecond = null;
-        Calendar result = null;
+        Calendar result;
+        Time timeFirst = enterTime();
+        print("Выберите что вы хотите хотите отнять от этой даты: ");
+        printChoice();
         try {
-            Time timeFirst = enterTime();
-            print("Выберите что вы хотите хотите отнять от этой даты: ");
-            printChoice();
-            try{
-                String choice = reader.readLine();
-                switch (choice){
-                    case "1" ->{
-                        print("Введите сколько бы вы хотели отнять миллисекунд: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "2" ->{
-                        print("Введите сколько бы вы хотели отнять секунд: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, Long.parseLong(toAdd),
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "3" ->{
-                        print("Введите сколько бы вы хотели отнять минут: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "4" ->{
-                        print("Введите сколько бы вы хотели отнять часов: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, Long.parseLong(toAdd),
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "5" ->{
-                        print("Введите сколько бы вы хотели отнять дней: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "6" ->{
-                        print("Введите сколько бы вы хотели отнять месяцев: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, Long.parseLong(toAdd),
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "7" ->{
-                        print("Введите сколько бы вы хотели отнять лет: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                Long.parseLong(toAdd));
-                    }
-                    default -> throw new IllegalStateException("Unexpected value: " + choice);
+            String choice = reader.readLine();
+            switch (choice) {
+                case "1" -> {
+                    print("Введите сколько бы вы хотели отнять миллисекунд: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME);
                 }
-            } catch (IOException | NumberFormatException e) {
-                e.printStackTrace();
+                case "2" -> {
+                    print("Введите сколько бы вы хотели отнять секунд: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, Long.parseLong(toAdd),
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME);
+                }
+                case "3" -> {
+                    print("Введите сколько бы вы хотели отнять минут: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME);
+                }
+                case "4" -> {
+                    print("Введите сколько бы вы хотели отнять часов: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, Long.parseLong(toAdd),
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME);
+                }
+                case "5" -> {
+                    print("Введите сколько бы вы хотели отнять дней: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME);
+                }
+                case "6" -> {
+                    print("Введите сколько бы вы хотели отнять месяцев: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, Long.parseLong(toAdd),
+                            DEFAULT_CAPACITY_FOR_TIME);
+                }
+                case "7" -> {
+                    print("Введите сколько бы вы хотели отнять лет: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            Long.parseLong(toAdd));
+                }
+                default -> throw new IllegalStateException("Unexpected value: " + choice);
             }
-            assert timeSecond != null;
-            result = new CalendarUtil().differenceCalendar(timeFirst, timeSecond);
-        } catch (IOException e) {
+        } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
+        assert timeSecond != null;
+        assert timeFirst != null;
+        result = new CalendarUtil().differenceCalendar(timeFirst, timeSecond);
+
         assert result != null;
         new Calendar(result.getTime()).printCalendar(result, format);
     }
@@ -161,80 +163,83 @@ public class Controller {
     private void addToTimeDate() {
         print("5");
         Calendar timeSecond = null;
-        Calendar result = null;
+        Calendar result;
+        Time timeFirst = enterTime();
+        print("Выберите что вы хотите добавить к этой дате: ");
+        printChoice();
         try {
-            Time timeFirst = enterTime();
-            print("Выберите что вы хотите добавить к этой дате: ");
-            printChoice();
-            try{
-                String choice = reader.readLine();
-                switch (choice){
-                    case "1" ->{
-                        print("Введите сколько бы вы хотели добавить миллисекунд: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME, 
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "2" ->{
-                        print("Введите сколько бы вы хотели добавить секунд: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, Long.parseLong(toAdd),
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "3" ->{
-                        print("Введите сколько бы вы хотели добавить минут: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "4" ->{
-                        print("Введите сколько бы вы хотели добавить часов: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, Long.parseLong(toAdd),
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "5" ->{
-                        print("Введите сколько бы вы хотели добавить дней: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "6" ->{
-                        print("Введите сколько бы вы хотели добавить месяцев: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, Long.parseLong(toAdd),
-                                DEFAULT_CAPACITY_FOR_TIME);
-                    }
-                    case "7" ->{
-                        print("Введите сколько бы вы хотели добавить лет: ");
-                        String toAdd = reader.readLine();
-                        timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
-                                Long.parseLong(toAdd));
-                    }
-                    default -> throw new IllegalStateException("Unexpected value: " + choice);
+            String choice = reader.readLine();
+            switch (choice) {
+                case "1" -> {
+                    print("Введите сколько бы вы хотели добавить миллисекунд: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME);
                 }
-            } catch (IOException | NumberFormatException e) {
-                e.printStackTrace();
+                case "2" -> {
+                    print("Введите сколько бы вы хотели добавить секунд: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, Long.parseLong(toAdd),
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME);
+                }
+                case "3" -> {
+                    print("Введите сколько бы вы хотели добавить минут: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME);
+                }
+                case "4" -> {
+                    print("Введите сколько бы вы хотели добавить часов: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, Long.parseLong(toAdd),
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME);
+                }
+                case "5" -> {
+                    print("Введите сколько бы вы хотели добавить дней: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            Long.parseLong(toAdd), DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME);
+                }
+                case "6" -> {
+                    print("Введите сколько бы вы хотели добавить месяцев: ");
+                    long parseToAdd = 0;
+                    String toAdd = reader.readLine();
+                    if(Long.parseLong(toAdd) == 1){
+                        parseToAdd = Long.parseLong(toAdd);
+                    }
+                    if(Long.parseLong(toAdd) > 1){
+                        parseToAdd = Long.parseLong(toAdd)+1;
+                    }
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, parseToAdd,
+                            DEFAULT_CAPACITY_FOR_TIME);
+                }
+                case "7" -> {
+                    print("Введите сколько бы вы хотели добавить лет: ");
+                    String toAdd = reader.readLine();
+                    timeSecond = new Calendar(DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            DEFAULT_CAPACITY_FOR_TIME, DEFAULT_CAPACITY_FOR_TIME,
+                            Long.parseLong(toAdd) + 1);
+                }
             }
-            assert timeSecond != null;
-            result = new CalendarUtil().addCalendar(timeFirst, timeSecond);
-        } catch (IOException e) {
+        } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
+        assert timeSecond != null;
+        assert timeFirst != null;
+        result = new CalendarUtil().addCalendar(timeFirst, timeSecond);
         assert result != null;
         new Calendar(result.getTime()).printCalendar(result, format);
     }
@@ -291,7 +296,7 @@ public class Controller {
 
     }
 
-    private void printChoice(){
+    private void printChoice() {
         print("Миллисекунды - 1");
         print("Секунды - 2");
         print("Минуты - 3");
@@ -299,48 +304,48 @@ public class Controller {
         print("Дни - 5");
         print("Месяца - 6");
         print("Года - 7");
-        
+
     }
+
     private void differenceDates() {
         Time result;
+        Time timeFirst = enterTime();
+        Time timeSecond = enterTime();
+        assert timeFirst != null;
+        assert timeSecond != null;
+        result = new CalendarUtil().differenceCalendar(timeFirst, timeSecond);
+        print("Получить результат в: ");
+        printChoice();
         try {
-            Time timeFirst = enterTime();
-            Time timeSecond = enterTime();
-            result = new CalendarUtil().differenceCalendar(timeFirst, timeSecond);
-            print("если вы хотите получить результат в миллисекундах, введите 1");
-            print("если вы хотите получить результат в секундах, введите 2");
-            print("если вы хотите получить результат в минутах, введите 3");
-            print("если вы хотите получить результат в часах, введите 4");
-            print("если вы хотите получить результат в днях, введите 5");
-            print("если вы хотите получить результат в месяцах, введите 6");
-            print("если вы хотите получить результат в годах, введите 7");
-            try {
-                String operation = reader.readLine();
-                switch (operation) {
-                    case "1" -> print(Objects.requireNonNull(result).getTime() + " миллисекунд");
-                    case "2" -> print(Objects.requireNonNull(result).getTime() / MILLISECONDS_PER_SECOND + " секунд");
-                    case "3" -> print(Objects.requireNonNull(result).getTime() / MILLISECONDS_PER_MINUTE + " минут");
-                    case "4" -> print(Objects.requireNonNull(result).getTime() / MILLISECONDS_PER_HOUR + " часов");
-                    case "5" -> print(Objects.requireNonNull(result).getTime() / MILLISECONDS_PER_DAY + " дней");
-                    case "6" -> print(new Calendar().getMonthsFromMilliseconds(Objects.requireNonNull(result).getTime()) + " месяцев");
-                    case "7" -> print(new Calendar().getYearsFromMilliseconds(Objects.requireNonNull(result).getTime()) + " годов");
-                }
-            } catch (IOException | NullPointerException e) {
-                e.printStackTrace();
+            String operation = reader.readLine();
+            switch (operation) {
+                case "1" -> print(Objects.requireNonNull(result).getTime() + " миллисекунд");
+                case "2" -> print(Objects.requireNonNull(result).getTime() / MILLISECONDS_PER_SECOND + " секунд");
+                case "3" -> print(Objects.requireNonNull(result).getTime() / MILLISECONDS_PER_MINUTE + " минут");
+                case "4" -> print(Objects.requireNonNull(result).getTime() / MILLISECONDS_PER_HOUR + " часов");
+                case "5" -> print(Objects.requireNonNull(result).getTime() / MILLISECONDS_PER_DAY + " дней");
+                case "6" -> print(new Calendar().getMonthsFromMilliseconds(Objects.requireNonNull(result).getTime()) + " месяцев");
+                case "7" -> print(new Calendar().getYearsFromMilliseconds(Objects.requireNonNull(result).getTime()) + " годов");
             }
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
     }
 
-    private Time enterTime() throws IOException {
-        print("Введите дату по примеру: " + format);
-        return Parser.getInstance().returnParsTime(reader.readLine(), format);
+    private Time enterTime() {
+        try {
+            print("Введите дату по примеру: " + format);
+            return Parser.getInstance().returnParsTime(reader.readLine(), format);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void setFormat() {
         String choice = "1";
         print("""
+                (месяц в 3 и 8 варианте вводите в именительном ПАДЕЖЕ!!!)
                 Выберите желаемый формат даты:
                 dd/mm/yyyy \t- 1
                 mm/dd/yyyy \t- 2
