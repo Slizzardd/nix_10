@@ -1,6 +1,5 @@
 package ua.com.alevel.util;
 
-
 import ua.com.alevel.data.Calendar;
 import ua.com.alevel.data.Time;
 

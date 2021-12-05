@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public abstract class Time {
+
     protected long time;
     protected long milliseconds;
     protected long seconds;

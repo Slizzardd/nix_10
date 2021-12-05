@@ -1,12 +1,12 @@
 package ua.com.alevel.util;
 
-
 import ua.com.alevel.data.Calendar;
 import ua.com.alevel.data.Time;
 
 import static ua.com.alevel.UtilityHelper.print;
 
 public class CalendarUtil {
+
     public Calendar differenceCalendar(Time start, Time end) {
         return new Calendar(start.getTime() - end.getTime());
     }

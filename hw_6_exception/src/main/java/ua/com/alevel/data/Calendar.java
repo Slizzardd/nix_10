@@ -1,7 +1,6 @@
 package ua.com.alevel.data;
 
-
-import ua.com.alevel.Exceptions.ExceptionNix;
+import ua.com.alevel.exceptions.ExceptionNix;
 import ua.com.alevel.util.CalendarUtil;
 
 import java.io.Serializable;
@@ -12,8 +11,8 @@ public class Calendar extends Time implements Serializable {
 
     static long numberOfMonth;
     static long numberOfYears;
-    public Calendar() {
-    }
+
+    public Calendar() { }
 
     public Calendar(long millisecond, long second, long minute, long hour, long day, long month,
                     long year) {
@@ -193,5 +192,4 @@ public class Calendar extends Time implements Serializable {
     public void printCalendar(Calendar calendar, String format) {
         new CalendarUtil().showResult(calendar, format);
     }
-
 }
