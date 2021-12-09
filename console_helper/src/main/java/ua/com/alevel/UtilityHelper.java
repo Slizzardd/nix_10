@@ -35,6 +35,5 @@ public class UtilityHelper {
 
     public static void consoleNextLine(){
         System.out.println(" ");
-        System.out.println(" ");
     }
 }
