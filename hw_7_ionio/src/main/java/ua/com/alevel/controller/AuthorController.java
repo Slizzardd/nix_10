@@ -108,14 +108,14 @@ public class AuthorController {
         Integer id = getInt();
         Author author = authorService.find(id);
         if (isNull(author)) {
-        print("No author with current id!");
+            print("No author with current id!");
             return;
         }
         authorService.delete(author);
         print("Author deleted!");
     }
 
-    private boolean isNull(Object obj){
+    private boolean isNull(Object obj) {
         return obj == null;
     }
 }

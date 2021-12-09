@@ -19,23 +19,23 @@ public class AssociationController {
     private static final BookService bookService = new BookServiceImpl();
     private static final AssociateServiceImpl associateService = new AssociateServiceImpl();
 
-    public static void addBook(){
+    public static void addBook() {
         print("Enter author id: ");
         Integer id = getInt();
         BookController.getInstance().findAllBooks();
         print("Enter books id`s(divide id with ','): ");
         String bookId = getString();
         Author author = authorService.find(id);
-        if(author == null){
+        if (author == null) {
             print("No author with current id!");
             return;
         }
         bookId = bookId.replaceAll("\\s", "");
         String[] ids = bookId.split(",");
         Book book;
-        for(String s : ids){
+        for (String s : ids) {
             book = bookService.find(Integer.parseInt(s));
-            if(book == null){
+            if (book == null) {
                 print("No book with current id!");
                 return;
             }
@@ -44,23 +44,23 @@ public class AssociationController {
         print("Books was added to author");
     }
 
-    public static void addAuthors(){
+    public static void addAuthors() {
         print("Enter book id: ");
         Integer id = getInt();
         AuthorController.getInstance().findAllAuthors();
         print("Enter authors id`s(divide id with ','): ");
         String authorsIds = getString();
         Book book = bookService.find(id);
-        if(book == null){
+        if (book == null) {
             print("No book with current id");
             return;
         }
         authorsIds = authorsIds.replaceAll("\\s", "");
         String[] ids = authorsIds.split(",");
         Author authors;
-        for(String s: ids){
+        for (String s : ids) {
             authors = authorService.find(Integer.parseInt(s));
-            if(authors == null){
+            if (authors == null) {
                 print("No author with current id!");
                 return;
             }

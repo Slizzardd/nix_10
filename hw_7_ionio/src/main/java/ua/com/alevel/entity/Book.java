@@ -21,7 +21,7 @@ public class Book extends BaseEntity {
     @Override
     public String toString() {
         String authorsId;
-        if(authors.isEmpty()) authorsId = "Unknown";
+        if (authors.isEmpty()) authorsId = "Unknown";
         else authorsId = authors.toString();
         return "Book{" +
                 "name='" + name + '\'' +

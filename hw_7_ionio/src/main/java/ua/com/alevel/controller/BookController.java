@@ -111,7 +111,7 @@ public class BookController {
         print("Book deleted!");
     }
 
-    private boolean isNull(Object obj){
+    private boolean isNull(Object obj) {
         return obj == null;
     }
 }

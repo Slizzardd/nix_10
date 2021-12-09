@@ -39,11 +39,11 @@ public class MainController {
                 BookController.getInstance().findAllBooks();
                 BookController.getInstance().updateBook();
             }
-            case "2.3" ->{
+            case "2.3" -> {
                 BookController.getInstance().findAllBooks();
                 BookController.getInstance().deleteBook();
             }
-            case "2.4" ->{
+            case "2.4" -> {
                 BookController.getInstance().findAllBooks();
                 BookController.getInstance().findBookAuthors();
             }
@@ -52,7 +52,7 @@ public class MainController {
                 AuthorController.getInstance().findAllAuthors();
                 AssociationController.addBook();
             }
-            case "3.2" ->{
+            case "3.2" -> {
                 BookController.getInstance().findAllBooks();
                 AssociationController.addAuthors();
             }

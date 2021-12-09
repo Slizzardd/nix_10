@@ -29,7 +29,7 @@ public class AuthorServiceImpl implements AuthorService {
     public void create(Author author) {
         LOGGER_INFO.info("Start author creating.");
         authorDAO.create(author);
-        LOGGER_INFO.info("Successful author creating (id = " + author.getId() + ")" );
+        LOGGER_INFO.info("Successful author creating (id = " + author.getId() + ")");
     }
 
     @Override
