@@ -31,6 +31,8 @@
         <module>hw_6_exception</module>
         <module>hw_6_exception</module>
         <module>hw_6_exception</module>
+        <module>hw_7_ionio</module>
+        <module>csv_pars</module>
     </modules>
     <packaging>pom</packaging>
 
