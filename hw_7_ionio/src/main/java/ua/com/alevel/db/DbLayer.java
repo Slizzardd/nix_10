@@ -14,27 +14,27 @@ public class DbLayer {
 
     private final String AUTHOR_PATH = "src/main/resources/csvFile/author.csv";
     private final String BOOK_PATH = "src/main/resources/csvFile/book.csv";
-    private final String BOOK_REGISTRATION_PATH = "src/main/resources/csvFile/associations.csv";
+    private final String BOOK_RATIO_PATH = "src/main/resources/csvFile/ratio.csv";
 
     private final String[] AUTHOR_TABLE_HEADER = {"id", "name", "surname", "year_Of_Birth", "available"};
     private final String[] BOOK_TABLE_HEADER = {"id", "name", "pages", "available"};
-    private final String[] BOOK_REGISTRATION_TABLE_HEADER = {"id", "author_id", "book_id"};
+    private final String[] BOOK_RATIO_TABLE_HEADER = {"id", "author_id", "book_id"};
 
     private final List<String[]> AUTHOR_DATA_LIST = new ArrayList<>();
     private final List<String[]> BOOK_DATA_LIST = new ArrayList<>();
-    private final List<String[]> BOOK_REGISTRATION_DATA_LIST = new ArrayList<>();
+    private final List<String[]> BOOK_RATIO_DATA_LIST = new ArrayList<>();
 
     private final Integer AUTHOR_TABLE_COLUMNS_AMOUNT = AUTHOR_TABLE_HEADER.length;
     private final Integer BOOK_TABLE_COLUMNS_AMOUNT = BOOK_TABLE_HEADER.length;
-    private final Integer BOOK_REGISTRATION_TABLE_COLUMNS_AMOUNT = BOOK_REGISTRATION_TABLE_HEADER.length;
+    private final Integer BOOK_RATIO_TABLE_COLUMNS_AMOUNT = BOOK_RATIO_TABLE_HEADER.length;
 
     private WriteToCsv authorWriter;
     private WriteToCsv bookWriter;
-    private WriteToCsv bookRegistrationWriter;
+    private WriteToCsv bookRatioWriter;
 
     private ReadFromCsv authorReader;
     private ReadFromCsv bookReader;
-    private ReadFromCsv bookRegistrationReader;
+    private ReadFromCsv bookRatioReader;
 
     private DbLayer() {
         authorWriter = new WriteToCsv(AUTHOR_PATH);
@@ -43,16 +43,16 @@ public class DbLayer {
         bookWriter = new WriteToCsv(BOOK_PATH);
         bookReader = new ReadFromCsv(BOOK_PATH);
 
-        bookRegistrationWriter = new WriteToCsv(BOOK_REGISTRATION_PATH);
-        bookRegistrationReader = new ReadFromCsv(BOOK_REGISTRATION_PATH);
+        bookRatioWriter = new WriteToCsv(BOOK_RATIO_PATH);
+        bookRatioReader = new ReadFromCsv(BOOK_RATIO_PATH);
 
         boolean authorIsEmpty = authorReader.readAll().isEmpty();
         boolean bookIsEmpty = bookReader.readAll().isEmpty();
-        boolean bookRegistrationIsEmpty = bookRegistrationReader.readAll().isEmpty();
-        if (authorIsEmpty || bookIsEmpty || bookRegistrationIsEmpty) {
+        boolean bookRatioIsEmpty = bookRatioReader.readAll().isEmpty();
+        if (authorIsEmpty || bookIsEmpty || bookRatioIsEmpty) {
             initAuthorTable();
             initBookTable();
-            initBookRegistrationTable();
+            initBookRatioTable();
         } else {
             authorReader = new ReadFromCsv(AUTHOR_PATH);
             AUTHOR_DATA_LIST.addAll(authorReader.readAll());
@@ -60,8 +60,8 @@ public class DbLayer {
             bookReader = new ReadFromCsv(BOOK_PATH);
             BOOK_DATA_LIST.addAll(bookReader.readAll());
 
-            bookRegistrationReader = new ReadFromCsv(BOOK_REGISTRATION_PATH);
-            BOOK_REGISTRATION_DATA_LIST.addAll(bookRegistrationReader.readAll());
+            bookRatioReader = new ReadFromCsv(BOOK_RATIO_PATH);
+            BOOK_RATIO_DATA_LIST.addAll(bookRatioReader.readAll());
         }
     }
 
@@ -88,12 +88,12 @@ public class DbLayer {
         bookWriter.writeAll(BOOK_DATA_LIST);
     }
 
-    private void initBookRegistrationTable() {
-        bookRegistrationWriter = new WriteToCsv(BOOK_REGISTRATION_PATH);
-        bookRegistrationReader = new ReadFromCsv(BOOK_REGISTRATION_PATH);
+    private void initBookRatioTable() {
+        bookRatioWriter = new WriteToCsv(BOOK_RATIO_PATH);
+        bookRatioReader = new ReadFromCsv(BOOK_RATIO_PATH);
 
-        BOOK_REGISTRATION_DATA_LIST.add(BOOK_REGISTRATION_TABLE_HEADER);
-        bookRegistrationWriter.writeAll(BOOK_REGISTRATION_DATA_LIST);
+        BOOK_RATIO_DATA_LIST.add(BOOK_RATIO_TABLE_HEADER);
+        bookRatioWriter.writeAll(BOOK_RATIO_DATA_LIST);
     }
 
     public void createAuthor(Author author) {
@@ -124,14 +124,14 @@ public class DbLayer {
     }
 
     public void createBookRegistration(Author author, Book book) {
-        String[] bookRegistrationData = new String[BOOK_REGISTRATION_TABLE_COLUMNS_AMOUNT];
-        bookRegistrationData[0] = String.valueOf(BOOK_REGISTRATION_DATA_LIST.size());
+        String[] bookRegistrationData = new String[BOOK_RATIO_TABLE_COLUMNS_AMOUNT];
+        bookRegistrationData[0] = String.valueOf(BOOK_RATIO_DATA_LIST.size());
         bookRegistrationData[1] = String.valueOf(author.getId());
         bookRegistrationData[2] = String.valueOf(book.getId());
 
-        BOOK_REGISTRATION_DATA_LIST.add(bookRegistrationData);
-        bookRegistrationWriter = new WriteToCsv(BOOK_REGISTRATION_PATH);
-        bookRegistrationWriter.writeAll(this.BOOK_REGISTRATION_DATA_LIST);
+        BOOK_RATIO_DATA_LIST.add(bookRegistrationData);
+        bookRatioWriter = new WriteToCsv(BOOK_RATIO_PATH);
+        bookRatioWriter.writeAll(this.BOOK_RATIO_DATA_LIST);
     }
 
     public Set<Author> findAllAuthors() {
@@ -192,7 +192,7 @@ public class DbLayer {
 
     public Set<Integer> findAuthorBooks(Integer authorId) {
         Set<Integer> booksIds = new HashSet<>();
-        List<String[]> bookRegistrationRows = BOOK_REGISTRATION_DATA_LIST.stream()
+        List<String[]> bookRegistrationRows = BOOK_RATIO_DATA_LIST.stream()
                 .skip(1)
                 .filter(regData -> Integer.parseInt(regData[1]) == authorId)
                 .collect(Collectors.toList());
@@ -206,7 +206,7 @@ public class DbLayer {
 
     public Set<Integer> findBookAuthors(Integer bookId) {
         Set<Integer> authorsIds = new HashSet<>();
-        List<String[]> bookRegistrationRows = BOOK_REGISTRATION_DATA_LIST.stream()
+        List<String[]> bookRegistrationRows = BOOK_RATIO_DATA_LIST.stream()
                 .skip(1)
                 .filter(regData -> Integer.parseInt(regData[2]) == bookId)
                 .collect(Collectors.toList());

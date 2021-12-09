@@ -4,7 +4,7 @@ import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
 import ua.com.alevel.service.AuthorService;
 import ua.com.alevel.service.BookService;
-import ua.com.alevel.service.impl.AssociateServiceImpl;
+import ua.com.alevel.service.impl.RatioServiceImpl;
 import ua.com.alevel.service.impl.AuthorServiceImpl;
 import ua.com.alevel.service.impl.BookServiceImpl;
 
@@ -12,12 +12,12 @@ import java.util.Scanner;
 
 import static ua.com.alevel.UtilityHelper.*;
 
-public class AssociationController {
+public class RatioController {
 
     private final Scanner in = new Scanner(System.in);
     private static final AuthorService authorService = new AuthorServiceImpl();
     private static final BookService bookService = new BookServiceImpl();
-    private static final AssociateServiceImpl associateService = new AssociateServiceImpl();
+    private static final RatioServiceImpl ratioService = new RatioServiceImpl();
 
     public static void addBook() {
         print("Enter author id: ");
@@ -39,7 +39,7 @@ public class AssociationController {
                 print("No book with current id!");
                 return;
             }
-            associateService.addBookToAuthor(author, book);
+            ratioService.addBookToAuthor(author, book);
         }
         print("Books was added to author");
     }
@@ -64,7 +64,7 @@ public class AssociationController {
                 print("No author with current id!");
                 return;
             }
-            associateService.addAuthorToBook(book, authors);
+            ratioService.addAuthorToBook(book, authors);
         }
         print("Authors was added to book");
     }

@@ -50,11 +50,11 @@ public class MainController {
             case "2.5" -> BookController.getInstance().findAllBooks();
             case "3.1" -> {
                 AuthorController.getInstance().findAllAuthors();
-                AssociationController.addBook();
+                RatioController.addBook();
             }
             case "3.2" -> {
                 BookController.getInstance().findAllBooks();
-                AssociationController.addAuthors();
+                RatioController.addAuthors();
             }
             case "0" -> System.exit(0);
             default -> print("Incorrect input! Try again:(");

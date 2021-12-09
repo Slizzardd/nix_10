@@ -8,11 +8,11 @@ import ua.com.alevel.dao.impl.AuthorDaoImpl;
 import ua.com.alevel.dao.impl.BookDaoImpl;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
-import ua.com.alevel.service.AssociateService;
+import ua.com.alevel.service.RatioService;
 
 import static ua.com.alevel.UtilityHelper.print;
 
-public class AssociateServiceImpl implements AssociateService {
+public class RatioServiceImpl implements RatioService {
 
     private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
     private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
