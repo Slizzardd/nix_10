@@ -8,8 +8,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 import ua.com.alevel.List.MyList;
 import ua.com.alevel.entity.Car;
 import ua.com.alevel.entity.Driver;
-import ua.com.alevel.service.CarService;
-import ua.com.alevel.service.DriverService;
+import ua.com.alevel.task1.service.CarService;
+import ua.com.alevel.task1.service.DriverService;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ServiceTest {

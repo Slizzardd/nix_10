@@ -1,6 +1,6 @@
 package ua.com.alevel;
 
-import ua.com.alevel.controller.Controller;
+import ua.com.alevel.task1.controller.Controller;
 
 import static ua.com.alevel.UtilityHelper.print;
 
