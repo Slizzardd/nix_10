@@ -9,8 +9,8 @@ import java.nio.file.Paths;
 
 import static ua.com.alevel.UtilityHelper.*;
 
-public class Dates {
-    private static final String FILE = "files/dates.txt";
+public class DatesController {
+    private static final String FILE = "src/main/java/ua/com/alevel/files/input_dates.txt";
     private String[] dates;
 
     public void run() {

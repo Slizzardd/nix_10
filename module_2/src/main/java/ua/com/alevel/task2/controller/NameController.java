@@ -16,7 +16,7 @@ public class NameController {
 
     @SneakyThrows
     public void run() {
-        String FILE = "files/unique_name.txt";
+        String FILE = "src/main/java/ua/com/alevel/files/input_name.txt";
         String names = Files.readString(Paths.get(FILE));
         getAndPrintUniqueName(names.split("\n"));
     }
