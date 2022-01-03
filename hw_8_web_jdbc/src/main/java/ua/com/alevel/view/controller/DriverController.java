@@ -1,0 +1,76 @@
+package ua.com.alevel.view.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
+import ua.com.alevel.facade.CarFacade;
+import ua.com.alevel.facade.DriverFacade;
+import ua.com.alevel.view.dto.request.DriverRequestDto;
+import ua.com.alevel.view.dto.response.DriverResponseDto;
+import ua.com.alevel.view.dto.response.PageData;
+
+@Controller
+@RequestMapping("/drivers")
+public class DriverController extends BaseController{
+
+    private final CarFacade carFacade;
+    private final DriverFacade driverFacade;
+    private final HeaderName[] columnNames = new HeaderName[] {
+            new HeaderName("#", null, null),
+            new HeaderName("photo", null, null),
+            new HeaderName("first name", "first_Name", "first_name"),
+            new HeaderName("last name", "last_Name", "last_name"),
+            new HeaderName("car count", "car_Count", "carCount"),
+            new HeaderName("balance", "balance", "balance"),
+            new HeaderName("details", null, null),
+            new HeaderName("delete", null, null)
+    };
+
+    public DriverController(CarFacade carFacade, DriverFacade driverFacade) {
+        this.carFacade = carFacade;
+        this.driverFacade = driverFacade;
+    }
+
+    @GetMapping
+    public String findAll(Model model, WebRequest request){
+        PageData<DriverResponseDto> response = driverFacade.findAll(request);
+        initDataTable(response, columnNames, model);
+        model.addAttribute("createUrl", "/drivers/all");
+        model.addAttribute("createNew", "/drivers/new");
+        model.addAttribute("cardHeader", "All Drivers");
+        return "pages/driver/driver_all";
+    }
+
+    @PostMapping("/all")
+    public ModelAndView findAllRedirect(WebRequest request, ModelMap model) {
+        return findAllRedirect(request, model, "drivers");
+    }
+
+    @GetMapping("/new")
+    public String redirectToNewDriverPage(Model model) {
+        model.addAttribute("driver", new DriverRequestDto());
+        return "pages/driver/driver_new";
+    }
+
+    @PostMapping("/create")
+    public String create(@ModelAttribute("driver") DriverRequestDto dto) {
+        driverFacade.create(dto);
+        return "redirect:/drivers";
+    }
+
+    @GetMapping("/details/{id}")
+    public String redirectToNewDriverPage(@PathVariable Long id, Model model) {
+        model.addAttribute("driver", driverFacade.findById(id));
+        model.addAttribute("cars", carFacade.findByDriverId(id));
+        return "pages/driver/driver_details";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id){
+        driverFacade.delete(id);
+        return "redirect:/drivers";
+    }
+}
