@@ -35,7 +35,6 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public void create(Car entity, Long driverId) {
-        Long carId = 0L;
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_CAR_QUERY)) {
             preparedStatement.setTimestamp(1, new Timestamp(entity.getCreated().getTime()));
             preparedStatement.setTimestamp(2, new Timestamp(entity.getUpdated().getTime()));
@@ -46,26 +45,12 @@ public class CarDaoImpl implements CarDao {
             preparedStatement.setInt(7, entity.getYearsOfIssue());
             preparedStatement.setDouble(8, entity.getEngineCapacity());
             preparedStatement.setString(9, entity.getCarNumber());
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
-        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_CAR_ID_BY_CAR_NUMBER_QUERY + entity.getCarNumber())){
-            carId = resultSet.getLong("id");
-        } catch (SQLException e) {
-            System.out.println("problem: = " + e.getMessage());
-        }
-
-
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_DRIVER_CAR_QUERY)) {
-            preparedStatement.setLong(1, driverId);
-            preparedStatement.setLong(2, carId);
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        createRelationShip(entity, driverId);
     }
 
     @Override
@@ -196,5 +181,28 @@ public class CarDaoImpl implements CarDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+//    Очень весело, но я уже 2 дня дерусь с этой фигней и не могу понять почему если прилетает номер с чисто числами,
+//    все нормально работает, но стоит добавить хоть 1 буковку, хоть малейшую, так все падает и запрос очень странно работает...   :(
+    private void createRelationShip(Car entity, Long driverId){ //TODO fix Читать комментарий^
+        long id = 0L;
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_CAR_ID_BY_CAR_NUMBER_QUERY + entity.getCarNumber())) {
+            if(resultSet.next()){
+                id = resultSet.getLong("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_DRIVER_CAR_QUERY)) {
+            preparedStatement.setLong(1, driverId);
+            preparedStatement.setLong(2, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
