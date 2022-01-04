@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface CarDao extends BaseDao<Car>{
 
+    void create(Car entity, Long driverId);
     Map<Long, String> findByDriverId(Long id);
     List<Car> findAllDriverId(Long id);
 }

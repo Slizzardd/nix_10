@@ -22,7 +22,7 @@ public class DriverDaoImpl implements DriverDao {
     private final JpaConfig jpaConfig;
 
     private static final String CREATE_DRIVER_QUERY = "insert into drivers values(default, ?,?,?,?,?,?,?,?)";
-    private static final String UPDATE_DRIVER_QUERY = "update drivers set first_name = ?, last_name = ?, balance = ?, notes = ?, image_url = ? where id = ";
+    private static final String UPDATE_DRIVER_QUERY = "update drivers set updated = ?, first_name = ?, last_name = ?, balance = ?, notes = ?, image_url = ? where id = ";
     private static final String DELETE_DRIVER_BY_ID_QUERY = "delete from drivers where id = ";
     private static final String EXIST_DRIVERS_BY_ID_QUERY = "select count(*) from drivers where id = ";
     private static final String FIND_DRIVER_BY_ID_QUERY = "select * from drivers where id = ";

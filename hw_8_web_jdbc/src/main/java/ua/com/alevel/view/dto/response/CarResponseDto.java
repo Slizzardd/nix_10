@@ -9,6 +9,7 @@ public class CarResponseDto extends ResponseDto {
     private double engineCapacity;
     private Integer yearsOfIssue;
     private String imageUrl;
+    private String carNumber;
 
     public CarResponseDto() {
     }
@@ -24,7 +25,15 @@ public class CarResponseDto extends ResponseDto {
         this.color = car.getColor();
         this.engineCapacity = car.getEngineCapacity();
         this.yearsOfIssue = car.getYearsOfIssue();
+        this.carNumber = car.getCarNumber();
+    }
 
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
     }
 
     public String getCarName() {

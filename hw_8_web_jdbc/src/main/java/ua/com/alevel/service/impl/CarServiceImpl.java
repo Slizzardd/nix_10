@@ -19,9 +19,10 @@ public class CarServiceImpl implements CarService {
         this.carDao = carDao;
     }
 
+
     @Override
-    public void create(Car entity) {
-        carDao.create(entity);
+    public void create(Car entity, Long driverId) {
+        carDao.create(entity, driverId);
     }
 
     @Override

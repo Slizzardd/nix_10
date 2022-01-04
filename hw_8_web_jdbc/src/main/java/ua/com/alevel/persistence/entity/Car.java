@@ -6,9 +6,18 @@ public class Car extends BaseEntity{
     private String color;
     private double engineCapacity;
     private Integer yearsOfIssue;
+    private String carNumber;
 
     public Car() {
         super();
+    }
+
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
     }
 
     public String getCarName() {

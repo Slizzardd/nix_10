@@ -32,6 +32,14 @@ public class CarFacadeImpl implements CarFacade {
 
     @Override
     public void create(CarRequestDto carRequestDto) {
+        Car car = new Car();
+        car.setCarName(carRequestDto.getCarName());
+        car.setColor(carRequestDto.getColor());
+        car.setEngineCapacity(carRequestDto.getEngineCapacity());
+        car.setYearsOfIssue(carRequestDto.getYearsOfIssue());
+        car.setImageUrl(carRequestDto.getImageUrl());
+        car.setCarNumber(carRequestDto.getCarNumber());
+        carService.create(car, carRequestDto.getDriverId());
     }
 
     @Override

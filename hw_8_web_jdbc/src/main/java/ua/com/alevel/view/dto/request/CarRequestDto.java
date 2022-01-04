@@ -7,6 +7,24 @@ public class CarRequestDto extends RequestDto{
     private double engineCapacity;
     private Integer yearsOfIssue;
     private String imageUrl;
+    private String carNumber;
+    private Long driverId;
+
+    public Long getDriverId() {
+        return driverId;
+    }
+
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
+    }
+
+    public void setDriverId(Long driverId) {
+        this.driverId = driverId;
+    }
 
     public String getImageUrl() {
         return imageUrl;

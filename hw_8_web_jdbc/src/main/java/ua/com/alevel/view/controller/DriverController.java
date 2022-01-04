@@ -17,15 +17,17 @@ import ua.com.alevel.view.dto.response.PageData;
 public class DriverController extends BaseController{
 
     private final CarFacade carFacade;
+    private Long idToUpdate = 0L;
     private final DriverFacade driverFacade;
     private final HeaderName[] columnNames = new HeaderName[] {
             new HeaderName("#", null, null),
-            new HeaderName("photo", null, null),
+            new HeaderName("image", "image", null),
             new HeaderName("first name", "first_Name", "first_name"),
             new HeaderName("last name", "last_Name", "last_name"),
             new HeaderName("car count", "car_Count", "carCount"),
             new HeaderName("balance", "balance", "balance"),
             new HeaderName("details", null, null),
+            new HeaderName("update", null, null),
             new HeaderName("delete", null, null)
     };
 
@@ -55,9 +57,27 @@ public class DriverController extends BaseController{
         return "pages/driver/driver_new";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/create/{driverId}")
     public String create(@ModelAttribute("driver") DriverRequestDto dto) {
         driverFacade.create(dto);
+        return "redirect:/drivers";
+    }
+
+    @GetMapping("/update/{id}")
+    public String update(@ModelAttribute("driver") DriverRequestDto dto, @PathVariable Long id){
+        idToUpdate = id;
+        return "pages/driver/driver_update";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute("driver") DriverRequestDto dto) {
+        driverFacade.update(dto, idToUpdate);
+        return "redirect:/drivers";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id){
+        driverFacade.delete(id);
         return "redirect:/drivers";
     }
 
@@ -66,11 +86,5 @@ public class DriverController extends BaseController{
         model.addAttribute("driver", driverFacade.findById(id));
         model.addAttribute("cars", carFacade.findByDriverId(id));
         return "pages/driver/driver_details";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id){
-        driverFacade.delete(id);
-        return "redirect:/drivers";
     }
 }
