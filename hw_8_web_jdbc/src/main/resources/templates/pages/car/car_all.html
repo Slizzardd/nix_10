@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>driver</title>
 </head>
 <body>
+
+<div layout:fragment="data_table_content">
+
+    <tr th:each="car,iter : ${pageData.getItems()}">
+        <td th:text="${iter.count}"></td>
+        <td>
+            <img th:src="@{${car.getImageUrl()}}" width="45" height="45"/>
+        </td>
+        <td th:text="${car.getCarName()}"></td>
+        <td th:text="${car.getCarNumber()}"></td>
+        <td th:text="${car.getColor()}"></td>
+        <td th:text="${car.getYearsOfIssue()}"></td>
+        <td th:text="${car.getEngineCapacity()}"></td>
+        <td>
+            <a th:href="@{'/cars/details/' + ${car.getId()}}" type="button" class="btn btn-primary">details</a>
+        </td>
+        <td>
+            <a th:href="@{'/cars/update/' + ${car.getId()}}" type="button" class="btn btn-primary">update</a>
+        </td>
+        <td>
+            <a th:href="@{'/cars/delete/' + ${car.getId()}}" type="button" class="btn btn-danger">delete</a>
+        </td>
+    </tr>
+
+</div>
 
 </body>
 </html>

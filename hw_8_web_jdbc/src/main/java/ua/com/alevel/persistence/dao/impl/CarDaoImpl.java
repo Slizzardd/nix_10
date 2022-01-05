@@ -20,7 +20,7 @@ public class CarDaoImpl implements CarDao {
 
     private final static String CREATE_CAR_QUERY = "insert into cars values(default,?,?,?,?,?,?,?,?,?)";
     private final static String CREATE_DRIVER_CAR_QUERY = "insert into driver_car values(?,?)";
-    private final static String FIND_CAR_ID_BY_CAR_NUMBER_QUERY = "select id from cars where car_number = ";
+    private final static String FIND_CAR_ID_BY_CAR_NUMBER_QUERY = "select id from cars where car_number = ?";
     private final static String UPDATE_CAR_QUERY = "update cars set cars_name = ?, image_url = ?, color = ?, years_of_issue = ?, engine_of_capacity = ?, updated = ?, image_url = ?, car_number where id = ";
     private final static String DELETE_CARS_BY_ID_QUERY = "delete from cars where id = ";
     private final static String EXIST_CARS_BY_ID_QUERY = "select count(*) from cars where id = ";
@@ -45,7 +45,7 @@ public class CarDaoImpl implements CarDao {
             preparedStatement.setInt(7, entity.getYearsOfIssue());
             preparedStatement.setDouble(8, entity.getEngineCapacity());
             preparedStatement.setString(9, entity.getCarNumber());
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -184,22 +184,23 @@ public class CarDaoImpl implements CarDao {
     }
 
 
-//    Очень весело, но я уже 2 дня дерусь с этой фигней и не могу понять почему если прилетает номер с чисто числами,
-//    все нормально работает, но стоит добавить хоть 1 буковку, хоть малейшую, так все падает и запрос очень странно работает...   :(
-    private void createRelationShip(Car entity, Long driverId){ //TODO fix Читать комментарий^
-        long id = 0L;
-        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_CAR_ID_BY_CAR_NUMBER_QUERY + entity.getCarNumber())) {
-            if(resultSet.next()){
-                id = resultSet.getLong("id");
+    private void createRelationShip(Car entity, Long driverId){
+        long carId = 0L;
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_CAR_ID_BY_CAR_NUMBER_QUERY)) {
+            preparedStatement.setString(1, entity.getCarNumber());
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if(resultSet.next()){
+                    carId = resultSet.getLong("id");
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("problem: = " + e.getMessage());
         }
 
 
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_DRIVER_CAR_QUERY)) {
             preparedStatement.setLong(1, driverId);
-            preparedStatement.setLong(2, id);
+            preparedStatement.setLong(2, carId);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

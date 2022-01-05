@@ -23,7 +23,8 @@ create table cars
     image_url        varchar(255),
     color        varchar(255) not null,
     years_of_issue int          not null,
-    engine_of_capacity double 		not null
+    engine_of_capacity double 		not null,
+    car_number       varchar (10) not null
 );
 
 create table driver_car

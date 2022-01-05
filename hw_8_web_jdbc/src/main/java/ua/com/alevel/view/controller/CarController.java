@@ -23,10 +23,11 @@ public class CarController extends BaseController {
             new HeaderName("#", null, null),
             new HeaderName("image", "image", null),
             new HeaderName("car name", "carName", "book_name"),
-            new HeaderName("color", "color", "color"),
-            new HeaderName("years of issue", "yearsOfIssue", "years_of_"),
-            new HeaderName("engine of Capacity", "engineCapacity", "engine_of_Capacity"),
             new HeaderName("car number", "carNumber", "car_number"),
+            new HeaderName("color", "color", "color"),
+            new HeaderName("years of issue", "yearsOfIssue", "years_of_issue"),
+            new HeaderName("engine capacity", "engineCapacity", "engine_capacity"),
+            new HeaderName("details", null, null),
             new HeaderName("update", null, null),
             new HeaderName("delete", null, null)
     };
