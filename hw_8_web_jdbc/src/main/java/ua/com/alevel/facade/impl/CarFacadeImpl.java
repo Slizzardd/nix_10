@@ -49,7 +49,7 @@ public class CarFacadeImpl implements CarFacade {
 
     @Override
     public void delete(Long id) {
-
+        carService.delete(id);
     }
 
     @Override

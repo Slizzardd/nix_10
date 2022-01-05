@@ -32,7 +32,13 @@
             <a th:href="@{'/drivers/delete/' + ${driver.getId()}}" type="button" class="btn btn-danger">delete</a>
         </td>
     </tr>
-
+    <div class="col-12">
+        <div class="card mt-2 mb-2">
+            <div class="card-header">
+                <a type="button" class="btn btn-primary" th:href="@{${createNew}}">Add</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

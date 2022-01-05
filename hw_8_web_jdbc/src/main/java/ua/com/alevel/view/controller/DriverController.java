@@ -57,7 +57,7 @@ public class DriverController extends BaseController{
         return "pages/driver/driver_new";
     }
 
-    @PostMapping("/create/{driverId}")
+    @PostMapping("/create")
     public String create(@ModelAttribute("driver") DriverRequestDto dto) {
         driverFacade.create(dto);
         return "redirect:/drivers";

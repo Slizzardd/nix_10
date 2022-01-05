@@ -107,20 +107,65 @@ public class CarDaoImpl implements CarDao {
     @Override
     public DataTableResponse<Car> findAll(DataTableRequest request) {
         List<Car> cars = new ArrayList<>();
-        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_CARS_QUERY)) {
+        Map<Object, Object> otherParamMap = new HashMap<>();
+
+        int limit = (request.getCurrentPage() - 1) * request.getPageSize();
+
+        String sql = "select id, cars_name, count(car_id) as driverCount, image_url, color, years_of_issue, engine_of_capacity, car_number " +
+                "from cars as car left join driver_car as ab on car.id = ab.car_id " +
+                "group by car.id order by " +
+                request.getSort() + " " +
+                request.getOrder() + " limit " +
+                limit + "," +
+                request.getPageSize();
+
+
+        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
             while (resultSet.next()) {
-                cars.add(initCarByResultSet(resultSet));
+                CarResultSet carResultSet = convertResultSetToSimpleCar(resultSet);
+                cars.add(carResultSet.getCar());
+                otherParamMap.put(carResultSet.getCar().getId(), carResultSet.getDriverCount());
             }
         } catch (SQLException e) {
-            System.out.println("problem: = " + e.getMessage());
+            e.printStackTrace();
         }
-        DataTableResponse<Car> dataTableResponse = new DataTableResponse<>();
-        dataTableResponse.setItems(cars);
-        return dataTableResponse;
+
+        DataTableResponse<Car> tableResponse = new DataTableResponse<>();
+        tableResponse.setItems(cars);
+        tableResponse.setOtherParamMap(otherParamMap);
+        return tableResponse;
+    }
+
+    private CarResultSet convertResultSetToSimpleCar(ResultSet resultSet) throws SQLException {
+            Long id = resultSet.getLong("id");
+            String carName = resultSet.getString("cars_name");
+            int driverCount = resultSet.getInt("driverCount");
+            String imageUrl = resultSet.getString("image_url");
+            String color = resultSet.getString("color");
+            Integer yearsOfIssue = resultSet.getInt("years_of_issue");
+            double engineCapacity = resultSet.getDouble("engine_of_capacity");
+            String carNumber = resultSet.getString("car_number");
+
+            Car car = new Car();
+            car.setId(id);
+            car.setCarName(carName);
+            car.setImageUrl(imageUrl);
+            car.setColor(color);
+            car.setYearsOfIssue(yearsOfIssue);
+            car.setEngineCapacity(engineCapacity);
+            car.setCarNumber(carNumber);
+            return new CarResultSet(car, driverCount);
     }
 
     @Override
     public long count() {
+        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery("select count(*) as count from cars")) {
+            while (resultSet.next()) {
+                return resultSet.getLong("count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return 0;
     }
 
@@ -204,6 +249,25 @@ public class CarDaoImpl implements CarDao {
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static class CarResultSet{
+        private final Car car;
+        private final int driverCount;
+
+
+        private CarResultSet(Car car, int driverCount) {
+            this.car = car;
+            this.driverCount = driverCount;
+        }
+
+        public Car getCar() {
+            return car;
+        }
+
+        public int getDriverCount() {
+            return driverCount;
         }
     }
 }

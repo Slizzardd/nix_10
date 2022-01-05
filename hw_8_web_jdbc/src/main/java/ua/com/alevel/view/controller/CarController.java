@@ -22,11 +22,11 @@ public class CarController extends BaseController {
     private final HeaderName[] columnNames = new HeaderName[] {
             new HeaderName("#", null, null),
             new HeaderName("image", "image", null),
-            new HeaderName("car name", "carName", "book_name"),
+            new HeaderName("car name", "carName", "cars_name"),
             new HeaderName("car number", "carNumber", "car_number"),
             new HeaderName("color", "color", "color"),
             new HeaderName("years of issue", "yearsOfIssue", "years_of_issue"),
-            new HeaderName("engine capacity", "engineCapacity", "engine_capacity"),
+            new HeaderName("engine capacity", "engineCapacity", "engine_of_capacity"),
             new HeaderName("details", null, null),
             new HeaderName("update", null, null),
             new HeaderName("delete", null, null)
@@ -67,8 +67,14 @@ public class CarController extends BaseController {
 
     @GetMapping("/details/{id}")
     public String findById(@PathVariable Long id, Model model) {
-        model.addAttribute("book", carFacade.findById(id));
-        model.addAttribute("authors", driverFacade.findAllByCarId(id));
-        return "pages/book/book_details";
+        model.addAttribute("car", carFacade.findById(id));
+        model.addAttribute("drivers", driverFacade.findAllByCarId(id));
+        return "pages/car/car_details";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id){
+        carFacade.delete(id);
+        return "redirect:/cars";
     }
 }
