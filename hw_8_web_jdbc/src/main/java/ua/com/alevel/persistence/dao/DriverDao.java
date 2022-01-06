@@ -7,5 +7,6 @@ import java.util.Map;
 public interface DriverDao extends BaseDao<Driver> {
 
     void create(Driver entity);
+
     Map<Long, String> findAllByCarId(Long carId);
 }

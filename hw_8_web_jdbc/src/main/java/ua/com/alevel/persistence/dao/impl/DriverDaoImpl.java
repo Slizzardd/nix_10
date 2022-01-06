@@ -30,6 +30,7 @@ public class DriverDaoImpl implements DriverDao {
     private static final String EXIST_DRIVERS_BY_ID_QUERY = "select count(*) from drivers where id = ";
     private static final String FIND_DRIVER_BY_ID_QUERY = "select * from drivers where id = ";
     private static final String FIND_DRIVER_BY_CAR_ID_QUERY = "select id, first_name, last_name from drivers left join driver_car ab on drivers.id = ab.driver_id where car_id = ";
+
     public DriverDaoImpl(CarDao carDao, JpaConfig jpaConfig) {
         this.carDao = carDao;
         this.jpaConfig = jpaConfig;
@@ -37,7 +38,7 @@ public class DriverDaoImpl implements DriverDao {
 
     @Override
     public void create(Driver entity) {
-        try(PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_DRIVER_QUERY)) {
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_DRIVER_QUERY)) {
             preparedStatement.setTimestamp(1, new Timestamp(entity.getCreated().getTime()));
             preparedStatement.setTimestamp(2, new Timestamp(entity.getUpdated().getTime()));
             preparedStatement.setBoolean(3, entity.getVisible());
@@ -54,7 +55,7 @@ public class DriverDaoImpl implements DriverDao {
 
     @Override
     public void update(Driver entity) {
-        try(PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(UPDATE_DRIVER_QUERY + entity.getId())) {
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(UPDATE_DRIVER_QUERY + entity.getId())) {
             preparedStatement.setTimestamp(1, new Timestamp(entity.getUpdated().getTime()));
             preparedStatement.setString(2, entity.getFirstName());
             preparedStatement.setString(3, entity.getLastName());
@@ -70,7 +71,7 @@ public class DriverDaoImpl implements DriverDao {
     @Override
     public void delete(Long id) {
         List<Long> carsId = carDao.findAllCarByDriverId(id);
-        for(Long carId : carsId){
+        for (Long carId : carsId) {
             carDao.delete(carId);
         }
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_DRIVER_CAR_BY_DRIVER_ID_QUERY + id)) {
@@ -86,7 +87,7 @@ public class DriverDaoImpl implements DriverDao {
     @Override
     public boolean existById(Long id) {
         int count = 0;
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery(EXIST_DRIVERS_BY_ID_QUERY + id)) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(EXIST_DRIVERS_BY_ID_QUERY + id)) {
             if (resultSet.next()) {
                 count = resultSet.getInt("count(*)");
             }
@@ -98,7 +99,7 @@ public class DriverDaoImpl implements DriverDao {
 
     @Override
     public Driver findById(Long id) {
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_DRIVER_BY_ID_QUERY + id)) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_DRIVER_BY_ID_QUERY + id)) {
             while (resultSet.next()) {
                 return convertResultSetToDriver(resultSet);
             }
@@ -124,7 +125,7 @@ public class DriverDaoImpl implements DriverDao {
                 request.getPageSize();
 
 
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
             while (resultSet.next()) {
                 DriverResultSet driverResultSet = convertResultSetToSimpleDriver(resultSet);
                 drivers.add(driverResultSet.getDriver());
@@ -142,7 +143,7 @@ public class DriverDaoImpl implements DriverDao {
 
     @Override
     public long count() {
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery("select count(*) as count from drivers")) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery("select count(*) as count from drivers")) {
             while (resultSet.next()) {
                 return resultSet.getLong("count");
             }
@@ -155,7 +156,7 @@ public class DriverDaoImpl implements DriverDao {
     @Override
     public Map<Long, String> findAllByCarId(Long carId) {
         Map<Long, String> map = new HashMap<>();
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_DRIVER_BY_CAR_ID_QUERY + carId)) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_DRIVER_BY_CAR_ID_QUERY + carId)) {
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
                 String firstName = resultSet.getString("first_name");
@@ -210,14 +211,7 @@ public class DriverDaoImpl implements DriverDao {
         return driver;
     }
 
-    private static class DriverResultSet{
-        private final Driver driver;
-        private final int carCount;
-
-        private DriverResultSet(Driver driver, int carCount) {
-            this.driver = driver;
-            this.carCount = carCount;
-        }
+    private record DriverResultSet(Driver driver, int carCount) {
 
         public Driver getDriver() {
             return driver;

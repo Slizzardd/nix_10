@@ -1,4 +1,10 @@
-CREATE SCHEMA `taxi_bd` ;
+drop database if exists taxi_bd;
+create database taxi_bd;
+use taxi_bd;
+drop table if exists drivers;
+drop table if exists cars;
+drop table if exists driver_cars;
+
 create table drivers
 (
     id         bigint auto_increment

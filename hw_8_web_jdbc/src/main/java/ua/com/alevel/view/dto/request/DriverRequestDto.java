@@ -1,6 +1,6 @@
 package ua.com.alevel.view.dto.request;
 
-public class DriverRequestDto extends RequestDto{
+public class DriverRequestDto extends RequestDto {
 
     private String firstName;
     private String lastName;

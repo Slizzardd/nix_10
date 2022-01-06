@@ -23,7 +23,7 @@ public class WebJdbcApplication {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void initDb(){
+    public void initDb() {
         jpaConfig.connect();
     }
 }

@@ -39,10 +39,10 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public void update(Driver entity) {
         LOGGER_INFO.info("Update driver: " + entity.getFirstName() + " " + entity.getLastName());
-        if(driverDao.existById(entity.getId())){
+        if (driverDao.existById(entity.getId())) {
             LOGGER_INFO.info("DONE");
             driverDao.update(entity);
-        }else{
+        } else {
             LOGGER_INFO.info("DRIVER NOT FOUND!!!");
             throw new EntityNotFoundException("Driver not found:(");
         }
@@ -51,10 +51,10 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public void delete(Long id) {
         LOGGER_INFO.info("delete driverId: " + id);
-        if(driverDao.existById(id)) {
+        if (driverDao.existById(id)) {
             LOGGER_INFO.info("DONE");
             driverDao.delete(id);
-        }else{
+        } else {
             LOGGER_INFO.info("DRIVER NOT FOUND!!!");
             throw new EntityNotFoundException("Driver not found:(");
         }
@@ -64,10 +64,10 @@ public class DriverServiceImpl implements DriverService {
     public Driver findById(Long id) {
         LOGGER_INFO.info("findById driverId: " + id);
         Driver driverFindById = driverDao.findById(id);
-        if(driverFindById == null){
+        if (driverFindById == null) {
             LOGGER_INFO.info("DRIVER NOT FOUND!!!");
             throw new EntityNotFoundException("Driver not found:(");
-        }else{
+        } else {
             LOGGER_INFO.info("DONE");
             return driverFindById;
         }

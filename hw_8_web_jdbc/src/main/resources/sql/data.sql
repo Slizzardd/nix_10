@@ -1,3 +1,5 @@
+use taxi_bd;
+
 insert into drivers
 values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Christian', 'Bauer', 100,
         'НЕАДЕВКАТ!!! Заказы лучше не давать', 'https://www.psi.ch/sites/default/files/styles/psi_content_half_sm/public/2020-02/bauer_christian_0005.jpg?itok=M83eoQ7p');
@@ -32,15 +34,7 @@ values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Joseph', 'Bowbeer', 
 
 insert into drivers
 values (9, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'David', 'Holmes', 100,
-        'Рецепт оладушков: Мука пшеничная - 250 г
-                            Молоко - 200 мл
-                            Масло растительное - 3 ст. ложки
-                            Яйцо - 1 шт.
-                            Сахар - 2 ст. ложки
-                            Сода - 0,5 ч. ложки
-                            Лимонная кислота - 1/4 ч. ложки
-                            Соль - 0,5 ч. ложки
-                            Реально вкусно, сам готовил', 'http://gotocon.com/dl/photos/speakers/david_holmes.jpg');
+        'OOOOOOOOOOOOO', 'http://gotocon.com/dl/photos/speakers/david_holmes.jpg');
 
 insert into drivers
 values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Doug', 'Lea', 100,
@@ -65,15 +59,27 @@ values (14, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Scott', 'Oaks', 100
 insert into cars
 values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Hyinday Elantra', 'https://autoradar.top/wp-content/uploads/2020/03/new-hyundai-elantra-2021.jpg',
         'Красный', 2021, 1.6, 'AA1111AA');
+
 insert into cars
 values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Toyota Camry', 'https://autonews.autoua.net/media/uploads/toyota/2021-toyota-camry-xse-hybrid.jpg',
         'Черный', 2021, 3.5, 'AA2222AA');
+
 insert into cars
 values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Porsche Cayenne', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Porsche_Cayenne_S_%2892A%29_%E2%80%93_Frontansicht%2C_10._Oktober_2011%2C_W%C3%BClfrath.jpg/305px-Porsche_Cayenne_S_%2892A%29_%E2%80%93_Frontansicht%2C_10._Oktober_2011%2C_W%C3%BClfrath.jpg',
         'Красный', 2021, 2.5, 'AA3333AA');
+
 insert into cars
 values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Toyota Camry', 'https://autonews.autoua.net/media/uploads/toyota/2021-toyota-camry-xse-hybrid.jpg',
         'Черный', 2021, 3.5, 'AA4444AA');
+
+insert into cars
+values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Porsche Cayenne', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Porsche_Cayenne_S_%2892A%29_%E2%80%93_Frontansicht%2C_10._Oktober_2011%2C_W%C3%BClfrath.jpg/305px-Porsche_Cayenne_S_%2892A%29_%E2%80%93_Frontansicht%2C_10._Oktober_2011%2C_W%C3%BClfrath.jpg',
+        'Красный', 2021, 2.5, 'AA3333AA');
+
+insert into cars
+values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Hyinday Elantra', 'https://autoradar.top/wp-content/uploads/2020/03/new-hyundai-elantra-2021.jpg',
+           'Красный', 2021, 1.6, 'AA1111AA');
+
 
 insert into driver_car
 values (1, 1);
@@ -87,3 +93,7 @@ insert into driver_car
 values (5, 2);
 insert into driver_car
 values (6, 3);
+insert into driver_car
+values (1, 5);
+insert into driver_car
+values (1, 6);

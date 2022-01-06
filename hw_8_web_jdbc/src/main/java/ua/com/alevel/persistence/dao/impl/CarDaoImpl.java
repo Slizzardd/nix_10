@@ -271,15 +271,7 @@ public class CarDaoImpl implements CarDao {
         }
     }
 
-    private static class CarResultSet {
-        private final Car car;
-        private final int driverCount;
-
-
-        private CarResultSet(Car car, int driverCount) {
-            this.car = car;
-            this.driverCount = driverCount;
-        }
+    private record CarResultSet(Car car, int driverCount) {
 
         public Car getCar() {
             return car;

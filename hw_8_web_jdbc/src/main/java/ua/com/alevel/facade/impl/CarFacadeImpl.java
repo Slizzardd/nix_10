@@ -8,7 +8,6 @@ import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Car;
 import ua.com.alevel.service.CarService;
-import ua.com.alevel.service.DriverService;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.util.WebResponseUtil;
 import ua.com.alevel.view.dto.request.CarRequestDto;
@@ -23,11 +22,9 @@ import java.util.stream.Collectors;
 public class CarFacadeImpl implements CarFacade {
 
     private final CarService carService;
-    private final DriverService driverService;
 
-    public CarFacadeImpl(CarService carService, DriverService driverService) {
+    public CarFacadeImpl(CarService carService) {
         this.carService = carService;
-        this.driverService = driverService;
     }
 
     @Override

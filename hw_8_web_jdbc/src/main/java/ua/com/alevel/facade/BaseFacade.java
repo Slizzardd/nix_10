@@ -9,8 +9,12 @@ import ua.com.alevel.view.dto.response.ResponseDto;
 public interface BaseFacade<REQ extends RequestDto, RES extends ResponseDto> {
 
     void create(REQ req);
+
     void update(REQ req, Long id);
+
     void delete(Long id);
+
     RES findById(Long id);
+
     PageData<RES> findAll(WebRequest request);
 }

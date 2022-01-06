@@ -10,7 +10,7 @@ public abstract class BaseEntity {
     private Boolean visible;
     private String imageUrl;
 
-    public BaseEntity(){
+    public BaseEntity() {
         this.created = new Date();
         this.updated = new Date();
         this.visible = true;

@@ -22,7 +22,7 @@ public class PageData<REQ extends ResponseDto> {
 
     public PageData() {
         this.currentPage = 0;
-        this.pageSizeItems = new int[]{ 5, 10, 25, 50, 100 };
+        this.pageSizeItems = new int[]{5, 10, 25, 50, 100};
         this.pageSize = this.pageSizeItems[0];
         this.totalPageSize = 0;
         this.itemsSize = 0;

@@ -45,7 +45,7 @@ public class CarServiceImpl implements CarService {
         if (carDao.existById(entity.getId())) {
             LOGGER_INFO.info("DONE");
             carDao.update(entity);
-        }else{
+        } else {
             LOGGER_INFO.info("CAR NOT FOUND!!!");
             throw new EntityNotFoundException("Car not found:(");
         }
@@ -57,7 +57,7 @@ public class CarServiceImpl implements CarService {
         if (carDao.existById(id)) {
             LOGGER_INFO.info("DONE");
             carDao.delete(id);
-        }else{
+        } else {
             LOGGER_INFO.info("CAR NOT FOUND!!!");
             throw new EntityNotFoundException("Car not found:(");
         }
@@ -70,7 +70,7 @@ public class CarServiceImpl implements CarService {
         if (carFindById == null) {
             LOGGER_INFO.info("CAR NOT FOUND!!!");
             throw new EntityNotFoundException("Car not found:(");
-        }else{
+        } else {
             LOGGER_INFO.info("DONE");
             return carFindById;
         }

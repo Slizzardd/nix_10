@@ -1,6 +1,6 @@
 package ua.com.alevel.persistence.entity;
 
-public class Car extends BaseEntity{
+public class Car extends BaseEntity {
 
     private String carName;
     private String color;

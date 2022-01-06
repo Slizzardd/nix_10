@@ -1,6 +1,6 @@
 package ua.com.alevel.persistence.entity;
 
-public class Driver extends BaseEntity{
+public class Driver extends BaseEntity {
 
     private String firstName;
     private String lastName;

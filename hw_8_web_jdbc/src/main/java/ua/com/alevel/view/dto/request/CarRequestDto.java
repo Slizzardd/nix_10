@@ -1,6 +1,6 @@
 package ua.com.alevel.view.dto.request;
 
-public class CarRequestDto extends RequestDto{
+public class CarRequestDto extends RequestDto {
 
     private String carName;
     private String color;
