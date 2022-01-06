@@ -21,13 +21,16 @@ public class CarDaoImpl implements CarDao {
     private final static String CREATE_CAR_QUERY = "insert into cars values(default,?,?,?,?,?,?,?,?,?)";
     private final static String CREATE_DRIVER_CAR_QUERY = "insert into driver_car values(?,?)";
     private final static String FIND_CAR_ID_BY_CAR_NUMBER_QUERY = "select id from cars where car_number = ?";
-    private final static String UPDATE_CAR_QUERY = "update cars set cars_name = ?, image_url = ?, color = ?, years_of_issue = ?, engine_of_capacity = ?, updated = ?, image_url = ?, car_number where id = ";
-    private final static String DELETE_CARS_BY_ID_QUERY = "delete from cars where id = ";
+    private final static String UPDATE_CAR_QUERY = "update cars set cars_name = ?, image_url = ?, color = ?, years_of_issue = ?, engine_of_capacity = ?, updated = ?, car_number = ? where id = ";
+    private final static String DELETE_DRIVER_CAR_BY_CAR_ID_QUERY = "delete from driver_car where car_id = ";
+    private final static String DELETE_CAR_BY_ID_QUERY = "delete from cars where id = ";
     private final static String EXIST_CARS_BY_ID_QUERY = "select count(*) from cars where id = ";
     private final static String FIND_CARS_BY_ID_QUERY = "select * from cars where id = ";
     private final static String FIND_ALL_CARS_QUERY = "select * from cars";
     private final static String FIND_ALL_SIMPLE_CARS_BY_DRIVER_ID_QUERY = "select id, cars_name, color, years_of_issue, engine_of_capacity, car_number from cars left join driver_car ab on cars.id = ab.car_id where ab.driver_id = ";
     private final static String FIND_ALL_CARS_BY_DRIVER_ID_QUERY = "select * from cars left join driver_car ab on cars.id = ab.car_id where ab.driver_id = ";
+    private final static String FIND_ID_ALL_CARS_BY_DRIVER_ID_QUERY = "select id from cars left join driver_car ab on cars.id = ab.car_id where ab.driver_id = ";
+
 
     public CarDaoImpl(JpaConfig jpaConfig) {
         this.jpaConfig = jpaConfig;
@@ -62,8 +65,7 @@ public class CarDaoImpl implements CarDao {
             preparedStatement.setInt(4, entity.getYearsOfIssue());
             preparedStatement.setDouble(5, entity.getEngineCapacity());
             preparedStatement.setTimestamp(6, new Timestamp(entity.getUpdated().getTime()));
-            preparedStatement.setString(7, entity.getImageUrl());
-            preparedStatement.setString(8, entity.getCarNumber());
+            preparedStatement.setString(7, entity.getCarNumber());
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,10 +74,13 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public void delete(Long id) {
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_CARS_BY_ID_QUERY + id)) {
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_DRIVER_CAR_BY_CAR_ID_QUERY + id)) {
             preparedStatement.execute();
+            try (PreparedStatement prepared = jpaConfig.getConnection().prepareStatement(DELETE_CAR_BY_ID_QUERY + id)) {
+                prepared.execute();
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("problem: = " + e.getMessage());
         }
     }
 
@@ -120,7 +125,7 @@ public class CarDaoImpl implements CarDao {
                 request.getPageSize();
 
 
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
             while (resultSet.next()) {
                 CarResultSet carResultSet = convertResultSetToSimpleCar(resultSet);
                 cars.add(carResultSet.getCar());
@@ -137,29 +142,29 @@ public class CarDaoImpl implements CarDao {
     }
 
     private CarResultSet convertResultSetToSimpleCar(ResultSet resultSet) throws SQLException {
-            Long id = resultSet.getLong("id");
-            String carName = resultSet.getString("cars_name");
-            int driverCount = resultSet.getInt("driverCount");
-            String imageUrl = resultSet.getString("image_url");
-            String color = resultSet.getString("color");
-            Integer yearsOfIssue = resultSet.getInt("years_of_issue");
-            double engineCapacity = resultSet.getDouble("engine_of_capacity");
-            String carNumber = resultSet.getString("car_number");
+        Long id = resultSet.getLong("id");
+        String carName = resultSet.getString("cars_name");
+        int driverCount = resultSet.getInt("driverCount");
+        String imageUrl = resultSet.getString("image_url");
+        String color = resultSet.getString("color");
+        Integer yearsOfIssue = resultSet.getInt("years_of_issue");
+        double engineCapacity = resultSet.getDouble("engine_of_capacity");
+        String carNumber = resultSet.getString("car_number");
 
-            Car car = new Car();
-            car.setId(id);
-            car.setCarName(carName);
-            car.setImageUrl(imageUrl);
-            car.setColor(color);
-            car.setYearsOfIssue(yearsOfIssue);
-            car.setEngineCapacity(engineCapacity);
-            car.setCarNumber(carNumber);
-            return new CarResultSet(car, driverCount);
+        Car car = new Car();
+        car.setId(id);
+        car.setCarName(carName);
+        car.setImageUrl(imageUrl);
+        car.setColor(color);
+        car.setYearsOfIssue(yearsOfIssue);
+        car.setEngineCapacity(engineCapacity);
+        car.setCarNumber(carNumber);
+        return new CarResultSet(car, driverCount);
     }
 
     @Override
     public long count() {
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery("select count(*) as count from cars")) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery("select count(*) as count from cars")) {
             while (resultSet.next()) {
                 return resultSet.getLong("count");
             }
@@ -182,6 +187,20 @@ public class CarDaoImpl implements CarDao {
             System.out.println("problem: = " + e.getMessage());
         }
         return map;
+    }
+
+    @Override
+    public List<Long> findAllCarByDriverId(Long driverId) {
+        List<Long> carsId = new ArrayList<>();
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ID_ALL_CARS_BY_DRIVER_ID_QUERY + driverId)) {
+            while (resultSet.next()) {
+                long id = resultSet.getLong("id");
+                carsId.add(id);
+            }
+        } catch (SQLException e) {
+            System.out.println("problem: = " + e.getMessage());
+        }
+        return carsId;
     }
 
     @Override
@@ -229,12 +248,12 @@ public class CarDaoImpl implements CarDao {
     }
 
 
-    private void createRelationShip(Car entity, Long driverId){
+    private void createRelationShip(Car entity, Long driverId) {
         long carId = 0L;
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_CAR_ID_BY_CAR_NUMBER_QUERY)) {
             preparedStatement.setString(1, entity.getCarNumber());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if(resultSet.next()){
+                if (resultSet.next()) {
                     carId = resultSet.getLong("id");
                 }
             }
@@ -252,7 +271,7 @@ public class CarDaoImpl implements CarDao {
         }
     }
 
-    private static class CarResultSet{
+    private static class CarResultSet {
         private final Car car;
         private final int driverCount;
 

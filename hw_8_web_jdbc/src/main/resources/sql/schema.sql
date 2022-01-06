@@ -1,4 +1,4 @@
-create database taxi_bd;
+CREATE SCHEMA `taxi_bd` ;
 create table drivers
 (
     id         bigint auto_increment
@@ -9,7 +9,8 @@ create table drivers
     first_name varchar(255) not null,
     last_name  varchar(255) not null,
     balance integer,
-    notes  varchar(300)
+    notes  varchar(300),
+    image_url varchar(300)
 );
 
 create table cars

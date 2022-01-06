@@ -18,6 +18,7 @@ public class CarController extends BaseController {
 
     private final CarFacade carFacade;
     private final DriverFacade driverFacade;
+    private Long idToUpdate = 0L;
 
     private final HeaderName[] columnNames = new HeaderName[] {
             new HeaderName("#", null, null),
@@ -75,6 +76,18 @@ public class CarController extends BaseController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id){
         carFacade.delete(id);
+        return "redirect:/cars";
+    }
+
+    @GetMapping("/update/{id}")
+    public String update(@ModelAttribute("car") CarRequestDto dto, @PathVariable Long id){
+        idToUpdate = id;
+        return "pages/car/car_update";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute("car") CarRequestDto dto) {
+        carFacade.update(dto, idToUpdate);
         return "redirect:/cars";
     }
 }

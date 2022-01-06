@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>Update Car</title>
 </head>
 <body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>New Car</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/cars/update}" th:object="${car}"  method="post">
+                        <div class="form-group">
+                            <label for="carName">carName</label>
+                            <input type="text" class="form-control" id="carName" aria-describedby="carName" placeholder="Enter carName" th:field="*{carName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="color">Color</label>
+                            <input type="text" class="form-control" id="color" aria-describedby="color" placeholder="Enter color" th:field="*{color}">
+                        </div>
+                        <div class="form-group">
+                            <label for="engineCapacity">engineCapacity</label>
+                            <input type="text" class="form-control" id="engineCapacity" aria-describedby="engineCapacity" placeholder="Enter engineCapacity" th:field="*{engineCapacity}">
+                        </div>
+                        <div class="form-group">
+                            <label for="imageUrl">ImageUrl</label>
+                            <input type="text" class="form-control" id="ImageUrl" aria-describedby="ImageUrl" placeholder="Enter imageUrl" th:field="*{imageUrl}">
+                        </div>
+                        <div class="form-group">
+                            <label for="yearsOfIssue">yearsOfIssue</label>
+                            <input type="text" class="form-control" id="yearsOfIssue" aria-describedby="yearsOfIssue" placeholder="Enter yearsOfIssue" th:field="*{yearsOfIssue}">
+                        </div>
+                        <div class="form-group">
+                            <label for="carNumber">carNumber</label>
+                            <input type="text" class="form-control" id="carNumber" aria-describedby="carNumber" placeholder="Enter carNumber" th:field="*{carNumber}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>

@@ -30,6 +30,7 @@
         <module>console_helper</module>
         <module>hw_6_exception</module>
         <module>hw_7_ionio</module>
+        <module>hw_8_web_jdbc</module>
         <module>csv_pars</module>
         <module>module_2</module>
     </modules>

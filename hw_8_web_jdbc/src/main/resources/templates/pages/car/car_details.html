@@ -66,6 +66,12 @@
                                 </ul>
                             </td>
                         </tr>
+                        <td>
+                            <a th:href="@{'/cars/update/' + ${car.getId()}}" type="button" class="btn btn-primary">update</a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/cars/delete/' + ${car.getId()}}" type="button" class="btn btn-danger">delete</a>
+                        </td>
                     </table>
                 </div>
             </div>

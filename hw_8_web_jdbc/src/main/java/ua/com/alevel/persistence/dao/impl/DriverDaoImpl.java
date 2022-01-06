@@ -2,6 +2,7 @@ package ua.com.alevel.persistence.dao.impl;
 
 import org.springframework.stereotype.Service;
 import ua.com.alevel.config.jpa.JpaConfig;
+import ua.com.alevel.persistence.dao.CarDao;
 import ua.com.alevel.persistence.dao.DriverDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -19,15 +20,18 @@ import java.util.Map;
 @Service
 public class DriverDaoImpl implements DriverDao {
 
+    private final CarDao carDao;
     private final JpaConfig jpaConfig;
 
     private static final String CREATE_DRIVER_QUERY = "insert into drivers values(default, ?,?,?,?,?,?,?,?)";
     private static final String UPDATE_DRIVER_QUERY = "update drivers set updated = ?, first_name = ?, last_name = ?, balance = ?, notes = ?, image_url = ? where id = ";
-    private static final String DELETE_DRIVER_BY_ID_QUERY = "delete from drivers where id = ";
+    private final static String DELETE_DRIVER_CAR_BY_DRIVER_ID_QUERY = "delete from driver_car where driver_id = ";
+    private final static String DELETE_DRIVER_BY_ID_QUERY = "delete from drivers where id = ";
     private static final String EXIST_DRIVERS_BY_ID_QUERY = "select count(*) from drivers where id = ";
     private static final String FIND_DRIVER_BY_ID_QUERY = "select * from drivers where id = ";
     private static final String FIND_DRIVER_BY_CAR_ID_QUERY = "select id, first_name, last_name from drivers left join driver_car ab on drivers.id = ab.driver_id where car_id = ";
-    public DriverDaoImpl(JpaConfig jpaConfig) {
+    public DriverDaoImpl(CarDao carDao, JpaConfig jpaConfig) {
+        this.carDao = carDao;
         this.jpaConfig = jpaConfig;
     }
 
@@ -65,10 +69,17 @@ public class DriverDaoImpl implements DriverDao {
 
     @Override
     public void delete(Long id) {
-        try(PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_DRIVER_BY_ID_QUERY + id)) {
+        List<Long> carsId = carDao.findAllCarByDriverId(id);
+        for(Long carId : carsId){
+            carDao.delete(carId);
+        }
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_DRIVER_CAR_BY_DRIVER_ID_QUERY + id)) {
             preparedStatement.execute();
+            try (PreparedStatement prepared = jpaConfig.getConnection().prepareStatement(DELETE_DRIVER_BY_ID_QUERY + id)) {
+                prepared.execute();
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("problem: = " + e.getMessage());
         }
     }
 
