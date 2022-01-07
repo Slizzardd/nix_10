@@ -2,7 +2,7 @@ package ua.com.alevel.dao;
 
 import ua.com.alevel.List.MyList;
 import ua.com.alevel.db.CarDriverDb;
-import ua.com.alevel.entity.Driver;
+import ua.com.alevel.persistence.entity.Driver;
 
 public class DriverDao {
 

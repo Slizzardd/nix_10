@@ -1,6 +1,6 @@
 package ua.com.alevel.Service;
 
-import ua.com.alevel.entity.Driver;
+import ua.com.alevel.persistence.entity.Driver;
 
 public class DriverServiceTest {
 

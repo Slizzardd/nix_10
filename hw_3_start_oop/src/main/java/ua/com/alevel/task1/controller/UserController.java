@@ -1,6 +1,6 @@
 package ua.com.alevel.task1.controller;
 
-import ua.com.alevel.entity.User;
+import ua.com.alevel.persistence.entity.User;
 import ua.com.alevel.task1.service.UserService;
 
 import java.io.BufferedReader;

@@ -2,8 +2,8 @@ package ua.com.alevel.db;
 
 import ua.com.alevel.ReadFromCsv;
 import ua.com.alevel.WriteToCsv;
-import ua.com.alevel.entity.Author;
-import ua.com.alevel.entity.Book;
+import ua.com.alevel.persistence.entity.Author;
+import ua.com.alevel.persistence.entity.Book;
 
 import java.util.*;
 import java.util.stream.Collectors;

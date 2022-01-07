@@ -1,7 +1,7 @@
 package ua.com.alevel.task1.service;
 
 import ua.com.alevel.dao.UserDao;
-import ua.com.alevel.entity.User;
+import ua.com.alevel.persistence.entity.User;
 
 public class UserService {
     private final UserDao userDao = new UserDao();

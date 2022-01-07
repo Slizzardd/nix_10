@@ -6,8 +6,8 @@ import ua.com.alevel.dao.AuthorDao;
 import ua.com.alevel.dao.BookDao;
 import ua.com.alevel.dao.impl.AuthorDaoImpl;
 import ua.com.alevel.dao.impl.BookDaoImpl;
-import ua.com.alevel.entity.Author;
-import ua.com.alevel.entity.Book;
+import ua.com.alevel.persistence.entity.Author;
+import ua.com.alevel.persistence.entity.Book;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AuthorDaoTest {

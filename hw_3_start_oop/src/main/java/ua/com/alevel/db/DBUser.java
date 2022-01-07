@@ -1,6 +1,6 @@
 package ua.com.alevel.db;
 
-import ua.com.alevel.entity.User;
+import ua.com.alevel.persistence.entity.User;
 
 import java.util.Scanner;
 

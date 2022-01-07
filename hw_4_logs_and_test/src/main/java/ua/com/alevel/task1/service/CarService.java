@@ -3,7 +3,7 @@ package ua.com.alevel.task1.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.com.alevel.List.MyList;
-import ua.com.alevel.entity.Car;
+import ua.com.alevel.persistence.entity.Car;
 import ua.com.alevel.dao.CarDao;
 
 public class CarService {

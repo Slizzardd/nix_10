@@ -1,6 +1,6 @@
 package ua.com.alevel.dao;
 
-import ua.com.alevel.entity.User;
+import ua.com.alevel.persistence.entity.User;
 import ua.com.alevel.db.DBUser;
 
 public class UserDao {

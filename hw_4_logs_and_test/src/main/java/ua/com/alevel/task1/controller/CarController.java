@@ -1,7 +1,7 @@
 package ua.com.alevel.task1.controller;
 
 import ua.com.alevel.List.MyList;
-import ua.com.alevel.entity.Car;
+import ua.com.alevel.persistence.entity.Car;
 import ua.com.alevel.task1.service.CarService;
 
 import java.io.IOException;

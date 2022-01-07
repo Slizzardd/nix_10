@@ -1,8 +1,8 @@
 package ua.com.alevel.task1.controller;
 
 import ua.com.alevel.List.MyList;
-import ua.com.alevel.entity.Car;
-import ua.com.alevel.entity.Driver;
+import ua.com.alevel.persistence.entity.Car;
+import ua.com.alevel.persistence.entity.Driver;
 import ua.com.alevel.task1.service.CarService;
 import ua.com.alevel.task1.service.DriverService;
 

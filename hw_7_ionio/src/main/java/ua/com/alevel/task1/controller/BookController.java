@@ -2,9 +2,9 @@ package ua.com.alevel.task1.controller;
 
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
-import ua.com.alevel.entity.Author;
-import ua.com.alevel.entity.BaseEntity;
-import ua.com.alevel.entity.Book;
+import ua.com.alevel.persistence.entity.Author;
+import ua.com.alevel.persistence.entity.BaseEntity;
+import ua.com.alevel.persistence.entity.Book;
 import ua.com.alevel.task1.service.BookService;
 import ua.com.alevel.task1.service.impl.BookServiceImpl;
 
