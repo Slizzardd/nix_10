@@ -47,4 +47,8 @@ public class DriverRequestDto extends RequestDto {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
 }

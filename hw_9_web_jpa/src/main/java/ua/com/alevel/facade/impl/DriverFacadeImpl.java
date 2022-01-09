@@ -2,14 +2,17 @@ package ua.com.alevel.facade.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
+import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.facade.DriverFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.Car;
 import ua.com.alevel.persistence.entity.Driver;
 import ua.com.alevel.service.DriverService;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.util.WebResponseUtil;
 import ua.com.alevel.view.dto.request.DriverRequestDto;
+import ua.com.alevel.view.dto.request.RelationRequestDto;
 import ua.com.alevel.view.dto.response.DriverResponseDto;
 import ua.com.alevel.view.dto.response.PageData;
 
@@ -76,7 +79,21 @@ public class DriverFacadeImpl implements DriverFacade {
     }
 
     @Override
-    public Map<Long, String> findAllByCarId(Long carId) {
-        return driverService.finAllByCarId(carId);
+    public Map<Long, String> findCarsByDriverId(Long driverId) {
+        return driverService.findCarsByDriverId(driverId);
+    }
+
+    @Override
+    public List<Car> findAllCarsByDriverId(Long driverId) {
+        return driverService.findAllCarsByDriverId(driverId);
+    }
+
+    @Override
+    public void createRelation(RelationRequestDto dto) {
+        try {
+            driverService.createRelation(dto.getDriverId(), dto.getCarId());
+        } catch (NullPointerException e) {
+            throw new EntityNotFoundException("Driver not found!");
+        }
     }
 }

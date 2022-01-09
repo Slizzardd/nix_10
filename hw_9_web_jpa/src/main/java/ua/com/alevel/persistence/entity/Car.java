@@ -1,6 +1,5 @@
 package ua.com.alevel.persistence.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -26,28 +25,13 @@ public class Car extends BaseEntity {
     @Column(name = "car_number")
     private String carNumber;
 
-    @ManyToMany(mappedBy = "cars", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "cars")
     private Set<Driver> drivers;
+
 
     public Car() {
         super();
         drivers = new HashSet<>();
-    }
-
-    public Set<Driver> getDrivers() {
-        return drivers;
-    }
-
-    public void setDrivers(Set<Driver> drivers) {
-        this.drivers = drivers;
-    }
-
-    public String getCarNumber() {
-        return carNumber;
-    }
-
-    public void setCarNumber(String carNumber) {
-        this.carNumber = carNumber;
     }
 
     public String getCarName() {
@@ -80,5 +64,38 @@ public class Car extends BaseEntity {
 
     public void setYearsOfIssue(Integer yearsOfIssue) {
         this.yearsOfIssue = yearsOfIssue;
+    }
+
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
+    }
+
+    public Set<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(Set<Driver> drivers) {
+        this.drivers = drivers;
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Driver)) return false;
+        return getId() != null && getId().equals(((Car) o).getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Car{}";
     }
 }

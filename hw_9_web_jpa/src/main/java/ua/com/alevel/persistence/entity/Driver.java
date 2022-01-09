@@ -15,26 +15,27 @@ public class Driver extends BaseEntity {
     private String lastName;
 
     private String notes;
+
     private double balance;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "driver_car",
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "driver_car",
             joinColumns = @JoinColumn(name = "driver_id"),
-            inverseJoinColumns = @JoinColumn(name = "car_id"))
+            inverseJoinColumns = @JoinColumn(name = "car_id")
+    )
     private Set<Car> cars;
 
     public Driver() {
         super();
-        this.cars = new HashSet<>();
+        cars = new HashSet<>();
     }
 
-    public Set<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
+    public void addCar(Car car) {
+        this.cars.add(car);
+        car.getDrivers().add(this);
     }
 
     public String getFirstName() {
@@ -67,5 +68,30 @@ public class Driver extends BaseEntity {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public Set<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(Set<Car> cars) {
+        this.cars = cars;
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Driver)) return false;
+        return getId() != null && getId().equals(((Driver) o).getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Driver{}";
     }
 }

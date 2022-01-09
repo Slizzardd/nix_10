@@ -12,13 +12,11 @@ public interface BaseDao<ENTITY extends BaseEntity> {
 
     void delete(Long id);
 
-    void delete(ENTITY entity);
-
     boolean existById(Long id);
 
     ENTITY findById(Long id);
 
-    DataTableResponse<ENTITY> findAll(DataTableRequest request) throws Exception;
+    DataTableResponse<ENTITY> findAll(DataTableRequest request);
 
     long count();
 }

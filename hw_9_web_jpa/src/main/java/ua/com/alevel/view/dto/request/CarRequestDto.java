@@ -10,6 +10,13 @@ public class CarRequestDto extends RequestDto {
     private String carNumber;
     private Long driverId;
 
+    public CarRequestDto() {
+    }
+
+    public CarRequestDto(Long driverId) {
+        this.driverId = driverId;
+    }
+
     public Long getDriverId() {
         return driverId;
     }

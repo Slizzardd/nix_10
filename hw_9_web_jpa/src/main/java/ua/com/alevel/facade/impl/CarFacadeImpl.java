@@ -3,6 +3,7 @@ package ua.com.alevel.facade.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
+import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.facade.CarFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -36,7 +37,11 @@ public class CarFacadeImpl implements CarFacade {
         car.setYearsOfIssue(carRequestDto.getYearsOfIssue());
         car.setImageUrl(carRequestDto.getImageUrl());
         car.setCarNumber(carRequestDto.getCarNumber());
-        carService.create(car);
+        try {
+            carService.create(car, carRequestDto.getDriverId());
+        } catch (NullPointerException e) {
+            throw new EntityNotFoundException("Driver not found!");
+        }
     }
 
     @Override
@@ -79,7 +84,7 @@ public class CarFacadeImpl implements CarFacade {
     }
 
     @Override
-    public Map<Long, String> findByDriverId(Long id) {
-        return carService.findByDriverId(id);
+    public Map<Long, String> findDriversByCarId(Long carId) {
+        return carService.findDriversByCarId(carId);
     }
 }

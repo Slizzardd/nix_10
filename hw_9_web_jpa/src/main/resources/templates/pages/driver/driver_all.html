@@ -19,7 +19,7 @@
         <td th:text="${driver.getFirstName()}"></td>
         <td th:text="${driver.getLastName()}"></td>
         <td>
-            <a th:href="@{'/cars?driverId=' + ${driver.getId()}}" th:text="${driver.getCarCount()}" type="button" class="btn btn-link">details</a>
+            <a th:href="@{'/cars/carsByDriverId?driverId=' + ${driver.getId()}}" th:text="${driver.getCarCount()}" type="button" class="btn btn-link">details</a>
         </td>
         <td th:text="${driver.getBalance()}"></td>
         <td>

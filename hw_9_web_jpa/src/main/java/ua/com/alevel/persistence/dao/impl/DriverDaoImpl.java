@@ -1,6 +1,7 @@
 package ua.com.alevel.persistence.dao.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.dao.DriverDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -13,11 +14,9 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -44,11 +43,6 @@ public class DriverDaoImpl implements DriverDao {
     }
 
     @Override
-    public void delete(Driver driver) {
-        entityManager.refresh(driver);
-    }
-
-    @Override
     public boolean existById(Long id) {
         Query query = entityManager.createQuery("select count(d.id) from Driver d where d.id = :id")
                 .setParameter("id", id);
@@ -61,7 +55,7 @@ public class DriverDaoImpl implements DriverDao {
     }
 
     @Override
-    public DataTableResponse<Driver> findAll(DataTableRequest request) throws Exception {
+    public DataTableResponse<Driver> findAll(DataTableRequest request) {
         List<Driver> drivers;
         Map<Object, Object> otherParamMap = new HashMap<>();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -70,7 +64,7 @@ public class DriverDaoImpl implements DriverDao {
         int page = (request.getCurrentPage() - 1) * request.getPageSize();
         int size = page + request.getPageSize();
 
-        if(request.getSort().equals("carCount")){
+        if (request.getSort().equals("carCount")) {
             Query query;
             if (request.getOrder().equals("desc")) {
                 query = entityManager.createQuery("select d from Driver d where d.visible = true order by d.cars.size desc")
@@ -82,15 +76,27 @@ public class DriverDaoImpl implements DriverDao {
                         .setMaxResults(size);
             }
             drivers = query.getResultList();
-        }else {
-            try{
+        } else if (request.getSort().equals("first_name") || request.getSort().equals("last_name")) {
+            Query query;
+            if (request.getOrder().equals("desc")) {
+                query = entityManager.createQuery("select d from Driver d where d.visible = true order by " + request.getSort() + " desc")
+                        .setFirstResult(page)
+                        .setMaxResults(size);
+            } else {
+                query = entityManager.createQuery("select d from Driver d where d.visible = true order by " + request.getSort() + " asc")
+                        .setFirstResult(page)
+                        .setMaxResults(size);
+            }
+            drivers = query.getResultList();
+        } else {
+            try {
                 if (request.getOrder().equals("desc")) {
                     criteriaQuery.orderBy(criteriaBuilder.desc(from.get(request.getSort())));
                 } else {
                     criteriaQuery.orderBy(criteriaBuilder.asc(from.get(request.getSort())));
                 }
-            }catch (Exception e){
-                e.printStackTrace();;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
             drivers = entityManager.createQuery(criteriaQuery)
@@ -99,8 +105,8 @@ public class DriverDaoImpl implements DriverDao {
                     .getResultList();
         }
 
-        for (int i = 0; i < drivers.size(); i++) {
-            otherParamMap.put(drivers.get(i).getId(), countNumOfCars(drivers.get(i).getId()));
+        for (Driver driver : drivers) {
+            otherParamMap.put(driver.getId(), countNumOfCars(driver.getId()));
         }
         DataTableResponse<Driver> response = new DataTableResponse<>();
 
@@ -125,12 +131,24 @@ public class DriverDaoImpl implements DriverDao {
     }
 
     @Override
-    public Map<Long, String> findAllByCarId(Long carId) {
-        Map<Long, String> map = new HashMap<>();
-        Set<Car> cars = findById(carId).getCars();
-        for (Car car : cars) {
-            map.put(car.getId(), car.getCarName());
+    public Map<Long, String> findCarsByDriverId(Long driverId) {
+        List<Car> carsList = findById(driverId).getCars().stream().toList();
+        Map<Long, String> cars = new HashMap<>();
+        for (Car car : carsList) {
+            cars.put(car.getId(), car.getCarName() + " " + car.getCarNumber());
         }
-        return map;
+        return cars;
+    }
+
+    @Override
+    public List<Car> findAllCarsByDriverId(Long driverId) {
+        return findById(driverId).getCars().stream().toList();
+    }
+
+    @Override
+    public void createRelation(Long driverId, Car car) throws NullPointerException {
+        Driver driver = findById(driverId);
+        driver.addCar(car);
+        update(driver);
     }
 }

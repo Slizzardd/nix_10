@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface CarFacade extends BaseFacade<CarRequestDto, CarResponseDto> {
 
-    Map<Long, String> findByDriverId(Long id);
+    Map<Long, String> findDriversByCarId(Long carId);
 }

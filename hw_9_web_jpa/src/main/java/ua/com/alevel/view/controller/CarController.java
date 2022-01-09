@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CarFacade;
 import ua.com.alevel.facade.DriverFacade;
 import ua.com.alevel.view.dto.request.CarRequestDto;
+import ua.com.alevel.view.dto.request.RelationRequestDto;
 import ua.com.alevel.view.dto.response.CarResponseDto;
 import ua.com.alevel.view.dto.response.PageData;
 
@@ -20,9 +21,9 @@ public class CarController extends BaseController {
     private final DriverFacade driverFacade;
     private Long idToUpdate = 0L;
 
-    private final HeaderName[] columnNames = new HeaderName[] {
+    private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
-            new HeaderName("image", "image", null),
+            new HeaderName("image", null, null),
             new HeaderName("car name", "carName", "cars_name"),
             new HeaderName("car number", "carNumber", "car_number"),
             new HeaderName("color", "color", "color"),
@@ -53,9 +54,10 @@ public class CarController extends BaseController {
         return findAllRedirect(request, model, "cars");
     }
 
-    @GetMapping("/new/{driverId}")
-    public String redirectToNewCarPage(Model model, WebRequest request, @PathVariable Long driverId) {
-        model.addAttribute("car", new CarRequestDto());
+
+    @GetMapping("/new")
+    public String redirectToNewCarPage(Model model, WebRequest request, @RequestParam Long driverId) {
+        model.addAttribute("car", new CarRequestDto(driverId));
         model.addAttribute("driverId", driverId);
         return "pages/car/car_new";
     }
@@ -69,18 +71,37 @@ public class CarController extends BaseController {
     @GetMapping("/details/{id}")
     public String findById(@PathVariable Long id, Model model) {
         model.addAttribute("car", carFacade.findById(id));
-        model.addAttribute("drivers", driverFacade.findAllByCarId(id));
+        model.addAttribute("drivers", carFacade.findDriversByCarId(id));
         return "pages/car/car_details";
     }
 
+    @GetMapping("/createRelation/{carId}")
+    public String redirectToCreateRelationByCar(@PathVariable Long carId, Model model) {
+        model.addAttribute("relation", new RelationRequestDto(0L, carId));
+        return "pages/relation/relation_by_car";
+    }
+
+    @PostMapping("/createRelation")
+    public String createRelation(@ModelAttribute("relation") RelationRequestDto dto) {
+        driverFacade.createRelation(dto);
+        return "redirect:/cars";
+    }
+
+    @GetMapping("/carsByDriverId")
+    public String findAllCarsByDriverId(@RequestParam Long driverId, Model model) {
+        model.addAttribute("cars", driverFacade.findAllCarsByDriverId(driverId));
+        model.addAttribute("driver", driverFacade.findById(driverId));
+        return "pages/car/car_by_driver";
+    }
+
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id) {
         carFacade.delete(id);
         return "redirect:/cars";
     }
 
     @GetMapping("/update/{id}")
-    public String update(@ModelAttribute("car") CarRequestDto dto, @PathVariable Long id){
+    public String update(@ModelAttribute("car") CarRequestDto dto, @PathVariable Long id) {
         idToUpdate = id;
         return "pages/car/car_update";
     }

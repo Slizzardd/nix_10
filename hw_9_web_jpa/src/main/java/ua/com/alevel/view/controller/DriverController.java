@@ -14,14 +14,14 @@ import ua.com.alevel.view.dto.response.PageData;
 
 @Controller
 @RequestMapping("/drivers")
-public class DriverController extends BaseController{
+public class DriverController extends BaseController {
 
     private final CarFacade carFacade;
     private Long idToUpdate = 0L;
     private final DriverFacade driverFacade;
-    private final HeaderName[] columnNames = new HeaderName[] {
+    private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
-            new HeaderName("image", "image", null),
+            new HeaderName("image", null, null),
             new HeaderName("first name", "first_Name", "first_name"),
             new HeaderName("last name", "last_Name", "last_name"),
             new HeaderName("car count", "car_Count", "carCount"),
@@ -37,7 +37,7 @@ public class DriverController extends BaseController{
     }
 
     @GetMapping
-    public String findAll(Model model, WebRequest request){
+    public String findAll(Model model, WebRequest request) {
         PageData<DriverResponseDto> response = driverFacade.findAll(request);
         initDataTable(response, columnNames, model);
         model.addAttribute("createUrl", "/drivers/all");
@@ -64,7 +64,7 @@ public class DriverController extends BaseController{
     }
 
     @GetMapping("/update/{id}")
-    public String update(@ModelAttribute("driver") DriverRequestDto dto, @PathVariable Long id){
+    public String update(@ModelAttribute("driver") DriverRequestDto dto, @PathVariable Long id) {
         idToUpdate = id;
         return "pages/driver/driver_update";
     }
@@ -76,15 +76,15 @@ public class DriverController extends BaseController{
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id) {
         driverFacade.delete(id);
         return "redirect:/drivers";
     }
 
     @GetMapping("/details/{id}")
-    public String redirectToNewDriverPage(@PathVariable Long id, Model model) {
+    public String findById(@PathVariable Long id, Model model) {
         model.addAttribute("driver", driverFacade.findById(id));
-        model.addAttribute("cars", carFacade.findByDriverId(id));
+        model.addAttribute("cars", driverFacade.findCarsByDriverId(id));
         return "pages/driver/driver_details";
     }
 }

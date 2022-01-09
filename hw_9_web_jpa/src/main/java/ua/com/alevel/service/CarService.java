@@ -6,5 +6,7 @@ import java.util.Map;
 
 public interface CarService extends BaseService<Car> {
 
-    Map<Long, String> findByDriverId(Long id);
+    void create(Car entity, Long driverId);
+
+    Map<Long, String> findDriversByCarId(Long carId);
 }

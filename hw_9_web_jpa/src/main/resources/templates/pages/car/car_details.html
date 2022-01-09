@@ -67,6 +67,9 @@
                             </td>
                         </tr>
                         <td>
+                            <a th:href="@{'/cars/createRelation/' + ${car.getId()}}" type="button" class="btn btn-primary">add driver</a>
+                        </td>
+                        <td>
                             <a th:href="@{'/cars/update/' + ${car.getId()}}" type="button" class="btn btn-primary">update</a>
                         </td>
                         <td>
