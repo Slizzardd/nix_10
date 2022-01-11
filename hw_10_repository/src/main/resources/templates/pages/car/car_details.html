@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Car details</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    Car details
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Photo</th>
+                            <img th:src="@{${car.getImageUrl()}}"/>
+                        </tr>
+                        <tr>
+                            <th>Id</th>
+                            <td th:text="${car.getId()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Car Name</th>
+                            <td th:text="${car.getCarName()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Car Number</th>
+                            <td th:text="${car.getCarNumber()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Color</th>
+                            <td th:text="${car.getColor()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Years Of Issue</th>
+                            <td th:text="${car.getYearsOfIssue()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Engine Of Capacity</th>
+                            <td th:text="${car.getEngineCapacity()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td th:text="${#calendars.format(car.getCreated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td th:text="${#calendars.format(car.getUpdated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>All Drivers</th>
+                            <td>
+                                <ul th:each="driver : ${drivers}">
+                                    <li>
+                                        <!--                                        <a role="button" class="btn btn-link disabled" th:href="@{'/cars/details/' + ${car.getKey()}}" th:text="${car.getValue()}">details</a>-->
+                                        <a role="button" class="btn btn-link" th:href="@{'/drivers/details/' + ${driver.getKey()}}" th:text="${driver.getValue()}">details</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <td>
+                            <a th:href="@{'/cars/createRelation/' + ${car.getId()}}" type="button" class="btn btn-primary">add driver</a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/cars/update/' + ${car.getId()}}" type="button" class="btn btn-primary">update</a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/cars/delete/' + ${car.getId()}}" type="button" class="btn btn-danger">delete</a>
+                        </td>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

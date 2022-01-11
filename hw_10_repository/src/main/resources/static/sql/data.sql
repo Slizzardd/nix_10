@@ -56,22 +56,22 @@ values (14, CURRENT_TIMESTAMP(), 'https://dze0oudb6zz9z.cloudfront.net/insecure/
         '');
 
 insert into car
-    value (1, CURRENT_TIMESTAMP(), 'https://autoradar.top/wp-content/uploads/2020/03/new-hyundai-elantra-2021.jpg',
+    values (1, CURRENT_TIMESTAMP(), 'https://autoradar.top/wp-content/uploads/2020/03/new-hyundai-elantra-2021.jpg',
            CURRENT_TIMESTAMP(), true, 'Hyinday Elantra', 'AA1111AA', 'Red', 1.6, 2021);
 insert into car
-    value (2, CURRENT_TIMESTAMP(), 'https://autonews.autoua.net/media/uploads/toyota/2021-toyota-camry-xse-hybrid.jpg',
+    values (2, CURRENT_TIMESTAMP(), 'https://autonews.autoua.net/media/uploads/toyota/2021-toyota-camry-xse-hybrid.jpg',
            CURRENT_TIMESTAMP(), true, 'Toyota Camry', 'AA2222AA', 'Black', 2.5, 2011);
 insert into car
-    value (3, CURRENT_TIMESTAMP(), 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Porsche_Cayenne_S_%2892A%29_%E2%80%93_Frontansicht%2C_10._Oktober_2011%2C_W%C3%BClfrath.jpg/305px-Porsche_Cayenne_S_%2892A%29_%E2%80%93_Frontansicht%2C_10._Oktober_2011%2C_W%C3%BClfrath.jpg',
+    values (3, CURRENT_TIMESTAMP(), 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Porsche_Cayenne_S_%2892A%29_%E2%80%93_Frontansicht%2C_10._Oktober_2011%2C_W%C3%BClfrath.jpg/305px-Porsche_Cayenne_S_%2892A%29_%E2%80%93_Frontansicht%2C_10._Oktober_2011%2C_W%C3%BClfrath.jpg',
            CURRENT_TIMESTAMP(), true, 'Porsche Cayenne', 'AA3333AA', 'Black', 1.5, 2020);
 insert into car
-    value (4, CURRENT_TIMESTAMP(), 'https://s.auto.drom.ru/i24229/pubs/4/66507/2956995.jpg',
+    values (4, CURRENT_TIMESTAMP(), 'https://s.auto.drom.ru/i24229/pubs/4/66507/2956995.jpg',
            CURRENT_TIMESTAMP(), true, 'Kia Ceed', 'KA9180ET', 'Black', 1.6, 2019);
 insert into car
-    value (5, CURRENT_TIMESTAMP(), 'https://cdn.euroncap.com/media/42972/volvo_v60_359_235.jpg?mode=crop&width=359&height=235',
+    values (5, CURRENT_TIMESTAMP(), 'https://cdn.euroncap.com/media/42972/volvo_v60_359_235.jpg?mode=crop&width=359&height=235',
         CURRENT_TIMESTAMP(), true, 'Volvo S60', 'AA6666AA', 'Black', 4.5, 1999);
 insert into car
-    value (6, CURRENT_TIMESTAMP(), 'https://upload.wikimedia.org/wikipedia/commons/1/1f/2019_Porsche_Cayenne_V8_Turbo_Tiptronic_4.0_Front.jpg',
+    values (6, CURRENT_TIMESTAMP(), 'https://upload.wikimedia.org/wikipedia/commons/1/1f/2019_Porsche_Cayenne_V8_Turbo_Tiptronic_4.0_Front.jpg',
            CURRENT_TIMESTAMP(), true, 'Porsche Cayenne', 'AA5555AA', 'Black', 1.1, 2018);
 
 

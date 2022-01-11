@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Employees</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    <a role="button" class="btn btn-link" th:href="@{'/drivers/details/' + ${driver.getId()}}" th:text="${driver.getFirstName()}">details</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>car name</th>
+                            <th>car number</th>
+                            <th>color</th>
+                            <th>years of issue</th>
+                            <th>engine capacity</th>
+                            <th>details</th>
+                            <th>update</th>
+                            <th>delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="car,iter : ${cars}">
+                            <td th:text="${iter.count}"></td>
+                            <td th:text="${car.getCarName()}"></td>
+                            <td th:text="${car.getCarNumber()}"></td>
+                            <td th:text="${car.getColor()}"></td>
+                            <td th:text="${car.getYearsOfIssue()}"></td>
+                            <td th:text="${car.getEngineCapacity()}"></td>
+                            <td>
+                                <a th:href="@{'/cars/details/' + ${car.getId()}}" type="button" class="btn btn-primary">details</a>
+                            </td>
+                            <td>
+                                <a th:href="@{'/cars/update/' + ${car.getId()}}" type="button" class="btn btn-primary">update</a>
+                            </td>
+                            <td>
+                                <a th:href="@{'/cars/delete/' + ${car.getId()}}" type="button" class="btn btn-danger">delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

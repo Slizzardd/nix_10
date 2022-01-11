@@ -1,4 +1,3 @@
-
 insert into drivers
 values (1, CURRENT_TIMESTAMP(), 'https://www.psi.ch/sites/default/files/styles/psi_content_half_sm/public/2020-02/bauer_christian_0005.jpg?itok=M83eoQ7p', CURRENT_TIMESTAMP(), true, 100, 'Christian', 'Bauer',
         'НЕАДЕВКАТ!!! Заказы лучше не давать');
