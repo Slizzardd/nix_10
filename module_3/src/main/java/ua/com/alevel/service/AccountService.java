@@ -1,8 +1,7 @@
-package ua.com.alevel.persistence.dao;
+package ua.com.alevel.service;
 
 import ua.com.alevel.persistence.entity.Account;
 
-public interface AccountDao extends BaseDao<Account> {
-
+public interface AccountService extends BaseService<Account> {
     void create(Account entity, String temporalField);
 }

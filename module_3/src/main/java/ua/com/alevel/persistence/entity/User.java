@@ -1,9 +1,6 @@
 package ua.com.alevel.persistence.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,12 +18,21 @@ public class User extends BaseEntity {
 
     private String email;
 
+    private String phoneNumber;
 
     @Column(name = "passport_details")
     private String passport_details;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.REMOVE}, mappedBy = "user")
     private Set<Account> accounts;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public String getFirstName() {
         return firstName;

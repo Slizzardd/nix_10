@@ -12,7 +12,7 @@ public class Transaction extends BaseEntity {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 

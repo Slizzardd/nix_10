@@ -30,15 +30,15 @@ public class AccountDaoImpl implements AccountDao {
     private EntityManager entityManager;
 
     @Override
-    public void create(Account account, String passportDetails, Double balance) {
+    public void create(Account account, String passportDetails) {
         account.setCardNumber(GenerateCardNumber.createCardNumber());
-        Query query = entityManager.createQuery("select u from User u where u.email = :passportDetails")
+        Query query = entityManager.createQuery("select u from User u where u.passport_details = :passportDetails")
                 .setParameter("passportDetails", passportDetails);
         User user = (User) query.getSingleResult();
-        account.setBalance(getCreditBalanceByHistoryUsers(user, account));
-        entityManager.persist(account);
         user.addAccount(account);
         entityManager.merge(user);
+        account.setBalance(getCreditBalanceByHistoryUsers(user, account));
+        entityManager.persist(account);
     }
 
     @Override
@@ -48,9 +48,7 @@ public class AccountDaoImpl implements AccountDao {
 
     @Override
     public void delete(Long id) {
-        entityManager.createQuery("delete from Account a where a.id = :id")
-                .setParameter("id", id)
-                .executeUpdate();
+        entityManager.remove(findById(id));
     }
 
     @Override
