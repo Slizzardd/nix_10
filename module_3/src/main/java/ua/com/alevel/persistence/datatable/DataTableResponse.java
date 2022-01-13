@@ -22,6 +22,7 @@ public class DataTableResponse<ENTITY extends BaseEntity> {
         itemsSize = 0;
     }
 
+
     public List<ENTITY> getItems() {
         return items;
     }

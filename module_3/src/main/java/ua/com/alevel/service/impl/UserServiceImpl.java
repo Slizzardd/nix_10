@@ -4,9 +4,13 @@ import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.dao.UserDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.Account;
 import ua.com.alevel.persistence.entity.User;
 import ua.com.alevel.service.UserService;
 import ua.com.alevel.util.WebResponseUtil;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,6 +34,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         userDao.delete(id);
+    }
+
+    @Override
+    public Map<Long, String> findAccountsByUserId(Long id) {
+        return userDao.findAccountsByUserId(id);
+    }
+
+    @Override
+    public List<Account> findAllAccountsByUserId(Long userId) {
+        return userDao.findAllAccountsByUserId(userId);
     }
 
     @Override

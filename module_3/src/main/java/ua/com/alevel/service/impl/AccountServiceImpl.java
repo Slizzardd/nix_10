@@ -8,6 +8,8 @@ import ua.com.alevel.persistence.entity.Account;
 import ua.com.alevel.service.AccountService;
 import ua.com.alevel.util.WebResponseUtil;
 
+import java.util.Map;
+
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -18,8 +20,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void create(Account account, String passportDetails) {
-        accountDao.create(account, passportDetails);
+    public void create(Account account, Long userId) {
+        accountDao.create(account, userId);
     }
 
     @Override
@@ -30,6 +32,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void delete(Long id) {
         accountDao.delete(id);
+    }
+
+    @Override
+    public Map<Long, String> findUserByAccountId(Long accountId) {
+        return accountDao.findUserByAccountId(accountId);
     }
 
     @Override

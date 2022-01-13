@@ -43,15 +43,6 @@ public class TransactionDaoImpl implements TransactionDao {
         entityManager.merge(account);
     }
 
-    @Override
-    public void update(Transaction entity) {
-        //It makes no sense
-    }
-
-    @Override
-    public void delete(Long id) {
-        //It could be arranged if I rolled back transactions, but it took too long
-    }
 
     @Override
     public boolean existById(Long id) {

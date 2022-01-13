@@ -29,15 +29,6 @@ public class CategoryDaoImpl implements CategoryDao {
         entityManager.persist(category);
     }
 
-    @Override
-    public void update(Category entity) {
-        //It makes no sense
-    }
-
-    @Override
-    public void delete(Long id) {
-        //It makes no sense
-    }
 
     @Override
     public boolean existById(Long id) {

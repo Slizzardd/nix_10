@@ -23,16 +23,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void update(Category entity) {
-
-    }
-
-    @Override
-    public void delete(Long id) {
-
-    }
-
-    @Override
     public boolean existById(Long id) {
         return categoryDao.existById(id);
     }

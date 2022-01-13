@@ -20,10 +20,12 @@ public class User extends BaseEntity {
 
     private String phoneNumber;
 
-    @Column(name = "passport_details")
-    private String passport_details;
+    @Column(name = "passportDetails")
+    private String passportDetails;
 
-    @OneToMany(cascade = {CascadeType.REMOVE}, mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {
+            CascadeType.REMOVE
+    })
     private Set<Account> accounts;
 
     public String getPhoneNumber() {
@@ -83,12 +85,12 @@ public class User extends BaseEntity {
         this.accounts = accounts;
     }
 
-    public String getPassport_details() {
-        return passport_details;
+    public String getPassportDetails() {
+        return passportDetails;
     }
 
-    public void setPassport_details(String passport_details) {
-        this.passport_details = passport_details;
+    public void setPassportDetails(String passportDetails) {
+        this.passportDetails = passportDetails;
     }
 
     public User() {

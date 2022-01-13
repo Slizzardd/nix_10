@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>New Driver</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>New Driver</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/users/create}" th:object="${user}" method="post">
+                        <div class="form-group">
+                            <label for="firstName">First name</label>
+                            <input type="text" class="form-control" id="firstName" aria-describedby="firstName" placeholder="Enter firstName" th:field="*{firstName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last name</label>
+                            <input type="text" class="form-control" id="lastName" aria-describedby="lastName" placeholder="Enter lastName" th:field="*{lastName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="text" class="form-control" id="age" aria-describedby="age" placeholder="Enter age" th:field="*{age}">
+                        </div>
+                        <div class="form-group">
+                            <label for="passport_INN">Passport INN</label>
+                            <input type="text" class="form-control" id="passport_INN" aria-describedby="passport_INN" placeholder="Enter passport_INN" th:field="*{passport_INN}">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="email" aria-describedby="email" placeholder="Enter email" th:field="*{email}">
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone number</label>
+                            <input type="text" class="form-control" id="phoneNumber" aria-describedby="phoneNumber" placeholder="Enter phoneNumber" th:field="*{phoneNumber}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

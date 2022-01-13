@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.dao.UserDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.Account;
 import ua.com.alevel.persistence.entity.User;
 
 import javax.persistence.EntityManager;
@@ -37,6 +38,21 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void delete(Long id) {
         entityManager.remove(findById(id));
+    }
+
+    @Override
+    public Map<Long, String> findAccountsByUserId(Long id) {
+        List<Account> accountList = findById(id).getAccounts().stream().toList();
+        Map<Long, String> accountsMap = new HashMap<>();
+        for(Account account : accountList){
+            accountsMap.put(account.getId(), account.getCardNumber());
+        }
+        return accountsMap;
+    }
+
+    @Override
+    public List<Account> findAllAccountsByUserId(Long userId) {
+        return findById(userId).getAccounts().stream().toList();
     }
 
     @Override
@@ -124,6 +140,7 @@ public class UserDaoImpl implements UserDao {
         Query query = entityManager.createQuery("select count(u) as count from User as u");
         return (long) query.getSingleResult();
     }
+
 
     private int countNumOfAccounts(Long id) {
         return findById(id).getAccounts().size();

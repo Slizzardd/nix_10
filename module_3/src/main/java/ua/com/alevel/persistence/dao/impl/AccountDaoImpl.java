@@ -30,15 +30,23 @@ public class AccountDaoImpl implements AccountDao {
     private EntityManager entityManager;
 
     @Override
-    public void create(Account account, String passportDetails) {
+    public void create(Account account, Long id) {
         account.setCardNumber(GenerateCardNumber.createCardNumber());
-        Query query = entityManager.createQuery("select u from User u where u.passport_details = :passportDetails")
-                .setParameter("passportDetails", passportDetails);
+        Query query = entityManager.createQuery("select u from User u where u.id = :id")
+                .setParameter("id", id);
         User user = (User) query.getSingleResult();
         user.addAccount(account);
         entityManager.merge(user);
         account.setBalance(getCreditBalanceByHistoryUsers(user, account));
         entityManager.persist(account);
+    }
+
+    @Override
+    public Map<Long, String> findUserByAccountId(Long accountId) {
+        User user = findById(accountId).getUser();
+        Map<Long, String> map = new HashMap<>();
+        map.put(user.getId(), user.getFirstName() + " " + user.getLastName());
+        return map;
     }
 
     @Override
@@ -118,7 +126,6 @@ public class AccountDaoImpl implements AccountDao {
     private Object countNumOfTransaction(Long id) {
         return findById(id).getTransactions().size();
     }
-
 
     @Override
     public long count() {

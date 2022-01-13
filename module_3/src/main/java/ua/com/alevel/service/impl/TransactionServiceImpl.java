@@ -23,16 +23,6 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void update(Transaction entity) {
-
-    }
-
-    @Override
-    public void delete(Long id) {
-
-    }
-
-    @Override
     public boolean existById(Long id) {
         return transactionDao.existById(id);
     }

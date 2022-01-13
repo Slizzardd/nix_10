@@ -18,11 +18,13 @@ public class Account extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private CardType cardType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = {
+            CascadeType.REMOVE
+    })
     private Set<Transaction> transactions;
 
     public Set<Transaction> getTransactions() {
