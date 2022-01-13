@@ -10,9 +10,10 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
         DataSourceAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class,
         HibernateJpaAutoConfiguration.class})
-public class WebJpaApplication {
+public class ModuleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WebJpaApplication.class, args);
+        SpringApplication.run(ModuleApplication.class, args);
     }
+
 }

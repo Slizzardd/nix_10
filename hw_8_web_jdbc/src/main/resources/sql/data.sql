@@ -1,4 +1,3 @@
-use taxi_bd;
 
 insert into drivers
 values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Christian', 'Bauer', 100,
