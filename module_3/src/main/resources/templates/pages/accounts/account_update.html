@@ -5,7 +5,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="utf-8">
-    <title>New Account</title>
+    <title>Update Account</title>
 </head>
 <body>
 
@@ -15,10 +15,10 @@
         <div class="col-12">
             <div class="card mt-2">
                 <div class="card-header">
-                    <h4>New Account</h4>
+                    <h4>Update User</h4>
                 </div>
                 <div class="card-body">
-                    <form action="#" th:action="@{/accounts/create}" th:object="${account}"  method="post">
+                    <form action="#" th:action="@{/accounts/update}" th:object="${account}" method="post">
                         <div class="form-group">
                             <label for="type">Card Type</label>
                             <select class="form-control" id="type" th:field="*{cardType}">
@@ -27,10 +27,6 @@
                                         th:text="${type}">
                                 </option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="userId">userId</label>
-                            <input type="text" class="form-control" id="userId" aria-describedby="userId" placeholder="Enter userId" th:field="*{userId}" readonly>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

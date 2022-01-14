@@ -6,6 +6,7 @@ import ua.com.alevel.facade.AccountFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Account;
+import ua.com.alevel.persistence.entity.Transaction;
 import ua.com.alevel.service.AccountService;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.util.WebResponseUtil;
@@ -48,6 +49,16 @@ public class AccountFacadeImpl implements AccountFacade {
     @Override
     public Map<Long, String> findUserByAccountId(Long accountId) {
         return accountService.findUserByAccountId(accountId);
+    }
+
+    @Override
+    public List<Transaction> findAllTransactionByAccountId(Long accountId) {
+        return accountService.findAllTransactionByAccountId(accountId);
+    }
+
+    @Override
+    public void cardStatement(Long accountId) {
+        accountService.cardStatement(accountId);
     }
 
     @Override

@@ -1,11 +1,13 @@
 package ua.com.alevel.persistence.dao.impl;
 
+import au.com.bytecode.opencsv.CSVWriter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.dao.AccountDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Account;
+import ua.com.alevel.persistence.entity.Transaction;
 import ua.com.alevel.persistence.entity.User;
 import ua.com.alevel.util.GenerateCardNumber;
 
@@ -15,7 +17,10 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,8 +54,51 @@ public class AccountDaoImpl implements AccountDao {
         return map;
     }
 
+
+    @Override
+    public List<Transaction> findAllTransactionByAccountId(Long accountId) {
+        return findById(accountId).getTransactions().stream().toList();
+    }
+
+    @Override
+    public void cardStatement(Long accountId) {
+        Account account = findById(accountId);
+        List<Transaction> transactionList = account.getTransactions().stream().toList();
+        List<String[]> writeList = new ArrayList<>();
+        String[] accountHeader = {"Card Number", "Balance", "Card Type"};
+        String[] accountData = {account.getCardNumber(), account.getBalance().toString()
+                ,account.getCardType().toString()};
+        String[] transactionHeader = {"Transaction id", "Amount", "Appointment", "Date"};
+        writeList.add(accountHeader);
+        writeList.add(accountData);
+        writeList.add(transactionHeader);
+        File f = new File("module_3/src/main/resources/files/data.csv");
+        if(!f.exists()){
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try(CSVWriter csvWriter = new CSVWriter(new FileWriter(f))){
+            for (Transaction transaction : transactionList) {
+                String[] transactionWrite = {
+                        transaction.getId().toString(),
+                        transaction.getAmount().toString(),
+                        transaction.getCategory().getName(),
+                        String.valueOf(transaction.getCreated())
+                };
+                writeList.add(transactionWrite);
+            }
+            csvWriter.writeAll(writeList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void update(Account account) {
+        account.setBalance(getCreditBalanceByHistoryUsers(account.getUser(), account));
         entityManager.merge(account);
     }
 

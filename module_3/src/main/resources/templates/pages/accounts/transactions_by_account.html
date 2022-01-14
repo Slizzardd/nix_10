@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Accounts</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    <a role="button" class="btn btn-link" th:href="@{'/accounts/details/' + ${account.getId()}}" th:text="${account.getCardNumber()}">details</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>amount</th>
+                            <th>income</th>
+                            <th>appointment</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="transaction,iter : ${transactions}">
+                            <td th:text="${iter.count}"></td>
+                            <td th:text="${transaction.amount}"></td>
+                            <td th:text="${transaction.getCategory().getIncome()}"></td>
+                            <td>
+                            <a role="button" class="btn btn-link" th:href="@{'/transactions/details/' + ${transaction.getId()}}" th:text="${transaction.getCategory().getName()}">details</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

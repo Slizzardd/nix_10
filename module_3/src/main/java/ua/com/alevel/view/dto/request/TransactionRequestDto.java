@@ -6,6 +6,15 @@ public class TransactionRequestDto extends RequestDto{
 
     private String categoryName;
 
+    private String cardNumber;
+
+    public TransactionRequestDto() {
+    }
+
+    public TransactionRequestDto(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
     public Double getAmount() {
         return amount;
     }
@@ -20,5 +29,13 @@ public class TransactionRequestDto extends RequestDto{
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 }

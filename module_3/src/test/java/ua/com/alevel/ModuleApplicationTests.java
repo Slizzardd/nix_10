@@ -8,6 +8,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.alevel.persistence.dao.AccountDao;
 import ua.com.alevel.persistence.dao.CategoryDao;
@@ -67,7 +68,7 @@ public class ModuleApplicationTests {
             user.setPassportDetails("000000000" + i);
             userService.create(user);
         }
-        Assertions.assertEquals(10, userDao.count());
+        Assertions.assertEquals(14, userDao.count());
     }
 
     @Test
@@ -83,8 +84,8 @@ public class ModuleApplicationTests {
                 userService.update(user);
             }
         }
-        Assertions.assertEquals(10, userDao.count());
-        Assertions.assertEquals(10, accountDao.count());
+        Assertions.assertEquals(14, userDao.count());
+        Assertions.assertEquals(14, accountDao.count());
     }
 
     @Test
@@ -99,8 +100,8 @@ public class ModuleApplicationTests {
             user.setPassportDetails("000000000" + i);
             userService.update(user);
         }
-        Assertions.assertEquals(10, userDao.count());
-        Assertions.assertEquals(10, accountDao.count());
+        Assertions.assertEquals(14, userDao.count());
+        Assertions.assertEquals(14, accountDao.count());
     }
 
     @Test
@@ -112,8 +113,8 @@ public class ModuleApplicationTests {
             account.setBalance(getCreditBalanceByHistoryUsers(account.getUser(), account));
             accountService.update(account);
         }
-        Assertions.assertEquals(10, userDao.count());
-        Assertions.assertEquals(10, accountDao.count());
+        Assertions.assertEquals(14, userDao.count());
+        Assertions.assertEquals(14, accountDao.count());
     }
 
     @Test
@@ -129,22 +130,22 @@ public class ModuleApplicationTests {
         Assertions.assertEquals(199.0, accountService.findById(3L).getBalance());
     }
 
-//    @Test
-//    public void fDeleteAccount() {
-//        for (int i = 1; i <= 5; i++) {
-//            accountService.delete((long) i);
-//        }
-//        Assertions.assertEquals(10, userDao.count());
-//        Assertions.assertEquals(5, accountDao.count());
-//    }
-//
-//    @Test
-////    @Sql(value = "/delete_date_table.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-//    public void gDeleteUsers() {
-//        for (int i = 1; i <= 10; i++) {
-//            userService.delete((long) i);
-//        }
-//        Assertions.assertEquals(0, userDao.count());
-//        Assertions.assertEquals(0, accountDao.count());
-//    }
+    @Test
+    public void fDeleteAccount() {
+        for (int i = 1; i <= 9; i++) {
+            accountService.delete((long) i);
+        }
+        Assertions.assertEquals(14, userDao.count());
+        Assertions.assertEquals(5, accountDao.count());
+    }
+
+    @Test
+    @Sql(value = "/delete_date_table.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    public void gDeleteUsers() {
+        for (int i = 1; i <= 14; i++) {
+            userService.delete((long) i);
+        }
+        Assertions.assertEquals(0, userDao.count());
+        Assertions.assertEquals(0, accountDao.count());
+    }
 }

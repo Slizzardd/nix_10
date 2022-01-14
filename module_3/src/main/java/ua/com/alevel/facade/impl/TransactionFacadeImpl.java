@@ -2,6 +2,7 @@ package ua.com.alevel.facade.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
+import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.facade.TransactionFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -27,17 +28,20 @@ public class TransactionFacadeImpl implements TransactionFacade {
     }
 
     @Override
-    public void create(TransactionRequestDto req, String temporalField) {
+    public void create(TransactionRequestDto req) throws EntityNotFoundException {
         Transaction transaction = new Transaction();
         Category category = new Category();
         transaction.setAmount(req.getAmount());
-        if(req.getAmount() > 0){
+        if (req.getAmount() > 0) {
             category.setIncome(true);
-        }else{
+        }else if (req.getAmount() < 0) {
             category.setIncome(false);
-
+        } else {
+            throw new EntityNotFoundException("transaction cannot be null"); //TODO fix this, create your own exception
         }
+        category.setName(req.getCategoryName());
         transaction.setCategory(category);
+        transactionService.create(transaction, req.getCardNumber());
     }
 
     @Override
@@ -49,7 +53,6 @@ public class TransactionFacadeImpl implements TransactionFacade {
     public PageData<TransactionResponseDto> findAll(WebRequest request) {
         DataTableRequest dataTableRequest = WebRequestUtil.initDataTableRequest(request);
         DataTableResponse<Transaction> tableResponse = transactionService.findAll(dataTableRequest);
-
         List<TransactionResponseDto> transactions = tableResponse.getItems().stream().
                 map(TransactionResponseDto::new).
                 collect(Collectors.toList());

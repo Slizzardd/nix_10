@@ -2,6 +2,7 @@ package ua.com.alevel.persistence.dao.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.persistence.dao.TransactionDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -31,11 +32,13 @@ public class TransactionDaoImpl implements TransactionDao {
                 .setParameter("cardNumber", cardNumber);
         Account account = (Account) query.getSingleResult();
         if(transaction.getCategory().getIncome()){
-            account.setBalance(account.getBalance() + transaction.getAmount());
-        }else if(account.getBalance() >= transaction.getAmount()){
-            account.setBalance(account.getBalance() - transaction.getAmount());
+            account.setBalance(account.getBalance() + Math.abs(transaction.getAmount()));
+        }else if(account.getBalance() - Math.abs(transaction.getAmount()) < 0){
+            throw new EntityNotFoundException("Not balance!");  //TODO fix thi(add new exception)
+        } else if(account.getBalance() >= transaction.getAmount()){
+            account.setBalance(account.getBalance() - Math.abs(transaction.getAmount()));
         } else{
-            throw new NullPointerException("NULL BALANCE!!!");  //TODO fix thi(add new exception)
+            throw new EntityNotFoundException("NULL BALANCE!!!");  //TODO fix thi(add new exception)
         }
         transaction.setAccount(account);
         entityManager.persist(transaction);
@@ -46,8 +49,9 @@ public class TransactionDaoImpl implements TransactionDao {
 
     @Override
     public boolean existById(Long id) {
-        //It makes no sense
-        return false;
+        Query query = entityManager.createQuery("select count(t.id) from Transaction t where t.id = :id")
+                .setParameter("id", id);
+        return (Long) query.getSingleResult() == 1;
     }
 
     @Override
@@ -91,4 +95,6 @@ public class TransactionDaoImpl implements TransactionDao {
         Query query = entityManager.createQuery("select count(t) as count from Transaction as t");
         return (long) query.getSingleResult();
     }
+
+
 }

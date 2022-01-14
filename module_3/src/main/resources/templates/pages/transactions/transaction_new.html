@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>New Driver</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>New Driver</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/transactions/create}" th:object="${transaction}" method="post">
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" class="form-control" id="cardNumber" aria-describedby="cardNumber" placeholder="Enter cardNumber" th:field="*{cardNumber}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryName">purpose of payment</label>
+                            <input type="text" class="form-control" id="categoryName" aria-describedby="categoryName" placeholder="Enter categoryName" th:field="*{categoryName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="text" class="form-control" id="amount" aria-describedby="amount" placeholder="Enter amount" th:field="*{amount}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

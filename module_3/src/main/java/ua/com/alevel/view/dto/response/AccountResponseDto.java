@@ -3,15 +3,12 @@ package ua.com.alevel.view.dto.response;
 import ua.com.alevel.persistence.entity.Account;
 import ua.com.alevel.persistence.type.CardType;
 
-import java.util.Map;
-
 public class AccountResponseDto extends ResponseDto {
 
     private String cardNumber;
     private Double balance;
     private CardType cardType;
     private Integer transactionCount;
-    private Map<Long, String> mapUser;
 
     public AccountResponseDto() {
     }
@@ -26,13 +23,6 @@ public class AccountResponseDto extends ResponseDto {
         this.cardNumber = account.getCardNumber();
     }
 
-    public Map<Long, String> getMapUser() {
-        return mapUser;
-    }
-
-    public void setMapUser(Map<Long, String> mapUser) {
-        this.mapUser = mapUser;
-    }
 
     public String getCardNumber() {
         return cardNumber;

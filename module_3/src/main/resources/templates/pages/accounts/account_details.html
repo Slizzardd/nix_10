@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Account details</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    Account details
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>User</th>
+                            <td>
+                                <ul th:each="us : ${user}">
+                                    <li>
+                                        <a role="button" class="btn btn-link" th:href="@{'/users/details/' + ${us.getKey()}}" th:text="${us.getValue()}">details</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Id</th>
+                            <td th:text="${account.getId()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Card Type</th>
+                            <td th:text="${account.getCardType()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Card Number</th>
+                            <td th:text="${account.getCardNumber()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Balance</th>
+                            <td th:text="${account.getBalance()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td th:text="${#calendars.format(account.getCreated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td th:text="${#calendars.format(account.getUpdated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Account Transactions</th>
+                            <td>
+                                <ul th:each="transaction : ${transactions}">
+                                    <li>
+                                        <a role="button" class="btn btn-link" th:href="@{'/transactions/details/' + ${transaction.getId()}}" th:text="${transaction.getAmount()} + ${transaction.getCategory().getName()}" >details</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <div class="col-12">
+                            <div class="card mt-2 mb-2">
+                                <div class="card-header">
+                                    <a type="button" class="btn btn-primary" th:href="@{'/transactions/new?cardNumber=' + ${account.getCardNumber()}}">Add new transaction to account</a>
+                                </div>
+                            </div>
+                        </div>
+                        <td>
+                            <a th:href="@{'/accounts/update/' + ${account.getId()}}" type="button" class="btn btn-primary">update</a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/accounts/delete/' + ${account.getId()}}" type="button" class="btn btn-danger">delete</a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/accounts/accountStatement?accountId=' + ${account.getId()}}" type="button" class="btn btn-primary">Account statement</a>
+                        </td>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

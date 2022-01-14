@@ -1,6 +1,7 @@
 package ua.com.alevel.persistence.dao.impl;
 
 import org.springframework.stereotype.Service;
+import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.persistence.dao.UserDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -42,17 +43,25 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Map<Long, String> findAccountsByUserId(Long id) {
-        List<Account> accountList = findById(id).getAccounts().stream().toList();
-        Map<Long, String> accountsMap = new HashMap<>();
-        for(Account account : accountList){
-            accountsMap.put(account.getId(), account.getCardNumber());
+        if(existById(id)){
+            List<Account> accountList = findById(id).getAccounts().stream().toList();
+            Map<Long, String> accountsMap = new HashMap<>();
+            for(Account account : accountList){
+                accountsMap.put(account.getId(), account.getCardNumber());
+            }
+            return accountsMap;
+        }else{
+            throw new EntityNotFoundException("User not found");
         }
-        return accountsMap;
     }
 
     @Override
     public List<Account> findAllAccountsByUserId(Long userId) {
-        return findById(userId).getAccounts().stream().toList();
+        if(existById(userId)){
+            return findById(userId).getAccounts().stream().toList();
+        }else{
+            throw new EntityNotFoundException("User npt found");
+        }
     }
 
     @Override
@@ -64,7 +73,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findById(Long id) {
-        return entityManager.find(User.class, id);
+        if(existById(id)){
+            return entityManager.find(User.class, id);
+        }else{
+            throw new EntityNotFoundException("User not found");
+        }
     }
 
     @Override

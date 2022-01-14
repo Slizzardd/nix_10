@@ -69,6 +69,12 @@
                                 </div>
                             </div>
                         </div>
+                        <td>
+                            <a th:href="@{'/users/update/' + ${user.getId()}}" type="button" class="btn btn-primary">update</a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/users/delete/' + ${user.getId()}}" type="button" class="btn btn-danger">delete</a>
+                        </td>
                     </table>
                 </div>
             </div>
